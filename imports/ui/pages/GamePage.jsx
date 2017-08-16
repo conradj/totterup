@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
 import i18n from 'meteor/universe:i18n';
+import { Link } from 'react-router';
 import BaseComponent from '../components/BaseComponent.jsx';
 import ListHeader from '../components/ListHeader.jsx';
 import TodoItem from '../components/TodoItem.jsx';
@@ -51,14 +51,14 @@ export default class ListPage extends BaseComponent {
 
     Games = (
       <Message
-        title={i18n.__('pages.listPage.noGames')}
+        title={i18n.__('pages.listPage.noTasks')}
         subtitle={i18n.__('pages.listPage.addAbove')}
         />
     );
 
     return (
       <div className="page lists-show">
-        <ListHeader list={list} />
+        <ListHeader list={list} />dsadsd
         <div className="content-scrollable list-items">
           {loading
             ? <Message title={i18n.__('pages.listPage.loading')} />
@@ -66,15 +66,14 @@ export default class ListPage extends BaseComponent {
           {loading
             ? <Message title={i18n.__('pages.listPage.loading')} />
             : Games }
-          <Link
-              to={`/games/${list._id}`}
-              key={list._id}
-              title={list.name}
-              activeClassName="active"
-            >
-            Games
-            </Link>
-        </div>
+        <Link
+            to={`/lists/${list._id}`}
+            key={list._id}
+            title={list.name}
+            activeClassName="active"
+          >
+          Players
+          </Link></div>
       </div>
     );
   }

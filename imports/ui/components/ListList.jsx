@@ -34,7 +34,7 @@ export default class ListList extends BaseComponent {
         </a>
         {lists.map(list => (
           <Link
-            to={`/lists/${list._id}`}
+            to={`/games/${list._id}`}
             key={list._id}
             title={list.name}
             className="list-todo"

@@ -10,20 +10,20 @@
       "connectionIssue": "There seems to be a connection issue"
     },
     "listHeader": {
-      "deleteConfirm": "Are you sure you want to delete the list",
+      "deleteConfirm": "Are you sure you want to delete the league",
       "selectAction": "Select an action",
       "makePublic": "Make Public",
       "makePrivate": "Make Private",
       "delete": "Delete",
-      "makeListPublic": "Make list public",
-      "makeListPrivate": "Make list private",
-      "deleteList": "Delete list",
+      "makeListPublic": "Make leage public",
+      "makeListPrivate": "Make league private",
+      "deleteList": "Delete league",
       "cancel": "Cancel",
-      "typeToAdd": "Type to add new tasks"
+      "typeToAdd": "Type to add new players"
     },
     "listList": {
-      "newList": "New List",
-      "newListError": "Could not create list."
+      "newList": "New League",
+      "newListError": "Could not create league."
     },
     "loading": {
       "loading": "Loading"
@@ -32,7 +32,7 @@
       "showMenu": "Show Menu"
     },
     "todoItem": {
-      "taskName": "Task name"
+      "taskName": "Player name"
     }
   },
   "pages": {
@@ -41,7 +41,7 @@
       "passwordRequired": "Password required",
       "passwordConfirm": "Please confirm your password",
       "join": "Join.",
-      "joinReason": "Joining allows you to make private lists",
+      "joinReason": "Joining allows you to make private leagues",
       "yourEmail": "Your Email",
       "password": "Password",
       "confirmPassword": "Confirm Password",
@@ -52,16 +52,17 @@
       "emailRequired": "Email required",
       "passwordRequired": "Password required",
       "signIn": "Sign In.",
-      "signInReason": "Signing in allows you to view private lists",
+      "signInReason": "Signing in allows you to view private leagues",
       "yourEmail": "Your Email",
       "password": "Password",
       "signInButton": "Sign in",
       "needAccount": "Need an account? Join Now."
     },
     "listPage": {
-      "noTasks": "No tasks here",
-      "addAbove": "Add new tasks using the field above",
-      "loading": "Loading tasks..."
+      "noTasks": "No players here",
+      "noGames": "No games here",
+      "addAbove": "Add new players using the field above",
+      "loading": "Loading players..."
     },
     "notFoundPage": {
       "pageNotFound": "Page not found"
@@ -73,19 +74,19 @@
         "list": "List"
       },
       "makePrivate": {
-        "notLoggedIn": "Must be logged in to make private lists.",
-        "lastPublicList": "Cannot make the last public list private."
+        "notLoggedIn": "Must be logged in to make private leagues.",
+        "lastPublicList": "Cannot make the last public league private."
       },
       "makePublic": {
         "notLoggedIn": "Must be logged in.",
-        "accessDenied": "You don't have permission to edit this list."
+        "accessDenied": "You don't have permission to edit this league."
       },
       "updateName": {
-        "accessDenied": "You don't have permission to edit this list."
+        "accessDenied": "You don't have permission to edit this league."
       },
       "remove": {
-        "accessDenied": "'You don't have permission to remove this list.'",
-        "lastPublicList": "Cannot delete the last public list."
+        "accessDenied": "'You don't have permission to remove this league.'",
+        "lastPublicList": "Cannot delete the last public league."
       }
     },
     "todos": {
