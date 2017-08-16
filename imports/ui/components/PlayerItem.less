@@ -1,9 +1,9 @@
 @import '{}/imports/ui/stylesheets/utils.less';
 
-.list-items .list-item {
+.league-items .league-item {
   .font-s2;
 
-  // Layout of list-item children
+  // Layout of league-item children
   display: flex;
   flex-wrap: wrap;
   height: 3rem;
@@ -17,7 +17,7 @@
   .delete-item { flex: 0 0 3rem; }
 
 
-  // Style of list-item children
+  // Style of league-item children
   input[type="text"] {
     background: transparent;
     cursor: pointer;
@@ -36,8 +36,8 @@
   }
 
 
-  // Border between list items
-  & + .list-item { border-top: 1px solid #f0f9fb; }
+  // Border between league items
+  & + .league-item { border-top: 1px solid #f0f9fb; }
 
   // Checked
   &.checked {

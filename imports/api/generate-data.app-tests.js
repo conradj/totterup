@@ -7,21 +7,21 @@ import { Random } from 'meteor/random';
 import { Promise } from 'meteor/promise';
 import { _ } from 'meteor/underscore';
 
-const createList = (userId) => {
-  const list = Factory.create('list', { userId });
-  _.times(3, () => Factory.create('todo', { listId: list._id }));
-  return list;
+const createLeague = (userId) => {
+  const league = Factory.create('league', { userId });
+  _.times(3, () => Factory.create('player', { leagueId: league._id }));
+  return league;
 };
 
 Meteor.methods({
   generateFixtures() {
     resetDatabase();
 
-    // create 3 public lists
-    _.times(3, () => createList());
+    // create 3 public leagues
+    _.times(3, () => createLeague());
 
-    // create 3 private lists
-    _.times(3, () => createList(Random.id()));
+    // create 3 private leagues
+    _.times(3, () => createLeague(Random.id()));
   },
 });
 

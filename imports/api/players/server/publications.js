@@ -3,36 +3,36 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-import { Todos } from '../todos.js';
-import { Lists } from '../../lists/lists.js';
+import { Players } from '../players.js';
+import { Leagues } from '../../leagues/leagues.js';
 
-Meteor.publishComposite('todos.inList', function todosInList(params) {
+Meteor.publishComposite('players.inLeague', function playersInLeague(params) {
   new SimpleSchema({
-    listId: { type: String },
+    leagueId: { type: String },
   }).validate(params);
 
-  const { listId } = params;
+  const { leagueId } = params;
   const userId = this.userId;
 
   return {
     find() {
       const query = {
-        _id: listId,
+        _id: leagueId,
         $or: [{ userId: { $exists: false } }, { userId }],
       };
 
       // We only need the _id field in this query, since it's only
-      // used to drive the child queries to get the todos
+      // used to drive the child queries to get the players
       const options = {
         fields: { _id: 1 },
       };
 
-      return Lists.find(query, options);
+      return Leagues.find(query, options);
     },
 
     children: [{
-      find(list) {
-        return Todos.find({ listId: list._id }, { fields: Todos.publicFields });
+      find(league) {
+        return Players.find({ leagueId: league._id }, { fields: Players.publicFields });
       },
     }],
   };

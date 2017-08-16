@@ -1,13 +1,14 @@
 import React from 'react';
-import i18n from 'meteor/universe:i18n';
 import { Link } from 'react-router';
+import i18n from 'meteor/universe:i18n';
 import BaseComponent from '../components/BaseComponent.jsx';
 import LeagueHeader from '../components/LeagueHeader.jsx';
+import PlayerSubHeader from '../components/PlayerSubHeader.jsx';
 import PlayerItem from '../components/PlayerItem.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 
-export default class GamePage extends BaseComponent {
+export default class LeaguePage extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = Object.assign(this.state, { editingPlayer: null });
@@ -29,7 +30,7 @@ export default class GamePage extends BaseComponent {
     }
 
     let Players;
-    if (!players || !league.players) {
+    if (!players || !players.length) {
       Players = (
         <Message
           title={i18n.__('pages.leaguePage.noPlayers')}
@@ -51,14 +52,15 @@ export default class GamePage extends BaseComponent {
 
     Games = (
       <Message
-        title={i18n.__('pages.leaguePage.noTasks')}
+        title={i18n.__('pages.leaguePage.noGames')}
         subtitle={i18n.__('pages.leaguePage.addAbove')}
         />
     );
 
     return (
       <div className="page leagues-show">
-        <LeagueHeader league={league} />dsadsd
+        <LeagueHeader league={league} />
+        <PlayerSubHeader league={league} />
         <div className="content-scrollable league-items">
           {loading
             ? <Message title={i18n.__('pages.leaguePage.loading')} />
@@ -66,20 +68,21 @@ export default class GamePage extends BaseComponent {
           {loading
             ? <Message title={i18n.__('pages.leaguePage.loading')} />
             : Games }
-        <Link
-            to={`/leagues/${league._id}`}
-            key={league._id}
-            title={league.name}
-            activeClassName="active"
-          >
-          Players
-          </Link></div>
+          <Link
+              to={`/games/${league._id}`}
+              key={league._id}
+              title={league.name}
+              activeClassName="active"
+            >
+            Games
+            </Link>
+        </div>
       </div>
     );
   }
 }
 
-GamePage.propTypes = {
+LeaguePage.propTypes = {
   league: React.PropTypes.object,
   players: React.PropTypes.array,
   loading: React.PropTypes.bool,

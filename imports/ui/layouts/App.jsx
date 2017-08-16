@@ -2,9 +2,9 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session'; // XXX: SESSION
-import { Lists } from '../../api/lists/lists.js';
+import { Leagues } from '../../api/leagues/leagues.js';
 import UserMenu from '../components/UserMenu.jsx';
-import ListList from '../components/ListList.jsx';
+import LeagueList from '../components/LeagueList.jsx';
 import LanguageToggle from '../components/LanguageToggle.jsx';
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
@@ -32,8 +32,8 @@ export default class App extends React.Component {
   componentWillReceiveProps({ loading, children }) {
     // redirect / to a list once lists are ready
     if (!loading && !children) {
-      const list = Lists.findOne();
-      this.context.router.replace(`/lists/${list._id}`);
+      const league = Leagues.findOne();
+      this.context.router.replace(`/leagues/${league._id}`);
     }
   }
 
@@ -44,12 +44,12 @@ export default class App extends React.Component {
   logout() {
     Meteor.logout();
 
-    // if we are on a private list, we'll need to go to a public one
+    // if we are on a private league, we'll need to go to a public one
     if (this.props.params.id) {
-      const list = Lists.findOne(this.props.params.id);
-      if (list.userId) {
-        const publicList = Lists.findOne({ userId: { $exists: false } });
-        this.context.router.push(`/lists/${publicList._id}`);
+      const league = Leagues.findOne(this.props.params.id);
+      if (league.userId) {
+        const publicLeague = Leagues.findOne({ userId: { $exists: false } });
+        this.context.router.push(`/leagues/${publicLeague._id}`);
       }
     }
   }
@@ -60,7 +60,7 @@ export default class App extends React.Component {
       user,
       connected,
       loading,
-      lists,
+      leagues,
       menuOpen,
       children,
       location,
@@ -80,7 +80,7 @@ export default class App extends React.Component {
         <section id="menu">
           <LanguageToggle />
           <UserMenu user={user} logout={this.logout} />
-          <ListList lists={lists} />
+          <LeagueList leagues={leagues} />
         </section>
         {showConnectionIssue && !connected
           ? <ConnectionNotification />
@@ -107,7 +107,7 @@ App.propTypes = {
   connected: React.PropTypes.bool,   // server connection status
   loading: React.PropTypes.bool,     // subscription status
   menuOpen: React.PropTypes.bool,    // is side menu open?
-  lists: React.PropTypes.array,      // all lists visible to the current user
+  leagues: React.PropTypes.array,      // all leagues visible to the current user
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

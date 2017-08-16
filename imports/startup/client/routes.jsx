@@ -4,7 +4,7 @@ import i18n from 'meteor/universe:i18n';
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
-import ListPageContainer from '../../ui/containers/ListPageContainer.jsx';
+import LeaguePageContainer from '../../ui/containers/LeaguePageContainer.jsx';
 import GamePageContainer from '../../ui/containers/GamePageContainer.jsx';
 import AuthPageSignIn from '../../ui/pages/AuthPageSignIn.jsx';
 import AuthPageJoin from '../../ui/pages/AuthPageJoin.jsx';
@@ -15,7 +15,7 @@ i18n.setLocale('en');
 export const renderRoutes = () => (
   <Router history={browserHistory}>
     <Route path="/" component={AppContainer}>
-      <Route path="lists/:id" component={ListPageContainer} />
+      <Route path="leagues/:id" component={LeaguePageContainer} />
       <Route path="games/:id" component={GamePageContainer} />
       <Route path="signin" component={AuthPageSignIn} />
       <Route path="join" component={AuthPageJoin} />

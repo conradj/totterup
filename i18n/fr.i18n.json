@@ -9,21 +9,21 @@
       "tryingToConnect": "Tentative de connexion",
       "connectionIssue": "Il semble y avoir un problème de connexion"
     },
-    "listHeader": {
+    "leagueHeader": {
       "deleteConfirm": "Etes-vous sûr de vouloir supprimer la liste",
       "selectAction": "Sélectionnez une action",
       "makePublic": "Rendre publique",
       "makePrivate": "Rendre privé",
       "delete": "Effacer",
-      "makeListPublic": "Ouvrir la liste pour le public",
-      "makeListPrivate": "Fermer la liste au public",
-      "deleteList": "Effacer la liste",
+      "makeLeaguePublic": "Ouvrir la liste pour le public",
+      "makeLeaguePrivate": "Fermer la liste au public",
+      "deleteLeague": "Effacer la liste",
       "cancel": "Annuler",
       "typeToAdd": "Tapez pour ajouter de nouvelles tâches"
     },
-    "listList": {
-      "newList": "Nouvelle liste",
-      "newListError": "La liste ne peut être créé."
+    "listLeague": {
+      "newLeague": "Nouvelle liste",
+      "newLeagueError": "La liste ne peut être créé."
     },
     "loading": {
       "loading": "Chargement"
@@ -31,8 +31,8 @@
     "mobileMenu": {
       "showMenu": "Afficher le menu"
     },
-    "todoItem": {
-      "taskName": "Nom de la tâche"
+    "playerItem": {
+      "playerName": "Nom de la tâche"
     }
   },
   "pages": {
@@ -58,7 +58,7 @@
       "signInButton": "Se connecter",
       "needAccount": "Besoin d'un compte? S'inscrire maintenant."
     },
-    "listPage": {
+    "leaguePage": {
       "noTasks": "Aucune tâche ici",
       "addAbove": "Ajouter de nouvelles tâches ci-dessus",
       "loading": "Chargement sauvé tâches..."
@@ -68,13 +68,13 @@
     }
   },
   "api": {
-    "lists": {
+    "leagues": {
       "insert": {
-        "list": "Liste"
+        "league": "Liste"
       },
       "makePrivate": {
         "notLoggedIn": "Doit être connecté pour réaliser des listes privées.",
-        "lastPublicList": "Vous ne pouvez pas faire la dernière liste publique privée."
+        "lastPublicLeague": "Vous ne pouvez pas faire la dernière liste publique privée."
       },
       "makePublic": {
         "notLoggedIn": "Doit être connecté.",
@@ -85,10 +85,10 @@
       },
       "remove": {
         "accessDenied": "'Vous n'êtes pas autorisé à supprimer cette liste.'",
-        "lastPublicList": "Vous ne pouvez pas supprimer la dernière liste publique."
+        "lastPublicLeague": "Vous ne pouvez pas supprimer la dernière liste publique."
       }
     },
-    "todos": {
+    "players": {
       "insert": {
         "accessDenied": "Vous ne pouvez pas ajouter todo à une liste privée qui ne vous appartient pas"
       },

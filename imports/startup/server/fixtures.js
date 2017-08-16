@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { Lists } from '../../api/lists/lists.js';
-import { Todos } from '../../api/todos/todos.js';
+import { Leagues } from '../../api/leagues/leagues.js';
+import { Players } from '../../api/players/players.js';
 
 // if the database is empty on server start, create some sample data.
 Meteor.startup(() => {
-  if (Lists.find().count() === 0) {
+  if (Leagues.find().count() === 0) {
     const data = [
       {
         name: 'Meteor Principles',
@@ -47,15 +47,15 @@ Meteor.startup(() => {
 
     let timestamp = (new Date()).getTime();
 
-    data.forEach((list) => {
-      const listId = Lists.insert({
-        name: list.name,
-        incompleteCount: list.items.length,
+    data.forEach((league) => {
+      const leagueId = Leagues.insert({
+        name: league.name,
+        incompleteCount: league.items.length,
       });
 
-      list.items.forEach((text) => {
-        Todos.insert({
-          listId,
+      league.items.forEach((text) => {
+        Players.insert({
+          leagueId,
           text,
           createdAt: new Date(timestamp),
         });

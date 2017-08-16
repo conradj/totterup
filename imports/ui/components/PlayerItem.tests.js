@@ -6,30 +6,30 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { chai } from 'meteor/practicalmeteor:chai';
 import { sinon } from 'meteor/practicalmeteor:sinon';
-import TodoItem from './TodoItem.jsx';
+import PlayerItem from './PlayerItem.jsx';
 
 import {
   setCheckedStatus,
   updateText,
   remove,
-} from '../../api/todos/methods.js';
+} from '../../api/players/methods.js';
 
 if (Meteor.isClient) {
-  describe('TodoItem', () => {
+  describe('PlayerItem', () => {
     it('should render', () => {
-      const todo = Factory.create('todo', { text: 'testing', checked: true });
-      const item = shallow(<TodoItem todo={todo} />);
-      chai.assert(item.hasClass('list-item'));
+      const player = Factory.create('player', { text: 'testing', checked: true });
+      const item = shallow(<PlayerItem player={player} />);
+      chai.assert(item.hasClass('league-item'));
       chai.assert(item.hasClass('checked'));
       chai.assert.equal(item.find('input[type="text"]').prop('defaultValue'), 'testing');
     });
 
     describe('interaction', () => {
       let item = null;
-      let todo = null;
+      let player = null;
       beforeEach(() => {
-        todo = Factory.create('todo', { text: 'testing' });
-        item = shallow(<TodoItem todo={todo} />);
+        player = Factory.create('player', { text: 'testing' });
+        item = shallow(<PlayerItem player={player} />);
       });
 
       it('should update text when edited', () => {
@@ -40,7 +40,7 @@ if (Meteor.isClient) {
         });
 
         sinon.assert.calledWith(updateText.call, {
-          todoId: todo._id,
+          playerId: player._id,
           newText: 'tested',
         });
 
@@ -55,7 +55,7 @@ if (Meteor.isClient) {
         });
 
         sinon.assert.calledWith(setCheckedStatus.call, {
-          todoId: todo._id,
+          playerId: player._id,
           newCheckedStatus: true,
         });
 

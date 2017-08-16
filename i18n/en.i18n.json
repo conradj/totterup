@@ -9,21 +9,21 @@
       "tryingToConnect": "Trying to connect",
       "connectionIssue": "There seems to be a connection issue"
     },
-    "listHeader": {
+    "leagueHeader": {
       "deleteConfirm": "Are you sure you want to delete the league",
       "selectAction": "Select an action",
       "makePublic": "Make Public",
       "makePrivate": "Make Private",
       "delete": "Delete",
-      "makeListPublic": "Make leage public",
-      "makeListPrivate": "Make league private",
-      "deleteList": "Delete league",
+      "makeLeaguePublic": "Make league public",
+      "makeLeaguePrivate": "Make league private",
+      "deleteLeague": "Delete league",
       "cancel": "Cancel",
       "typeToAdd": "Type to add new players"
     },
-    "listList": {
-      "newList": "New League",
-      "newListError": "Could not create league."
+    "leagueList": {
+      "newLeague": "New League",
+      "newLeagueError": "Could not create league."
     },
     "loading": {
       "loading": "Loading"
@@ -31,8 +31,8 @@
     "mobileMenu": {
       "showMenu": "Show Menu"
     },
-    "todoItem": {
-      "taskName": "Player name"
+    "playerItem": {
+      "playerName": "Player name"
     }
   },
   "pages": {
@@ -58,8 +58,8 @@
       "signInButton": "Sign in",
       "needAccount": "Need an account? Join Now."
     },
-    "listPage": {
-      "noTasks": "No players here",
+    "leaguePage": {
+      "noPlayers": "No players here",
       "noGames": "No games here",
       "addAbove": "Add new players using the field above",
       "loading": "Loading players..."
@@ -69,13 +69,13 @@
     }
   },
   "api": {
-    "lists": {
+    "leagues": {
       "insert": {
-        "list": "List"
+        "league": "League"
       },
       "makePrivate": {
         "notLoggedIn": "Must be logged in to make private leagues.",
-        "lastPublicList": "Cannot make the last public league private."
+        "lastPublicLeague": "Cannot make the last public league private."
       },
       "makePublic": {
         "notLoggedIn": "Must be logged in.",
@@ -86,21 +86,21 @@
       },
       "remove": {
         "accessDenied": "'You don't have permission to remove this league.'",
-        "lastPublicList": "Cannot delete the last public league."
+        "lastPublicLeague": "Cannot delete the last public league."
       }
     },
-    "todos": {
+    "players": {
       "insert": {
-        "accessDenied": "Cannot add todos to a private list that is not yours"
+        "accessDenied": "Cannot add players to a private league that is not yours"
       },
       "setCheckedStatus": {
-        "accessDenied": "Cannot edit todos in a private list that is not yours"
+        "accessDenied": "Cannot edit players in a private league that is not yours"
       },
       "updateText": {
-        "accessDenied": "Cannot edit todos in a private list that is not yours"
+        "accessDenied": "Cannot edit players in a private league that is not yours"
       },
       "remove": {
-        "accessDenied": "Cannot remove todos in a private list that is not yours"
+        "accessDenied": "Cannot remove players in a private league that is not yours"
       },
       "item": {
         "taskName": "Task name"

@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Leagues } from '../../api/leagues/leagues.js';
-import GamePage from '../pages/GamePage.jsx';
+import LeaguePage from '../pages/LeaguePage.jsx';
 
-  const GamePageContainer = createContainer(({ params: { id } }) => {
+const LeaguePageContainer = createContainer(({ params: { id } }) => {
   const playersHandle = Meteor.subscribe('players.inLeague', { leagueId: id });
   const loading = !playersHandle.ready();
   const league = Leagues.findOne(id);
@@ -14,6 +14,6 @@ import GamePage from '../pages/GamePage.jsx';
     leagueExists,
     players: leagueExists ? league.players().fetch() : [],
   };
-}, GamePage);
+}, LeaguePage);
 
-export default GamePageContainer;
+export default LeaguePageContainer;

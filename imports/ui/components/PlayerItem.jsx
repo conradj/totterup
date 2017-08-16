@@ -9,84 +9,84 @@ import {
   setCheckedStatus,
   updateText,
   remove,
-} from '../../api/todos/methods.js';
+} from '../../api/players/methods.js';
 
-export default class TodoItem extends BaseComponent {
+export default class PlayerItem extends BaseComponent {
   constructor(props) {
     super(props);
     this.throttledUpdate = _.throttle((value) => {
       if (value) {
         updateText.call({
-          todoId: this.props.todo._id,
+          playerId: this.props.player._id,
           newText: value,
         }, displayError);
       }
     }, 300);
 
-    this.setTodoCheckStatus = this.setTodoCheckStatus.bind(this);
-    this.updateTodo = this.updateTodo.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
+    this.setPlayerCheckStatus = this.setPlayerCheckStatus.bind(this);
+    this.updatePlayer = this.updatePlayer.bind(this);
+    this.deletePlayer = this.deletePlayer.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
   }
 
   onFocus() {
-    this.props.onEditingChange(this.props.todo._id, true);
+    this.props.onEditingChange(this.props.player._id, true);
   }
 
   onBlur() {
-    this.props.onEditingChange(this.props.todo._id, false);
+    this.props.onEditingChange(this.props.player._id, false);
   }
 
-  setTodoCheckStatus(event) {
+  setPlayerCheckStatus(event) {
     setCheckedStatus.call({
-      todoId: this.props.todo._id,
+      playerId: this.props.player._id,
       newCheckedStatus: event.target.checked,
     });
   }
 
-  updateTodo(event) {
+  updatePlayer(event) {
     this.throttledUpdate(event.target.value);
   }
 
-  deleteTodo() {
-    remove.call({ todoId: this.props.todo._id }, displayError);
+  deletePlayer() {
+    remove.call({ playerId: this.props.player._id }, displayError);
   }
 
   render() {
-    const { todo, editing } = this.props;
-    const todoClass = classnames({
-      'list-item': true,
-      checked: todo.checked,
+    const { player, editing } = this.props;
+    const playerClass = classnames({
+      'league-item': true,
+      checked: player.checked,
       editing,
     });
 
     return (
-      <div className={todoClass}>
-        <label className="checkbox" htmlFor={this.props.todo._id}>
+      <div className={playerClass}>
+        <label className="checkbox" htmlFor={this.props.player._id}>
           <input
-            id={this.props.todo._id}
+            id={this.props.player._id}
             type="checkbox"
-            checked={todo.checked}
+            checked={player.checked}
             name="checked"
-            onChange={this.setTodoCheckStatus}
+            onChange={this.setPlayerCheckStatus}
           />
           <span className="checkbox-custom" />
         </label>
         <input
 
           type="text"
-          defaultValue={todo.text}
-          placeholder={i18n.__('components.todoItem.taskName')}
+          defaultValue={player.text}
+          placeholder={i18n.__('components.playerItem.playerName')}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
-          onChange={this.updateTodo}
+          onChange={this.updatePlayer}
         />
         <a
           className="delete-item"
           href="#delete"
-          onClick={this.deleteTodo}
-          onMouseDown={this.deleteTodo}
+          onClick={this.deletePlayer}
+          onMouseDown={this.deletePlayer}
         >
           <span className="icon-trash" />
         </a>
@@ -95,8 +95,8 @@ export default class TodoItem extends BaseComponent {
   }
 }
 
-TodoItem.propTypes = {
-  todo: React.PropTypes.object,
+PlayerItem.propTypes = {
+  player: React.PropTypes.object,
   editing: React.PropTypes.bool,
   onEditingChange: React.PropTypes.func,
 };

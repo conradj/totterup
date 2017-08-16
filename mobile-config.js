@@ -2,11 +2,11 @@
 /* eslint-disable quote-props */
 
 App.info({
-  name: 'Todos',
-  description: 'A simple todo list app built in Meteor.',
-  author: 'Percolate Studio Team',
-  email: 'us@percolatestudio.com',
-  website: 'http://percolatestudio.com',
+  name: 'Totterup',
+  description: 'Leagues leagues leagues.',
+  author: 'Totterup',
+  email: 'dev@conradj.co.uk',
+  website: 'http://totterup.com',
   version: '0.0.1',
 });
 

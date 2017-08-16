@@ -2,9 +2,9 @@
 // These are Chimp globals */
 /* globals browser assert */
 
-const countLists = () => {
-  browser.waitForExist('.list-todo');
-  const elements = browser.elements('.list-todo');
+const countLeagues = () => {
+  browser.waitForExist('.league-player');
+  const elements = browser.elements('.league-player');
   return elements.value.length;
 };
 
@@ -16,7 +16,7 @@ describe('list ui', () => {
   it('can create a list @watch', () => {
     const initialCount = countLists();
 
-    browser.click('.link-list-new');
+    browser.click('.link-league-new');
 
     assert.equal(countLists(), initialCount + 1);
   });

@@ -4,40 +4,40 @@ import faker from 'faker';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 import incompleteCountDenormalizer from './incompleteCountDenormalizer.js';
-import { Lists } from '../lists/lists.js';
+import { Leagues } from '../leagues/leagues.js';
 
-class TodosCollection extends Mongo.Collection {
+class PlayersCollection extends Mongo.Collection {
   insert(doc, callback) {
     const ourDoc = doc;
     ourDoc.createdAt = ourDoc.createdAt || new Date();
     const result = super.insert(ourDoc, callback);
-    incompleteCountDenormalizer.afterInsertTodo(ourDoc);
+    incompleteCountDenormalizer.afterInsertPlayer(ourDoc);
     return result;
   }
   update(selector, modifier) {
     const result = super.update(selector, modifier);
-    incompleteCountDenormalizer.afterUpdateTodo(selector, modifier);
+    incompleteCountDenormalizer.afterUpdatePlayer(selector, modifier);
     return result;
   }
   remove(selector) {
-    const todos = this.find(selector).fetch();
+    const players = this.find(selector).fetch();
     const result = super.remove(selector);
-    incompleteCountDenormalizer.afterRemoveTodos(todos);
+    incompleteCountDenormalizer.afterRemovePlayers(players);
     return result;
   }
 }
 
-export const Todos = new TodosCollection('Todos');
+export const Players = new PlayersCollection('Players');
 
 // Deny all client-side updates since we will be using methods to manage this collection
-Todos.deny({
+Players.deny({
   insert() { return true; },
   update() { return true; },
   remove() { return true; },
 });
 
-Todos.schema = new SimpleSchema({
-  listId: {
+Players.schema = new SimpleSchema({
+  leagueId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
     denyUpdate: true,
@@ -56,13 +56,13 @@ Todos.schema = new SimpleSchema({
   },
 });
 
-Todos.attachSchema(Todos.schema);
+Players.attachSchema(Players.schema);
 
-// This represents the keys from Lists objects that should be published
-// to the client. If we add secret properties to List objects, don't list
+// This represents the keys from Leagues objects that should be published
+// to the client. If we add secret properties to league objects, don't list
 // them here to keep them private to the server.
-Todos.publicFields = {
-  listId: 1,
+Players.publicFields = {
+  leagueId: 1,
   text: 1,
   createdAt: 1,
   checked: 1,
@@ -70,18 +70,18 @@ Todos.publicFields = {
 
 // TODO This factory has a name - do we have a code style for this?
 //   - usually I've used the singular, sometimes you have more than one though, like
-//   'todo', 'emptyTodo', 'checkedTodo'
-Factory.define('todo', Todos, {
-  listId: () => Factory.get('list'),
-  text: () => faker.lorem.sentence(),
+//   'player', 'emptyPlayer', 'checkedPlayer'
+Factory.define('player', Players, {
+  leagueId: () => Factory.get('league'),
+  text: () => faker.name.firstName(),
   createdAt: () => new Date(),
 });
 
-Todos.helpers({
-  list() {
-    return Lists.findOne(this.listId);
+Players.helpers({
+  league() {
+    return League.findOne(this.leagueId);
   },
   editableBy(userId) {
-    return this.list().editableBy(userId);
+    return this.league().editableBy(userId);
   },
 });
