@@ -43,7 +43,6 @@ export default class PlayerSubHeader extends BaseComponent {
           placeholder={i18n.__('components.leagueHeader.typeToAdd')}
         />
         <span className="icon-add" onClick={this.focusPlayerInput} />
-        moley
       </form>
     );
   }
