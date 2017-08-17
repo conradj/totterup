@@ -67,7 +67,7 @@ export default class GamePage extends BaseComponent {
             ? <Message title={i18n.__('pages.leaguePage.loading')} />
             : Games }
         <Link
-            to={`/leagues/${league._id}`}
+            to={`/leagues/${league._id}/players`}
             key={league._id}
             title={league.name}
             activeClassName="active"

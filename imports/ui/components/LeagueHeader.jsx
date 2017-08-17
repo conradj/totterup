@@ -206,7 +206,6 @@ export default class LeagueHeader extends BaseComponent {
     return (
       <nav className="league-header">
         {editing ? this.renderEditingHeader() : this.renderDefaultHeader()}
-        <PlayerSubHeader league={this.props.league} />
       </nav>
     );
   }

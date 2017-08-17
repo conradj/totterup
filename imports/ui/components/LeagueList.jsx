@@ -34,7 +34,7 @@ export default class LeagueList extends BaseComponent {
         </a>
         {leagues.map(league => (
           <Link
-            to={`/games/${league._id}`}
+            to={`/leagues/${league._id}`}
             key={league._id}
             title={league.name}
             className="league-player"

@@ -60,7 +60,19 @@ export default class LeaguePage extends BaseComponent {
     return (
       <div className="page leagues-show">
         <LeagueHeader league={league} />
-        <PlayerSubHeader league={league} />
+        <nav className="league-header">
+          <div class="user-menu">
+            <Link
+                to={`/leagues/${league._id}/games`}
+                key={league._id}
+                title={league.name}
+                activeClassName="active"
+                className="btn-secondary"
+              >
+              Games
+              </Link>
+            </div>
+        </nav>
         <div className="content-scrollable league-items">
           {loading
             ? <Message title={i18n.__('pages.leaguePage.loading')} />
@@ -68,14 +80,7 @@ export default class LeaguePage extends BaseComponent {
           {loading
             ? <Message title={i18n.__('pages.leaguePage.loading')} />
             : Games }
-          <Link
-              to={`/games/${league._id}`}
-              key={league._id}
-              title={league.name}
-              activeClassName="active"
-            >
-            Games
-            </Link>
+          <PlayerSubHeader league={this.props.league} />
         </div>
       </div>
     );
