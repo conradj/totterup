@@ -79,7 +79,7 @@ Factory.define('player', Players, {
 
 Players.helpers({
   league() {
-    return League.findOne(this.leagueId);
+    return Leagues.findOne(this.leagueId);
   },
   editableBy(userId) {
     return this.league().editableBy(userId);
