@@ -61,7 +61,7 @@ export default class LeaguePage extends BaseComponent {
       <div className="page leagues-show">
         <LeagueHeader league={league} />
         <nav className="league-header">
-          <div class="user-menu">
+          <div className="user-menu">
             <Link
                 to={`/leagues/${league._id}/games`}
                 key={league._id}
