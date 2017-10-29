@@ -55,7 +55,7 @@ export default class LeagueList extends BaseComponent {
 }
 
 LeagueList.propTypes = {
-  league: React.PropTypes.array,
+  leagues: React.PropTypes.array,
 };
 
 LeagueList.contextTypes = {

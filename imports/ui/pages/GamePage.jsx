@@ -1,87 +1,91 @@
-import React from 'react';
-import i18n from 'meteor/universe:i18n';
-import { Link } from 'react-router';
-import BaseComponent from '../components/BaseComponent.jsx';
-import LeagueHeader from '../components/LeagueHeader.jsx';
-import PlayerItem from '../components/PlayerItem.jsx';
-import NotFoundPage from '../pages/NotFoundPage.jsx';
-import Message from '../components/Message.jsx';
+import React from "react";
+import i18n from "meteor/universe:i18n";
+import { Link } from "react-router";
+import BaseComponent from "../components/BaseComponent.jsx";
+import LeagueHeader from "../components/LeagueHeader.jsx";
+import GameHeader from "../components/GameHeader.jsx";
+import ScoreList from "../components/ScoreList.jsx";
+import PlayerItem from "../components/PlayerItem.jsx";
+import NotFoundPage from "../pages/NotFoundPage.jsx";
+import Message from "../components/Message.jsx";
+import NewGameButton from "../components/NewGameButton.jsx";
+import { insert } from "../../api/games/methods.js";
 
 export default class GamePage extends BaseComponent {
   constructor(props) {
     super(props);
-    this.state = Object.assign(this.state, { editingPlayer: null });
-    this.onEditingChange = this.onEditingChange.bind(this);
+    this.state = Object.assign(this.state, { editingGame: null });
+    //this.createGame = this.createGame.bind(this);
   }
 
   onEditingChange(id, editing) {
     this.setState({
-      editingPlayer: editing ? id : null,
+      editingGame: editing ? id : null
     });
   }
 
   render() {
-    const { league, leagueExists, loading, players } = this.props;
-    const { editingPlayer } = this.state;
+    const {
+      loading,
+      game,
+      gameExists,
+      scores,
+      players
+    } = this.props;
+    const { editingGame } = this.state;
+    
+    if(loading) {
+      return <Message title={i18n.__("components.loading.loading")} />;
+    }
 
-    if (!leagueExists) {
+    if (!gameExists) {
       return <NotFoundPage />;
     }
 
-    let Players;
-    if (!players || !league.players) {
-      Players = (
-        <Message
-          title={i18n.__('pages.leaguePage.noPlayers')}
-          subtitle={i18n.__('pages.leaguePage.addAbove')}
-        />
-      );
+    // let Players;
+    // if (!players || !league.players) {
+    //   Players = (
+    //     <Message
+    //       title={i18n.__('pages.leaguePage.noPlayers')}
+    //       subtitle={i18n.__('pages.leaguePage.addAbove')}
+    //     />
+    //   );
+    // } else {
+    //   Players = players.map(player => (
+    //     <p>player</p>
+    //     // <PlayerItem
+    //     //   player={player}
+    //     //   key={player._id}
+    //     //   editing={player._id === editingPlayer}
+    //     //   onEditingChange={this.onEditingChange}
+    //     // />
+    //   ));
+    // }
+
+    let Game;
+
+    if (!game) {
+      Game = "<p>No players!</p>";
     } else {
-      Players = players.map(player => (
-        <PlayerItem
-          player={player}
-          key={player._id}
-          editing={player._id === editingPlayer}
-          onEditingChange={this.onEditingChange}
-        />
-      ));
+      Game = "<p>players!</p>";
     }
-
-    let Games;
-
-    Games = (
-      <Message
-        title={i18n.__('pages.leaguePage.noTasks')}
-        subtitle={i18n.__('pages.leaguePage.addAbove')}
-        />
-    );
 
     return (
       <div className="page leagues-show">
-        <LeagueHeader league={league} />dsadsd
-        <div className="content-scrollable league-items">
-          {loading
-            ? <Message title={i18n.__('pages.leaguePage.loading')} />
-            : Players }
-          {loading
-            ? <Message title={i18n.__('pages.leaguePage.loading')} />
-            : Games }
-        <Link
-            to={`/leagues/${league._id}/players`}
-            key={league._id}
-            title={league.name}
-            activeClassName="active"
-          >
-          Players
-          </Link></div>
+        { <GameHeader game={ game } /> }
+        <div className="content-scrollable list-items">
+          <ScoreList scores={ scores } />
+          <NewGameButton leagueId={game.leagueId} players={players} />
+        </div>
       </div>
     );
   }
 }
 
 GamePage.propTypes = {
-  league: React.PropTypes.object,
-  players: React.PropTypes.array,
   loading: React.PropTypes.bool,
-  leagueExists: React.PropTypes.bool,
+  game: React.PropTypes.object,
+  gameExists: React.PropTypes.bool,
+  scores: React.PropTypes.array,
+  players: React.PropTypes.array
 };

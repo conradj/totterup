@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Leagues } from '../../api/leagues/leagues.js';
 import { Players } from '../../api/players/players.js';
+import { Games } from '../../api/games/games.js';
 
 // if the database is empty on server start, create some sample data.
 Meteor.startup(() => {
@@ -14,6 +15,10 @@ Meteor.startup(() => {
           'Laura',
           'Markie',
         ],
+        games: [
+          'New Game Fix 1',
+          'New Game Fix 2'
+        ]
       },
       {
         name: 'Mahjong Northen League',
@@ -22,6 +27,10 @@ Meteor.startup(() => {
           'Markie',
           'Neighbour 1',
           'Neighbour 2',
+        ],
+        games: [
+          'New Game Fix 1',
+          'New Game Fix 2'
         ],
       },
       {
@@ -33,6 +42,10 @@ Meteor.startup(() => {
           'Liverpool',
           'Bristol',
           'Wycombe Wanderers',
+        ],
+        games: [
+          'New Game Fix 1',
+          'New Game Fix 2'
         ],
       },
     ];
@@ -47,6 +60,16 @@ Meteor.startup(() => {
 
       league.items.forEach((text) => {
         Players.insert({
+          leagueId,
+          text,
+          createdAt: new Date(timestamp),
+        });
+
+        timestamp += 1; // ensure unique timestamp.
+      });
+
+      league.games.forEach((text) => {
+        Games.insert({
           leagueId,
           text,
           createdAt: new Date(timestamp),

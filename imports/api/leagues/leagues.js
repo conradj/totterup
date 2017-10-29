@@ -3,6 +3,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import i18n from 'meteor/universe:i18n';
 import { Players } from '../players/players.js';
+import { Games } from '../games/games.js';
 
 class LeaguesCollection extends Mongo.Collection {
   insert(league, callback, locale = 'en') {
@@ -77,5 +78,8 @@ Leagues.helpers({
   },
   players() {
     return Players.find({ leagueId: this._id }, { sort: { createdAt: -1 } });
+  },
+  games() {
+    return Games.find({ leagueId: this._id }, { sort: { createdAt: -1 } });
   },
 });

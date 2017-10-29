@@ -22,8 +22,6 @@ export default class PlayerItem extends BaseComponent {
         }, displayError);
       }
     }, 300);
-
-    this.setPlayerCheckStatus = this.setPlayerCheckStatus.bind(this);
     this.updatePlayer = this.updatePlayer.bind(this);
     this.deletePlayer = this.deletePlayer.bind(this);
     this.onFocus = this.onFocus.bind(this);
@@ -38,13 +36,6 @@ export default class PlayerItem extends BaseComponent {
     this.props.onEditingChange(this.props.player._id, false);
   }
 
-  setPlayerCheckStatus(event) {
-    setCheckedStatus.call({
-      playerId: this.props.player._id,
-      newCheckedStatus: event.target.checked,
-    });
-  }
-
   updatePlayer(event) {
     this.throttledUpdate(event.target.value);
   }
@@ -56,23 +47,12 @@ export default class PlayerItem extends BaseComponent {
   render() {
     const { player, editing } = this.props;
     const playerClass = classnames({
-      'league-item': true,
-      checked: player.checked,
+      'list-item': true,
       editing,
     });
 
     return (
       <div className={playerClass}>
-        <label className="checkbox" htmlFor={this.props.player._id}>
-          <input
-            id={this.props.player._id}
-            type="checkbox"
-            checked={player.checked}
-            name="checked"
-            onChange={this.setPlayerCheckStatus}
-          />
-          <span className="checkbox-custom" />
-        </label>
         <input
 
           type="text"

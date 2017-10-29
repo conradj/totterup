@@ -3,10 +3,10 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-import { Players } from '../players.js';
+import { Games } from '../games.js';
 import { Leagues } from '../../leagues/leagues.js';
 
-Meteor.publishComposite('players.inLeague', function playersInLeague(params) {
+Meteor.publishComposite('games.inLeague', function gamesInLeague(params) {
   new SimpleSchema({
     leagueId: { type: String },
   }).validate(params);
@@ -22,7 +22,7 @@ Meteor.publishComposite('players.inLeague', function playersInLeague(params) {
       };
 
       // We only need the _id field in this query, since it's only
-      // used to drive the child queries to get the players
+      // used to drive the child queries to get the games
       const options = {
         fields: { _id: 1 },
       };
@@ -32,18 +32,18 @@ Meteor.publishComposite('players.inLeague', function playersInLeague(params) {
 
     children: [{
       find(league) {
-        return Players.find({ leagueId: league._id }, { fields: Players.publicFields });
+        return Games.find({ leagueId: league._id }, { fields: Games.publicFields });
       },
     }],
   };
 });
 
-Meteor.publish('players', function players() {
+Meteor.publish('games', function games() {
   if (!this) {
     return this.ready();
   }
 
-  return Players.find({}, {
-    fields: Players.publicFields,
+  return Games.find({}, {
+    fields: Games.publicFields,
   });
 });

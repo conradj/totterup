@@ -17,7 +17,8 @@ export const renderRoutes = () => (
     <Route path="/" component={AppContainer}>
       <Route path="leagues/:id" component={LeaguePageContainer} />
       <Route path="leagues/:id/players" component={LeaguePageContainer} />
-      <Route path="leagues/:id/games" component={GamePageContainer} />
+      <Route path="leagues/:id/game" component={GamePageContainer} />
+      <Route path="games/:id" component={GamePageContainer} />
       <Route path="signin" component={AuthPageSignIn} />
       <Route path="join" component={AuthPageJoin} />
       <Route path="*" component={NotFoundPage} />

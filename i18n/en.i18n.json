@@ -19,7 +19,8 @@
       "makeLeaguePrivate": "Make league private",
       "deleteLeague": "Delete league",
       "cancel": "Cancel",
-      "typeToAdd": "Type to add new players"
+      "typeToAdd": "Type to add new players",
+      "typeToAddGame": "Type to add new game"
     },
     "leagueList": {
       "newLeague": "New League",
@@ -60,9 +61,11 @@
     },
     "leaguePage": {
       "noPlayers": "No players here",
+      "needMorePlayers": "Not enough players here",
       "noGames": "No games here",
-      "addAbove": "Add new players using the field above",
-      "loading": "Loading players..."
+      "addAbove": "Add new players before playing!",
+      "loading": "Loading players...",
+      "playGame": "Play new game"
     },
     "notFoundPage": {
       "pageNotFound": "Page not found"
