@@ -2,6 +2,7 @@
 /* eslint-disable quote-props */
 
 App.info({
+  id: 'com.totterup.app',
   name: 'Totterup',
   description: 'Leagues leagues leagues.',
   author: 'Totterup',
