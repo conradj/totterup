@@ -30,7 +30,6 @@ export default class Score extends BaseComponent {
 
   saveScore() {
     const { score } = this.props;
-    console.log("are we doing this shit?", score, score._id, this.scoreInput.value);
     updateScore.call({
       scoreId: score._id,
       newScore: parseInt(this.scoreInput.value),
