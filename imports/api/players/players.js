@@ -5,6 +5,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 import incompleteCountDenormalizer from './incompleteCountDenormalizer.js';
 import { Leagues } from '../leagues/leagues.js';
+import { Scores } from '../scores/scores.js';
 
 class PlayersCollection extends Mongo.Collection {
   insert(doc, callback) {
@@ -84,4 +85,7 @@ Players.helpers({
   editableBy(userId) {
     return this.league().editableBy(userId);
   },
+  scores() {
+    return Scores.find({ playerId: this._id }, { sort: { createdAt: -1 } });
+  }
 });
