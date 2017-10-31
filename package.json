@@ -6,8 +6,11 @@
     "test-app-watch": "meteor test --full-app --driver-package practicalmeteor:mocha",
     "lint": "eslint --ext .js,.jsx .",
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
-    "start": "meteor run",
-    "dev-debug": "meteor debug --debug-port 5959"
+    "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
+    "dev-debug": "meteor debug --debug-port 5959",
+    "deploy-azure": "meteor-azure -s settings.json -d",
+    "build-mobile": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
+    "build-mobile-debug": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug"
   },
   "dependencies": {
     "autoprefixer": "^6.4.1",
