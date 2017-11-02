@@ -13,9 +13,6 @@ const GamePageContainer = createContainer(({ params: { id } }) => {
   const game = Games.findOne(id);
   const gameExists = (!loading && !!game);
   
-  console.log(Games);
-  console.log("GamePageContainer", id, loading, game, gameExists);
-  
   return {
     loading,
     game,

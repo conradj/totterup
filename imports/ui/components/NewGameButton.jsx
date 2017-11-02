@@ -16,12 +16,11 @@ class NewGameButton extends BaseComponent {
   }
 
   playGame() {
-    console.log("context", this.context);
     const { router } = this.context;
-    console.log(router);
+    const { leagueId, players } = this.props;
     const gameId = insertGame.call(
       {
-        leagueId: this.props.leagueId,
+        leagueId: leagueId,
         name: "new game"
       },
       err => {
@@ -33,10 +32,12 @@ class NewGameButton extends BaseComponent {
         }
       }
     );
-
-    this.props.players.map(player => (
+    console.log("playgame lleagueId", leagueId);
+    players.map(player => {
+      console.log("playgame lleagueId2", leagueId);
       insertScore.call(
         {
+          leagueId: leagueId,
           gameId: gameId,
           playerId: player._id,
           score: 0
@@ -50,9 +51,8 @@ class NewGameButton extends BaseComponent {
           }
         }
       )
-    ));
+    });
 
-    console.log("gameid", gameId);
     router.push(`/games/${gameId}`);
   }
 

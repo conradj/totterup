@@ -31,14 +31,41 @@ export default class LeaguePage extends BaseComponent {
       return <NotFoundPage />;
     }
 
-    const Players = players.map(player =>
-      <PlayerItem
-        player={player}
-        key={player._id}
-        editing={player._id === editingPlayer}
-        onEditingChange={this.onEditingChange}
-      />
-    );
+    const playersByScore = [];
+    players.forEach(player => {
+      let loadedPlayer = player;
+      loadedPlayer.score = player.scores().fetch().reduce((sum, score) => sum + score.score, 1);
+      //const total = player.scores().fetch().reduce((sum, score) => sum + score.score, 1);
+      playersByScore.push(loadedPlayer); 
+    });
+
+    playersByScore.sort((p, p2) => {
+      if(p.score > p2.score) {
+        return -1;
+      } else if(p.score < p2.score) {
+        return 1;
+      }
+
+      if (p.text < p2.text) { 
+        return -1;
+      } else if (p.text > p2.text) {
+          return 1
+      } else { // nothing to split them
+          return 0;
+      }
+    });
+
+    const Players = <div className="league-standings">
+      { playersByScore.map(player =>
+        <PlayerItem
+          player={player}
+          score={player.score}
+          key={player._id}
+          editing={player._id === editingPlayer}
+          onEditingChange={this.onEditingChange}
+        />
+      )}
+      </div>
     
     let Instructions;
     let GameButton;
@@ -80,7 +107,7 @@ export default class LeaguePage extends BaseComponent {
         <div className="content-scrollable list-items">
           {loading
             ? <Message title={i18n.__("pages.leaguePage.loading")} />
-            : Players}
+            : Players }
           <PlayerSubHeader league={league} />
           { players.length > 1 
             ? <NewGameButton leagueId={league._id} players={players}/> 

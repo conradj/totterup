@@ -6,3 +6,16 @@
     top: 5em !important;
   }
 }
+
+.league-standings {
+  display: grid; 
+  grid-template-columns: repeat(3, 33%); 
+  grid-auto-rows: 100px; 
+
+  :first-child { 
+    grid-column-start: 1; 
+    grid-column-end: 4; 
+    grid-row-start: 1; 
+    grid-row-end: 3; 
+  }
+}

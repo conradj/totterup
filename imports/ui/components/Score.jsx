@@ -16,6 +16,7 @@ export default class Score extends BaseComponent {
     super(props);
     this.onScoreFormSubmit = this.onScoreFormSubmit.bind(this);
     this.onScoreInputBlur = this.onScoreInputBlur.bind(this);
+    this.onScoreInputChange = this.onScoreInputChange.bind(this);
     this.saveScore = this.saveScore.bind(this);
   }
 
@@ -25,6 +26,10 @@ export default class Score extends BaseComponent {
   }
 
   onScoreInputBlur() {
+    this.saveScore();
+  }
+
+  onScoreInputChange() {
     this.saveScore();
   }
 
@@ -50,6 +55,7 @@ export default class Score extends BaseComponent {
               defaultValue={score.score}
               name="score"
               onBlur={this.onScoreInputBlur}
+              onChange={this.onScoreInputChange}
             />
             </form>
           </span>

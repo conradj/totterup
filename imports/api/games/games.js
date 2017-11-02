@@ -79,7 +79,6 @@ Games.helpers({
     return Leagues.findOne(this.leagueId);
   },
   scores() {
-    console.log("find scores", this._id, Scores.find({ gameId: this._id }, { sort: { createdAt: -1 } }).fetch());
     return Scores.find({ gameId: this._id }, { sort: { createdAt: -1 } });
   },
   players() {

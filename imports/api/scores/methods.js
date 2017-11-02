@@ -10,11 +10,12 @@ import { Leagues } from '../leagues/leagues.js';
 export const insert = new ValidatedMethod({
   name: 'scores.insert',
   validate: new SimpleSchema({
+    leagueId: { type: String },
     gameId: { type: String },
     playerId: { type: String },
     score: { type: Number },
   }).validator(),
-  run({ gameId, playerId, score }) {
+  run({ leagueId, gameId, playerId, score }) {
     // const game = Games.findOne(gameId);
 
     // if (league.isPrivate() && league.userId !== this.userId) {
@@ -23,6 +24,7 @@ export const insert = new ValidatedMethod({
     // }
 
     const newScore = {
+      leagueId,
       gameId,
       playerId,
       score,
@@ -80,7 +82,7 @@ const SCORES_METHODS = _.pluck([
 ], 'name');
 
 if (Meteor.isServer) {
-  // Only allow 5 score operations per connection per second
+  // Only allow 50 score operations per connection per second
   DDPRateLimiter.addRule({
     name(name) {
       return _.contains(SCORES_METHODS, name);
@@ -88,5 +90,5 @@ if (Meteor.isServer) {
 
     // Rate limit per connection ID
     connectionId() { return true; },
-  }, 5, 1000);
+  }, 50, 1000);
 }

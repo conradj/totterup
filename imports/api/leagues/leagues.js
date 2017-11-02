@@ -4,6 +4,7 @@ import { Factory } from 'meteor/factory';
 import i18n from 'meteor/universe:i18n';
 import { Players } from '../players/players.js';
 import { Games } from '../games/games.js';
+import { Scores } from '../scores/scores.js';
 
 class LeaguesCollection extends Mongo.Collection {
   insert(league, callback, locale = 'en') {
@@ -81,5 +82,8 @@ Leagues.helpers({
   },
   games() {
     return Games.find({ leagueId: this._id }, { sort: { createdAt: -1 } });
+  },
+  scores() {
+    return Scores.find({ leagueId: this._id }, { sort: { createdAt: -1 } });
   },
 });

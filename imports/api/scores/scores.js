@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import faker from 'faker';
+import { Leagues } from '../leagues/leagues.js';
 import { Games } from '../games/games.js';
 import { Players } from '../players/players.js';
 
@@ -33,6 +34,11 @@ Scores.deny({
 });
 
 Scores.schema = new SimpleSchema({
+  leagueId: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+    denyUpdate: true,
+  },
   gameId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
@@ -59,6 +65,7 @@ Scores.attachSchema(Scores.schema);
 // to the client. If we add secret properties to scores objects, don't list
 // them here to keep them private to the server.
 Scores.publicFields = {
+  leagueId: 1,
   gameId: 1,
   playerId: 1,
   score: 1,
@@ -69,6 +76,7 @@ Scores.publicFields = {
 //   - usually I've used the singular, sometimes you have more than one though, like
 //   'game', 'emptyGame', 'checkedGame'
 Factory.define('score', Scores, {
+  leagueId: () => Factory.get('league'),
   gameId: () => Factory.get('game'),
   playerId: () => Factory.get('player'),
   score: () => 99999,
@@ -76,6 +84,9 @@ Factory.define('score', Scores, {
 });
 
 Scores.helpers({
+  league() {
+    return Leagues.findOne(this.leagueId);
+  },
   game() {
     return Games.findOne(this.gameId);
   },

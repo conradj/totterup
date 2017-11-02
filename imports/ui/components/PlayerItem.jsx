@@ -45,7 +45,7 @@ export default class PlayerItem extends BaseComponent {
   }
 
   render() {
-    const { player, editing } = this.props;
+    const { player, editing, score } = this.props;
     const playerClass = classnames({
       'list-item': true,
       editing,
@@ -53,23 +53,26 @@ export default class PlayerItem extends BaseComponent {
 
     return (
       <div className={playerClass}>
-        <input
+        <div className="player-name">
+          <input
 
-          type="text"
-          defaultValue={player.text}
-          placeholder={i18n.__('components.playerItem.playerName')}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onChange={this.updatePlayer}
-        />
-        <a
-          className="delete-item"
-          href="#delete"
-          onClick={this.deletePlayer}
-          onMouseDown={this.deletePlayer}
-        >
-          <span className="icon-trash" />
-        </a>
+            type="text"
+            defaultValue={player.text}
+            placeholder={i18n.__('components.playerItem.playerName')}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onChange={this.updatePlayer}
+          />
+          <a
+            className="delete-item"
+            href="#delete"
+            onClick={this.deletePlayer}
+            onMouseDown={this.deletePlayer}
+          >
+            <span className="icon-trash" />
+          </a>
+        </div>
+        <div className="player-score">{ score }</div>
       </div>
     );
   }
@@ -77,6 +80,7 @@ export default class PlayerItem extends BaseComponent {
 
 PlayerItem.propTypes = {
   player: React.PropTypes.object,
+  score: React.PropTypes.number,
   editing: React.PropTypes.bool,
   onEditingChange: React.PropTypes.func,
 };
