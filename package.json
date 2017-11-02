@@ -8,14 +8,13 @@
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
     "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
     "dev-debug": "meteor debug --debug-port 5959",
-    "deploy-azure": "meteor-azure -s settings.json -d",
+    "deploy-azure": "meteor-azure --web-config web.config -s settings.json -d",
     "build-mobile": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
     "build-mobile-debug": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug"
   },
   "dependencies": {
     "autoprefixer": "^6.4.1",
     "babel-runtime": "^6.18.0",
-    "bcrypt": "^1.0.3",
     "classnames": "^2.2.5",
     "faker": "^3.1.0",
     "react": "^15.3.1",
