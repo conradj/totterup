@@ -37,7 +37,6 @@ universe:i18n
 accounts-password@1.5.0
 
 # mobile
-crosswalk@1.7.1
 mobile-experience@1.0.5
 chriswessels:hammer
 

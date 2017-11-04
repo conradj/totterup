@@ -48,3 +48,5 @@ App.launchScreens({
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#000000');
+App.setPreference('android-minSdkVersion', '23');
+App.setPreference('android-targetSdkVersion', '26');
