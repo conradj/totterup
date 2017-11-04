@@ -10,7 +10,7 @@ import {
   insert,
 } from '../../api/players/methods.js';
 
-export default class PlayerSubHeader extends BaseComponent {
+export default class PlayerAdd extends BaseComponent {
   constructor(props) {
     super(props);
     
@@ -36,22 +36,25 @@ export default class PlayerSubHeader extends BaseComponent {
 
   render() {
     return (
-      <form className="player-new input-symbol" onSubmit={this.createPlayer}>
-        <input
-          type="text"
-          ref={(c) => { this.newPlayerInput = c; }}
-          placeholder={i18n.__('components.leagueHeader.typeToAdd')}
-        />
-        <span className="icon-add" onClick={this.focusPlayerInput} />
-      </form>
+      <div className="player-new-container">
+        <form className="player-new input-symbol" onSubmit={this.createPlayer}>
+          <input
+            className="player-new-textbox"
+            type="text"
+            ref={(c) => { this.newPlayerInput = c; }}
+            placeholder={i18n.__('components.leagueHeader.typeToAdd')}
+          />
+          <span className="icon-add" onClick={this.focusPlayerInput} />
+        </form>
+      </div>
     );
   }
 }
 
-PlayerSubHeader.propTypes = {
+PlayerAdd.propTypes = {
   league: React.PropTypes.object,
 };
 
-PlayerSubHeader.contextTypes = {
+PlayerAdd.contextTypes = {
   router: React.PropTypes.object,
 };

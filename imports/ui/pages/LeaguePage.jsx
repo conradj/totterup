@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import i18n from "meteor/universe:i18n";
 import BaseComponent from "../components/BaseComponent.jsx";
 import LeagueHeader from "../components/LeagueHeader.jsx";
-import PlayerSubHeader from "../components/PlayerSubHeader.jsx";
+import PlayerAdd from "../components/PlayerAdd.jsx";
 import GameList from "../components/GameList.jsx";
 import PlayerItem from "../components/PlayerItem.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
@@ -27,6 +27,10 @@ export default class LeaguePage extends BaseComponent {
     const { league, leagueExists, loading, players } = this.props;
     const { editingPlayer } = this.state;
 
+    if(loading) {
+      return <Message title={i18n.__("components.loading.loading")} />;
+    }
+
     if (!leagueExists) {
       return <NotFoundPage />;
     }
@@ -34,8 +38,7 @@ export default class LeaguePage extends BaseComponent {
     const playersByScore = [];
     players.forEach(player => {
       let loadedPlayer = player;
-      loadedPlayer.score = player.scores().fetch().reduce((sum, score) => sum + score.score, 1);
-      //const total = player.scores().fetch().reduce((sum, score) => sum + score.score, 1);
+      loadedPlayer.score = player.scores().fetch().reduce((sum, score) => sum + score.score, 0);
       playersByScore.push(loadedPlayer); 
     });
 
@@ -108,7 +111,7 @@ export default class LeaguePage extends BaseComponent {
           {loading
             ? <Message title={i18n.__("pages.leaguePage.loading")} />
             : Players }
-          <PlayerSubHeader league={league} />
+          <PlayerAdd league={league} />
           { players.length > 1 
             ? <NewGameButton leagueId={league._id} players={players}/> 
             : null }

@@ -4,7 +4,6 @@ import React from 'react';
 import i18n from 'meteor/universe:i18n';
 import BaseComponent from './BaseComponent.jsx';
 import MobileMenu from './MobileMenu.jsx';
-import PlayerSubHeader from './PlayerSubHeader.jsx';
 import { displayError } from '../helpers/errors.js';
 
 import {
