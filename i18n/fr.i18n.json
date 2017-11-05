@@ -21,6 +21,13 @@
       "cancel": "Annuler",
       "typeToAdd": "Tapez pour ajouter de nouvelles tâches"
     },
+    "playerHeader": {
+      "deleteConfirm": "Etes-vous sûr de vouloir supprimer la tâche",
+      "selectAction": "Sélectionnez une action",
+      "delete": "Effacer",
+      "deletePlayer": "Effacer la tâche",
+      "cancel": "Annuler"
+    },
     "listLeague": {
       "newLeague": "Nouvelle liste",
       "newLeagueError": "La liste ne peut être créé."
@@ -95,7 +102,7 @@
       "setCheckedStatus": {
         "accessDenied": "Vous ne pouvez pas modifier todos dans une liste privée qui ne vous appartient pas"
       },
-      "updateText": {
+      "updateName": {
         "accessDenied": "Vous ne pouvez pas modifier todos dans une liste privée qui ne vous appartient pas"
       },
       "remove": {

@@ -60,13 +60,21 @@ export default class LeaguePage extends BaseComponent {
 
     const Players = <div className="league-standings">
       { playersByScore.map(player =>
-        <PlayerItem
-          player={player}
-          score={player.score}
-          key={player._id}
-          editing={player._id === editingPlayer}
-          onEditingChange={this.onEditingChange}
-        />
+      <Link
+            to={`/leagues/${league._id}/players/${player._id}`}
+            key={player._id}
+            title={player.text}
+            className="league-player"
+            activeClassName="active"
+          >
+          <PlayerItem
+            player={player}
+            score={player.score}
+            key={player._id}
+            editing={player._id === editingPlayer}
+            onEditingChange={this.onEditingChange}
+          />
+        </Link>
       )}
       </div>
     

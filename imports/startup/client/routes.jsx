@@ -4,6 +4,7 @@ import i18n from 'meteor/universe:i18n';
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
+import PlayerPageContainer from '../../ui/containers/PlayerPageContainer.jsx';
 import LeaguePageContainer from '../../ui/containers/LeaguePageContainer.jsx';
 import GamePageContainer from '../../ui/containers/GamePageContainer.jsx';
 import AuthPageSignIn from '../../ui/pages/AuthPageSignIn.jsx';
@@ -17,6 +18,7 @@ export const renderRoutes = () => (
     <Route path="/" component={AppContainer}>
       <Route path="leagues/:id" component={LeaguePageContainer} />
       <Route path="leagues/:id/players" component={LeaguePageContainer} />
+      <Route path="leagues/:leagueId/players/:playerId" component={PlayerPageContainer} />
       <Route path="leagues/:id/game" component={GamePageContainer} />
       <Route path="games/:id" component={GamePageContainer} />
       <Route path="signin" component={AuthPageSignIn} />

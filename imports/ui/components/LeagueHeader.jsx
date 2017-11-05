@@ -30,8 +30,6 @@ export default class LeagueHeader extends BaseComponent {
     this.saveLeague = this.saveLeague.bind(this);
     this.deleteLeague = this.deleteLeague.bind(this);
     this.toggleLeaguePrivacy = this.toggleLeaguePrivacy.bind(this);
-    this.createPlayer = this.createPlayer.bind(this);
-    this.focusPlayerInput = this.focusPlayerInput.bind(this);
   }
 
   onLeagueFormSubmit(event) {
@@ -95,24 +93,6 @@ export default class LeagueHeader extends BaseComponent {
     } else {
       makePrivate.call({ leagueId: league._id }, displayError);
     }
-  }
-
-  /// TODO: Remove?
-  createPlayer(event) {
-    event.preventDefault();
-    const input = this.newPlayerInput;
-    if (input.value.trim()) {
-      insert.call({
-        listId: this.props.list._id,
-        text: input.value,
-      }, displayError);
-      input.value = '';
-    }
-  }
-
-  /// TODO: Remove?
-  focusPlayerInput() {
-    this.newTodoInput.focus();
   }
 
   renderDefaultHeader() {

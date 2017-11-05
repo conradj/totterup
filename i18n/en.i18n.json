@@ -26,6 +26,13 @@
       "newLeague": "New League",
       "newLeagueError": "Could not create league."
     },
+    "playerHeader": {
+      "deleteConfirm": "Are you sure you want to delete the player",
+      "selectAction": "Select an action",
+      "delete": "Delete",
+      "deletePlayer": "Delete player",
+      "cancel": "Cancel"
+    },
     "loading": {
       "loading": "Loading"
     },
@@ -99,7 +106,7 @@
       "setCheckedStatus": {
         "accessDenied": "Cannot edit players in a private league that is not yours"
       },
-      "updateText": {
+      "updateName": {
         "accessDenied": "Cannot edit players in a private league that is not yours"
       },
       "remove": {

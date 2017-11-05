@@ -10,7 +10,7 @@ import PlayerItem from './PlayerItem.jsx';
 
 import {
   setCheckedStatus,
-  updateText,
+  updateName,
   remove,
 } from '../../api/players/methods.js';
 
@@ -33,18 +33,18 @@ if (Meteor.isClient) {
       });
 
       it('should update text when edited', () => {
-        sinon.stub(updateText, 'call');
+        sinon.stub(updateName, 'call');
 
         item.find('input[type="text"]').simulate('change', {
           target: { value: 'tested' },
         });
 
-        sinon.assert.calledWith(updateText.call, {
+        sinon.assert.calledWith(updateName.call, {
           playerId: player._id,
           newText: 'tested',
         });
 
-        updateText.call.restore();
+        updateName.call.restore();
       });
 
       it('should update status when checked', () => {

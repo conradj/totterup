@@ -4,13 +4,19 @@
     .list-item {
         margin-left: auto;
         margin-right: auto;
+        padding: 0px;
+        height: 100%;
     }
 
     .player-name {
-        // width: 100%;
+        overflow-x:hidden;
+        width: 100%;
+        padding-top: 0.2em;
+        color: #555;
         INPUT {
             font-size: 2em;
             width: 7em;
+            padding: 0px;
         }
     }
 
@@ -19,8 +25,10 @@
     }
 
     .player-score {
-        float:left;
-        font-size: 4em;
         width: 100%;
+
+        SPAN {
+            color: rgb(36, 35, 35);
+        }
     }
 }

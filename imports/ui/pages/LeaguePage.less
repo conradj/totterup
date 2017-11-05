@@ -9,13 +9,29 @@
 
 .league-standings {
   display: grid; 
-  grid-template-columns: repeat(3, 33%); 
-  grid-auto-rows: 100px; 
-
+  grid-template-columns: repeat(2, 50%); 
+  grid-auto-rows: 4em; 
+  text-align: center;
   :first-child { 
     grid-column-start: 1; 
     grid-column-end: 4; 
     grid-row-start: 1; 
+    grid-row-end: 2; 
+    font-size: 1.2em;
+  }
+  :nth-child(2) {
+    grid-column-start: 1; 
+    grid-column-end: 4; 
+    grid-row-start: 2; 
     grid-row-end: 3; 
+    font-size: 1em;
+  }
+  :not(:first-child):not(:nth-child(2)) {
+    font-size: 0.9em;
+  }
+
+  .league-player:hover * {
+    color: black;
+    cursor: pointer;
   }
 }
