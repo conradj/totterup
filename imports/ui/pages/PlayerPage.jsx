@@ -27,6 +27,13 @@ export default class PlayerPage extends BaseComponent {
       <div className="page players-show">
         <PlayerHeader player={player} />
         <div className="content-scrollable list-items">
+          <div className="list-items things">
+            <div className="list-item">Things that could go here:</div>
+            <div className="list-item">Player photos</div>
+            <div className="list-item">Linking player to facebook/google/twitter logins</div>
+            <div className="list-item">View all player leages</div>
+            <div className="list-item">View all player games</div>
+          </div>
         </div>
       </div>
     );
