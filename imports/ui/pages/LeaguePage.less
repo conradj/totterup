@@ -8,30 +8,16 @@
 }
 
 .league-standings {
-  display: grid; 
-  grid-template-columns: repeat(2, 50%); 
-  grid-auto-rows: 4em; 
-  text-align: center;
-  :first-child { 
-    grid-column-start: 1; 
-    grid-column-end: 4; 
-    grid-row-start: 1; 
-    grid-row-end: 2; 
-    font-size: 1.2em;
+  font-size: 1em;
+  .list-item {
+    padding-left: 0px;
+    height: 100%;
   }
-  :nth-child(2) {
-    grid-column-start: 1; 
-    grid-column-end: 4; 
-    grid-row-start: 2; 
-    grid-row-end: 3; 
-    font-size: 1em;
-  }
-  :not(:first-child):not(:nth-child(2)) {
-    font-size: 0.9em;
-  }
-
-  .league-player:hover * {
-    color: black;
-    cursor: pointer;
+  .league-player {
+    width: 100%;
+    &:hover  * {
+      color: black;
+      cursor: pointer;
+    }
   }
 }

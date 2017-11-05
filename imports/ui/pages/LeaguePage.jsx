@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router";
 import i18n from "meteor/universe:i18n";
 import BaseComponent from "../components/BaseComponent.jsx";
 import LeagueHeader from "../components/LeagueHeader.jsx";
@@ -13,19 +12,10 @@ import NewGameButton from "../components/NewGameButton.jsx";
 export default class LeaguePage extends BaseComponent {
   constructor(props) {
     super(props);
-    this.state = Object.assign(this.state, { editingPlayer: null });
-    this.onEditingChange = this.onEditingChange.bind(this);
-  }
-
-  onEditingChange(id, editing) {
-    this.setState({
-      editingPlayer: editing ? id : null
-    });
   }
 
   render() {
     const { league, leagueExists, loading, players } = this.props;
-    const { editingPlayer } = this.state;
 
     if(loading) {
       return <Message title={i18n.__("components.loading.loading")} />;
@@ -58,23 +48,15 @@ export default class LeaguePage extends BaseComponent {
       }
     });
 
-    const Players = <div className="league-standings">
-      { playersByScore.map(player =>
-      <Link
-            to={`/leagues/${league._id}/players/${player._id}`}
-            key={player._id}
-            title={player.text}
-            className="league-player"
-            activeClassName="active"
-          >
-          <PlayerItem
-            player={player}
-            score={player.score}
-            key={player._id}
-            editing={player._id === editingPlayer}
-            onEditingChange={this.onEditingChange}
-          />
-        </Link>
+    const PlayersComponent = <div className="league-standings">
+      { playersByScore.map((player, index) => 
+        <PlayerItem
+          linkUrl={`/leagues/${league._id}/players/${player._id}`}
+          position={index + 1}
+          player={player}
+          score={player.score}
+          key={player._id}
+        />
       )}
       </div>
     
@@ -118,7 +100,7 @@ export default class LeaguePage extends BaseComponent {
         <div className="content-scrollable list-items">
           {loading
             ? <Message title={i18n.__("pages.leaguePage.loading")} />
-            : Players }
+            : PlayersComponent }
           <PlayerAdd league={league} />
           { players.length > 1 
             ? <NewGameButton leagueId={league._id} players={players}/> 
