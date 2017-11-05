@@ -55,6 +55,11 @@ Players.schema = new SimpleSchema({
     type: Boolean,
     defaultValue: false,
   },
+  avatar: {
+    type: String,
+    optional: true,
+    max: 2048,
+  }
 });
 
 Players.attachSchema(Players.schema);
@@ -67,6 +72,7 @@ Players.publicFields = {
   text: 1,
   createdAt: 1,
   checked: 1,
+  avatar: 1,
 };
 
 // TODO This factory has a name - do we have a code style for this?

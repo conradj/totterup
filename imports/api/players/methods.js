@@ -79,6 +79,28 @@ export const updateName = new ValidatedMethod({
   },
 });
 
+export const updateAvatar = new ValidatedMethod({
+  name: 'players.updateAvatar',
+  validate: new SimpleSchema({
+    playerId: { type: String },
+    newAvatar: { type: String },
+  }).validator(),
+  run({ playerId, newAvatar }) {
+    // This is complex auth stuff - perhaps denormalizing a userId onto players
+    // would be correct here?
+    const player = Players.findOne(playerId);
+
+    if (!player.editableBy(this.userId)) {
+      throw new Meteor.Error('api.players.updateAvatar.accessDenied',
+        'Cannot edit players in a private league that is not yours');
+    }
+
+    Players.update(playerId, {
+      $set: { avatar: newAvatar },
+    });
+  },
+});
+
 export const remove = new ValidatedMethod({
   name: 'players.remove',
   validate: new SimpleSchema({
