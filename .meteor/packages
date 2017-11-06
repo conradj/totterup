@@ -64,3 +64,5 @@ shell-server@0.3.0
 # security
 audit-argument-checks@1.0.7
 dynamic-import@0.2.0
+browser-policy-common
+browser-policy
