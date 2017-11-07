@@ -9,7 +9,6 @@ export default PlayerPageContainer = withTracker(({ params: { leagueId, playerId
   const loading = !playersHandle.ready()
   const player = Players.findOne(playerId);
   const playerExists = !loading && !!player;
-  console.log("player", player, loading, playerExists);
   return {
     player,
     playerExists,

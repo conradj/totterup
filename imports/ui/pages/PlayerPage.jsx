@@ -23,7 +23,6 @@ export default class PlayerPage extends BaseComponent {
 
   saveAvatar() {
     const { player } = this.props.player;
-    console.log("save avatar", this.avatarFile.value);
     const file = this.avatarFile.value;
     updateAvatar.call({
         playerId: this.props.player._id,

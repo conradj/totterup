@@ -32,9 +32,8 @@ class NewGameButton extends BaseComponent {
         }
       }
     );
-    console.log("playgame lleagueId", leagueId);
+    
     players.map(player => {
-      console.log("playgame lleagueId2", leagueId);
       insertScore.call(
         {
           leagueId: leagueId,
