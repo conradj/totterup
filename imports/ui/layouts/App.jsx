@@ -8,6 +8,7 @@ import LeagueList from '../components/LeagueList.jsx';
 import LanguageToggle from '../components/LanguageToggle.jsx';
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
+import Logo from '../components/Logo.jsx';
 
 const CONNECTION_ISSUE_TIMEOUT = 5000;
 
@@ -78,8 +79,9 @@ export default class App extends React.Component {
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <section id="menu">
-          <LanguageToggle />
+          <Logo />
           <UserMenu user={user} logout={this.logout} />
+          <LanguageToggle />
           <LeagueList leagues={leagues} />
         </section>
         {showConnectionIssue && !connected
