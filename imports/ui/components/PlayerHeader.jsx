@@ -10,9 +10,6 @@ import { displayError } from '../helpers/errors.js';
 import {
   updateName,
   remove,
-} from '../../api/players/methods.js';
-
-import {
   insert,
 } from '../../api/players/methods.js';
 
@@ -73,12 +70,13 @@ export default class PlayerHeader extends BaseComponent {
 
   deletePlayer() {
     const player = this.props.player;
+    const leagueId = player.leagueId;
     const message =
       `${i18n.__('components.playerHeader.deleteConfirm')} ${player.text}?`;
 
     if (confirm(message)) { // eslint-disable-line no-alert
       remove.call({ playerId: player._id }, displayError);
-      this.context.router.push('/');
+      this.context.router.push(`/leagues/${leagueId}`);
     }
   }
 
