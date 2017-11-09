@@ -11,7 +11,8 @@
     "run-mobile-debug": "meteor run ~/mobile-build --server=http://localhost:3000 --debug",
     "deploy-azure": "meteor-azure -s settings.json -d",
     "build-mobile-live": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
-    "build-mobile-live-debug": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug"
+    "build-mobile-live-debug": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug",
+    "deploy-live-debug": "npm run deploy-azure && npm run build-mobile-live-debug"
   },
   "dependencies": {
     "autoprefixer": "^6.4.1",
