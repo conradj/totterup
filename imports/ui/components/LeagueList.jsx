@@ -1,6 +1,7 @@
 /* global alert */
 
 import React from 'react';
+import { Session } from 'meteor/session';
 import { Link } from 'react-router';
 import i18n from 'meteor/universe:i18n';
 import BaseComponent from './BaseComponent.jsx';
@@ -22,6 +23,7 @@ export default class LeagueList extends BaseComponent {
       }
     });
     router.push(`/leagues/${leagueId}`);
+    Session.set('menuOpen', false);
   }
 
   render() {
