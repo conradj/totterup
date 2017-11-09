@@ -1,0 +1,31 @@
+@import '{}/imports/ui/stylesheets/utils.less';
+// TODO make this a component
+.options-mobile {
+  select.mobile-edit {
+    .font-s2;
+    .position(absolute, 0,0,0,0);
+    background: transparent;
+    opacity: 0; // allows the cog to appear
+  }
+  & .nav-item {
+    display: block;
+  }
+}
+
+.options-web {
+  display: none;
+
+  .nav-item {
+    .font-s3;
+    width: 2rem;
+
+    &:last-child { margin-right: .5rem; }
+  }
+}
+
+// Hide & show options and nav icons
+@media screen and (min-width: 40em) {
+  .nav-group:not(.right) { display: none !important; }
+  .options-mobile { display: none !important; }
+  .options-web {  display: block; }
+}

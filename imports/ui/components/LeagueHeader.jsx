@@ -107,7 +107,7 @@ export default class LeagueHeader extends BaseComponent {
         <div className="nav-group right">
           <div className="nav-item options-mobile">
             <select
-              className="league-edit"
+              className="mobile-edit"
               defaultValue="default"
               onChange={this.onLeagueDropdownAction}
             >

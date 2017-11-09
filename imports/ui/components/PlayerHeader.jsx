@@ -100,7 +100,7 @@ export default class PlayerHeader extends BaseComponent {
         <div className="nav-group right">
           <div className="nav-item options-mobile">
             <select
-              className="player-edit"
+              className="mobile-edit"
               defaultValue="default"
               onChange={this.onPlayerDropdownAction}
             >
