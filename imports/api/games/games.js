@@ -75,6 +75,10 @@ Factory.define('game', Games, {
 });
 
 Games.helpers({
+  editableBy(userId) {
+    // TODO, make sure user is a player in the league
+    return true;
+  },
   league() {
     return Leagues.findOne(this.leagueId);
   },

@@ -37,31 +37,6 @@ export const insert = new ValidatedMethod({
   },
 });
 
-export const setFinishedStatus = new ValidatedMethod({
-  name: 'games.makeFinished',
-  validate: new SimpleSchema({
-    gameId: { type: String },
-    newFinishedStatus: { type: Boolean },
-  }).validator(),
-  run({ gameId, newFinishedStatus }) {
-    const game = Games.findOne(gameId);
-
-    if (game.isFinished === newFinishedStatus) {
-      // The status is already what we want, let's not do any extra work
-      return;
-    }
-
-    if (!game.editableBy(this.userId)) {
-      throw new Meteor.Error('api.games.setFinishedStatus.accessDenied',
-        'Cannot edit finished game status in a private league that is not yours');
-    }
-
-    Games.update(gameId, { $set: {
-      isFinished: newFinishedStatus,
-    } });
-  },
-});
-
 export const updateName = new ValidatedMethod({
   name: 'games.updateName',
   validate: new SimpleSchema({
@@ -73,10 +48,10 @@ export const updateName = new ValidatedMethod({
     // would be correct here?
     const game = Games.findOne(gameId);
 
-    // if (!game.editableBy(this.userId)) {
-    //   throw new Meteor.Error('api.games.updateText.accessDenied',
-    //     'Cannot edit games in a private league that is not yours');
-    // }
+    if (!game.editableBy(this.userId)) {
+      throw new Meteor.Error('api.games.updateText.accessDenied',
+        'Cannot edit games in a private league that is not yours');
+    }
 
     Games.update(gameId, {
       $set: { name: newName },
@@ -91,12 +66,10 @@ export const remove = new ValidatedMethod({
   }).validator(),
   run({ gameId }) {
     const game = Games.findOne(gameId);
-
     if (!game.editableBy(this.userId)) {
       throw new Meteor.Error('api.games.remove.accessDenied',
         'Cannot remove games in a private league that is not yours');
     }
-
     Games.remove(gameId);
   },
 });
@@ -104,7 +77,6 @@ export const remove = new ValidatedMethod({
 // Get list of all method names on Games
 const GAMES_METHODS = _.pluck([
   insert,
-  setFinishedStatus,
   updateName,
   remove,
 ], 'name');
