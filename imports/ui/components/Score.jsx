@@ -43,23 +43,35 @@ export default class Score extends BaseComponent {
 
   render() {
     const { score } = this.props;
-    
+    const player = score.player();
+    const backgroundStyle = {backgroundImage: `url(${player.avatar})`};
+    const sliderImageClassName = `score-slider-${player.text}`;
+    const sliderClassNames = `score-slider ${sliderImageClassName}`;
     return (
-      <div className="score list-item">
-          <span>{ score.player().text }</span>
-          <span>
-            <form className="league-edit-form" onSubmit={this.onScoreFormSubmit}>
-              <input
-              ref={(c) => { this.scoreInput = c; }}
-              type="number"
-              defaultValue={score.score}
-              name="score"
-              onBlur={this.onScoreInputBlur}
-              onChange={this.onScoreInputChange}
-            />
-            </form>
-          </span>
-      </div>
+      <form className="league-edit-form" onSubmit={this.onScoreFormSubmit}>    
+        <div className="score-container list-item">
+          <div className="score-player-name">{ player.text } {score.score} {score.score == 1 ? `point` : `points`}</div>
+          <div className="score-player-score-slider">
+          <style dangerouslySetInnerHTML={{__html: `
+            input[type=range].${sliderImageClassName}::-webkit-slider-thumb
+            { background-image: url(${player.avatar}) }
+
+            input[type=range].${sliderImageClassName}::-moz-range-thumb
+            { background-image: url(${player.avatar}) }
+          `}} />
+              <input type="range"
+                className={sliderClassNames} 
+                style={{WebkitSliderThumb: 'color: green'}}
+                max="4"
+                defaultValue={score.score}
+                ref={(c) => { this.scoreInput = c; }}
+                name="score"
+                onBlur={this.onScoreInputBlur}
+                onChange={this.onScoreInputChange}
+                />
+          </div>
+        </div>
+      </form>
     );
   }
 }
