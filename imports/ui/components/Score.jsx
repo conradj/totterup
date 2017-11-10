@@ -61,7 +61,6 @@ export default class Score extends BaseComponent {
           `}} />
               <input type="range"
                 className={sliderClassNames} 
-                style={{WebkitSliderThumb: 'color: green'}}
                 max="4"
                 defaultValue={score.score}
                 ref={(c) => { this.scoreInput = c; }}

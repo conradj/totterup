@@ -1,5 +1,3 @@
-//@ts-check
-
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Leagues } from '../../api/leagues/leagues.js';
