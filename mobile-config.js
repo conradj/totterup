@@ -3,7 +3,7 @@
 
 App.info({
   id: 'com.totterup.app',
-  name: 'Totterup',
+  name: 'totterUp!',
   description: 'Leagues leagues leagues.',
   author: 'Totterup',
   email: 'dev@conradj.co.uk',
