@@ -8,7 +8,7 @@
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
     "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
     "dev-debug": "meteor debug --debug-port 5959",
-    "run-mobile-debug": "meteor run ~/mobile-build --server=http://localhost:3000 --debug",
+    "mobile-debug": "meteor build ~/mobile-build --server=http://localhost:3000 --debug",
     "deploy-azure": "meteor-azure -s settings.json -d",
     "build-mobile-live": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
     "build-mobile-live-debug": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug",
