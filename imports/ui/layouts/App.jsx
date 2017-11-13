@@ -80,8 +80,6 @@ export default class App extends React.Component {
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <section id="menu">
           <Logo />
-          <UserMenu user={user} logout={this.logout} />
-          <LanguageToggle />
           <LeagueList leagues={leagues} />
         </section>
         {showConnectionIssue && !connected
