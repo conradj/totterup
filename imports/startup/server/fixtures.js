@@ -55,7 +55,6 @@ Meteor.startup(() => {
     data.forEach((league) => {
       const leagueId = Leagues.insert({
         name: league.name,
-        incompleteCount: league.items.length,
       });
 
       league.items.forEach((text) => {

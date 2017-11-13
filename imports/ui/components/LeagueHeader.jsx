@@ -102,7 +102,6 @@ export default class LeagueHeader extends BaseComponent {
         <MobileMenu />
         <h1 className="title-page" onClick={this.editLeague}>
           <span className="title-wrapper">{league.name}</span>
-          <span className="count-league">{league.incompleteCount}</span>
         </h1>
         <div className="nav-group right">
           <div className="nav-item options-mobile">

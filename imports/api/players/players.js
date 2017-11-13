@@ -3,7 +3,6 @@ import { Factory } from 'meteor/factory';
 import faker from 'faker';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-import incompleteCountDenormalizer from './incompleteCountDenormalizer.js';
 import { Leagues } from '../leagues/leagues.js';
 import { Scores } from '../scores/scores.js';
 
@@ -12,18 +11,15 @@ class PlayersCollection extends Mongo.Collection {
     const ourDoc = doc;
     ourDoc.createdAt = ourDoc.createdAt || new Date();
     const result = super.insert(ourDoc, callback);
-    incompleteCountDenormalizer.afterInsertPlayer(ourDoc);
     return result;
   }
   update(selector, modifier) {
     const result = super.update(selector, modifier);
-    incompleteCountDenormalizer.afterUpdatePlayer(selector, modifier);
     return result;
   }
   remove(selector) {
     const players = this.find(selector).fetch();
     const result = super.remove(selector);
-    incompleteCountDenormalizer.afterRemovePlayers(players);
     return result;
   }
 }
