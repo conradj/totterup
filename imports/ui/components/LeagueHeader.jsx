@@ -114,13 +114,6 @@ export default class LeagueHeader extends BaseComponent {
               <option disabled value="default">
                 {i18n.__('components.leagueHeader.selectAction')}
               </option>
-              {league.userId
-                ? <option value="public">
-                  {i18n.__('components.leagueHeader.makePublic')}
-                </option>
-                : <option value="private">
-                  {i18n.__('components.leagueHeader.makePrivate')}
-                </option>}
               <option value="delete">
                 {i18n.__('components.leagueHeader.delete')}
               </option>
@@ -128,17 +121,6 @@ export default class LeagueHeader extends BaseComponent {
             <span className="icon-cog" />
           </div>
           <div className="options-web">
-            <a className="nav-item" onClick={this.toggleLeaguePrivacy}>
-              {league.userId
-                ? <span
-                  className="icon-lock"
-                  title={i18n.__('components.leagueHeader.makeLeaguePublic')}
-                />
-                : <span
-                  className="icon-unlock"
-                  title={i18n.__('components.leagueHeader.makeLeaguePrivate')}
-                />}
-            </a>
             <a className="nav-item trash" onClick={this.deleteLeague}>
               <span
                 className="icon-trash"
