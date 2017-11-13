@@ -45,9 +45,6 @@ export default class LeagueList extends BaseComponent {
             {league.userId
               ? <span className="icon-lock" />
               : null}
-            {league.incompleteCount
-              ? <span className="count-league">{league.incompleteCount}</span>
-              : null}
             {league.name}
           </Link>
         ))}

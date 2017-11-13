@@ -42,12 +42,6 @@ Leagues.deny({
   remove() { return true; },
 });
 
-Leagues.schema = new SimpleSchema({
-  name: { type: String },
-  incompleteCount: { type: Number, defaultValue: 0 },
-  userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
-});
-
 Leagues.attachSchema(Leagues.schema);
 
 // This represents the keys from Leagues objects that should be published
@@ -55,7 +49,6 @@ Leagues.attachSchema(Leagues.schema);
 // them here to keep them private to the server.
 Leagues.publicFields = {
   name: 1,
-  incompleteCount: 1,
   userId: 1,
 };
 
