@@ -5,9 +5,10 @@ import LeaguePage from '../pages/LeaguePage.jsx';
 import { withTracker } from 'meteor/react-meteor-data';
 
 export default LeaguePageContainer = withTracker(({ params: { id } }) => {
-  const playersHandle = Meteor.subscribe('players.inLeague', { leagueId: id });
-  const gamesHandle = Meteor.subscribe('games.inLeague', { leagueId: id });
-  const scoresLeagueHandle = Meteor.subscribe('scores.forLeague', { leagueId: id });
+  const playersHandle = Meteor.subscribe('players');
+  const gamesHandle = Meteor.subscribe('games');
+  const scoresLeagueHandle = Meteor.subscribe('scores');
+
   let scoresHandle = [];
   const loading = !playersHandle.ready() || !gamesHandle.ready() || !scoresLeagueHandle.ready();
   const league = Leagues.findOne(id);

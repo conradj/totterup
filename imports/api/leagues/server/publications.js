@@ -4,22 +4,19 @@ import { Meteor } from 'meteor/meteor';
 
 import { Leagues } from '../leagues.js';
 
-Meteor.publish('leagues.public', function leaguesPublic() {
-  return Leagues.find({
-    userId: { $exists: false },
-  }, {
-    fields: Leagues.publicFields,
-  });
-});
+Meteor.publishComposite('leagues.owned', function leaguesPublic() {
+  const userId = this.userId;
 
-Meteor.publish('leagues.private', function leaguesPrivate() {
-  if (!this.userId) {
-    return this.ready();
+  return {
+    find() {
+      return Meteor.users.find({_id: userId}, {fields: { ownedLeagues: 1 }});
+    },
+    children: [{
+      find(user) {
+        return Leagues.find({
+          _id : { $in : user.ownedLeagues }
+        })
+      }
+    }]
   }
-
-  return Leagues.find({
-    userId: this.userId,
-  }, {
-    fields: Leagues.publicFields,
-  });
 });
