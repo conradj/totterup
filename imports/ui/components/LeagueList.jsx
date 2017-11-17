@@ -28,7 +28,7 @@ export default class LeagueList extends BaseComponent {
 
   render() {
     const { leagues } = this.props;
-    console.log("Meteor.userId()", Meteor.userId());
+    
     return (
       <div className="league-players">
         {Meteor.userId() 
