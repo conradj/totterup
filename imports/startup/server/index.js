@@ -13,3 +13,5 @@ import './register-api.js';
 
 // security policies
 import './browser-policy';
+
+import './account-creation';
