@@ -18,7 +18,19 @@ export const insert = new ValidatedMethod({
     },
   }).validator(),
   run({ locale }) {
-    return Leagues.insert({}, null, locale);
+    if (!this.userId) {
+      throw new Meteor.Error('api.leagues.insert.notLoggedIn',
+        'Must be logged in to make leagues.');
+    }
+
+    const newLeagueId = Leagues.insert({}, null, locale, this.userId);
+
+    Meteor.users.update(this.userId, {
+      $addToSet: {
+        ownedLeagues: newLeagueId
+      }
+    });
+    return newLeagueId;
   },
 });
 
@@ -26,21 +38,14 @@ export const makePrivate = new ValidatedMethod({
   name: 'leagues.makePrivate',
   validate: LEAGUE_ID_ONLY,
   run({ leagueId }) {
-    if (!this.userId) {
-      throw new Meteor.Error('api.leagues.makePrivate.notLoggedIn',
-        'Must be logged in to make private leagues.');
-    }
-
     const league = Leagues.findOne(leagueId);
-
-    if (league.isLastPublicLeague()) {
-      throw new Meteor.Error('api.leagues.makePrivate.lastPublicLeague',
-        'Cannot make the last public league private.');
+    if (!league.editableBy()) {
+      throw new Meteor.Error('api.leagues.makePrivate.notAuthorised',
+        'Must be a league owner to make a league private.');
     }
 
-    Leagues.update(leagueId, {
-      $set: { userId: this.userId },
-    });
+    throw new Meteor.Error('api.leagues.makePrivate.notSupported',
+      'Make a league private not currently supported');
   },
 });
 
@@ -48,23 +53,18 @@ export const makePublic = new ValidatedMethod({
   name: 'leagues.makePublic',
   validate: LEAGUE_ID_ONLY,
   run({ leagueId }) {
-    if (!this.userId) {
-      throw new Meteor.Error('api.leagues.makePublic.notLoggedIn',
-        'Must be logged in.');
-    }
-
     const league = Leagues.findOne(leagueId);
 
-    if (!league.editableBy(this.userId)) {
+    if (!league.editableBy()) {
       throw new Meteor.Error('api.leagues.makePublic.accessDenied',
         'You don\'t have permission to edit this league.');
     }
 
+    throw new Meteor.Error('api.leagues.makePrivate.notSupported',
+      'Make a league public not currently supported');
+
     // XXX the security check above is not atomic, so in theory a race condition could
     // result in exposing private data
-    Leagues.update(leagueId, {
-      $unset: { userId: true },
-    });
   },
 });
 
@@ -77,7 +77,7 @@ export const updateName = new ValidatedMethod({
   run({ leagueId, newName }) {
     const league = Leagues.findOne(leagueId);
 
-    if (!league.editableBy(this.userId)) {
+    if (!league.editableBy()) {
       throw new Meteor.Error('api.leagues.updateName.accessDenied',
         'You don\'t have permission to edit this league.');
     }
@@ -97,18 +97,18 @@ export const remove = new ValidatedMethod({
   run({ leagueId }) {
     const league = Leagues.findOne(leagueId);
 
-    if (!league.editableBy(this.userId)) {
+    if (!league.editableBy()) {
       throw new Meteor.Error('api.leagues.remove.accessDenied',
         'You don\'t have permission to remove this league.');
     }
 
     // XXX the security check above is not atomic, so in theory a race condition could
     // result in exposing private data
-
-    if (league.isLastPublicLeague()) {
-      throw new Meteor.Error('api.leagues.remove.lastPublicLeague',
-        'Cannot delete the last public league.');
-    }
+    Meteor.users.update(this.userId, {
+      $pull: {
+        ownedLeagues: leagueId
+      }
+    });
 
     Leagues.remove(leagueId);
   },

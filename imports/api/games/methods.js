@@ -17,9 +17,9 @@ export const insert = new ValidatedMethod({
   run({ leagueId, name }) {
     const league = Leagues.findOne(leagueId);
 
-    if (league.isPrivate() && league.userId !== this.userId) {
+    if (!league.editableBy()) {
       throw new Meteor.Error('api.games.insert.accessDenied',
-        'Cannot add games to a private league that is not yours');
+        'Cannot add games to a league that is not yours');
     }
 
     name = 'Game ' + (Games.find({ leagueId: leagueId }).count() + 1);
@@ -27,7 +27,6 @@ export const insert = new ValidatedMethod({
     const game = {
       leagueId: leagueId,
       name: name,
-      isFinished: false,
       createdAt: new Date(),
     };
     
@@ -48,9 +47,9 @@ export const updateName = new ValidatedMethod({
     // would be correct here?
     const game = Games.findOne(gameId);
 
-    if (!game.editableBy(this.userId)) {
-      throw new Meteor.Error('api.games.updateText.accessDenied',
-        'Cannot edit games in a private league that is not yours');
+    if (!game.editableBy()) {
+      throw new Meteor.Error('api.games.updateName.accessDenied',
+        'Cannot edit a game in a league that is not yours');
     }
 
     Games.update(gameId, {
@@ -66,9 +65,9 @@ export const remove = new ValidatedMethod({
   }).validator(),
   run({ gameId }) {
     const game = Games.findOne(gameId);
-    if (!game.editableBy(this.userId)) {
+    if (!game.editableBy()) {
       throw new Meteor.Error('api.games.remove.accessDenied',
-        'Cannot remove games in a private league that is not yours');
+        'Cannot remove a game in a league that is not yours');
     }
     Games.remove(gameId);
   },
