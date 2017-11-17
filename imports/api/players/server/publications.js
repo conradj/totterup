@@ -6,44 +6,18 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Players } from '../players.js';
 import { Leagues } from '../../leagues/leagues.js';
 
-Meteor.publishComposite('players.inLeague', function playersInLeague(params) {
-  new SimpleSchema({
-    leagueId: { type: String },
-  }).validate(params);
-
-  const { leagueId } = params;
+Meteor.publishComposite('players', function games() {
   const userId = this.userId;
 
   return {
     find() {
-      const query = {
-        _id: leagueId,
-        $or: [{ userId: { $exists: false } }, { userId }],
-      };
-
-      // We only need the _id field in this query, since it's only
-      // used to drive the child queries to get the players
-      const options = {
-        fields: { _id: 1 },
-      };
-
-      return Leagues.find(query, options);
+      return Meteor.users.find({_id: userId}, { fields: { ownedLeagues: 1 }});
     },
-
     children: [{
-      find(league) {
-        return Players.find({ leagueId: league._id }, { fields: Players.publicFields });
-      },
-    }],
+      find(user) {
+        return Players.find({leagueId : { $in : user.ownedLeagues }}, { fields: Players.publicFields });  
+      }
+    }]
   };
 });
 
-Meteor.publish('players', function players() {
-  if (!this) {
-    return this.ready();
-  }
-
-  return Players.find({}, {
-    fields: Players.publicFields,
-  });
-});

@@ -84,8 +84,8 @@ Players.helpers({
   league() {
     return Leagues.findOne(this.leagueId);
   },
-  editableBy(userId) {
-    return this.league().editableBy(userId);
+  editableBy() {
+    return this.league().editableBy();
   },
   scores() {
     return Scores.find({ playerId: this._id }, { sort: { createdAt: -1 } });

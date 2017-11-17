@@ -5,7 +5,7 @@ import PlayerPage from '../pages/PlayerPage.jsx';
 import { withTracker } from 'meteor/react-meteor-data';
 
 export default PlayerPageContainer = withTracker(({ params: { leagueId, playerId } }) => {
-  const playersHandle = Meteor.subscribe('players.inLeague', { leagueId: leagueId });
+  const playersHandle = Meteor.subscribe('players');
   const loading = !playersHandle.ready()
   const player = Players.findOne(playerId);
   const playerExists = !loading && !!player;

@@ -16,12 +16,12 @@ export const insert = new ValidatedMethod({
     score: { type: Number },
   }).validator(),
   run({ leagueId, gameId, playerId, score }) {
-    // const game = Games.findOne(gameId);
-
-    // if (league.isPrivate() && league.userId !== this.userId) {
-    //   throw new Meteor.Error('api.games.insert.accessDenied',
-    //     'Cannot add games to a private league that is not yours');
-    // }
+    const league = Leagues.findOne(leagueId);
+    
+    if (!league.editableBy()) {
+      throw new Meteor.Error('api.score.insertScore.accessDenied',
+        'Cannot insert score in a league that is not yours');
+    }
 
     const newScore = {
       leagueId,
@@ -42,14 +42,13 @@ export const updateScore = new ValidatedMethod({
     newScore: { type: Number },
   }).validator(),
   run({ scoreId, newScore }) {
-    // This is complex auth stuff - perhaps denormalizing a userId onto games
-    // would be correct here?
-    //const score = Score.findOne(scoreId);
-
-    // if (!game.editableBy(this.userId)) {
-    //   throw new Meteor.Error('api.games.updateText.accessDenied',
-    //     'Cannot edit games in a private league that is not yours');
-    // }
+    
+    const score = Scores.findOne(scoreId);
+    
+    if (!score.editableBy()) {
+      throw new Meteor.Error('api.score.updateScore.accessDenied',
+        'Cannot edit score in a league that is not yours');
+    }
 
     Scores.update(scoreId, {
       $set: { score: newScore },
@@ -63,12 +62,12 @@ export const remove = new ValidatedMethod({
     scoreId: { type: String },
   }).validator(),
   run({ scoreId }) {
-    // const game = Games.findOne(gameId);
-
-    // if (!game.editableBy(this.userId)) {
-    //   throw new Meteor.Error('api.games.remove.accessDenied',
-    //     'Cannot remove games in a private league that is not yours');
-    // }
+    const score = Score.findOne(scoreId);
+    
+    if (!score.editableBy()) {
+      throw new Meteor.Error('api.games.remove.accessDenied',
+        'Cannot remove scores in a league that is not yours');
+    }
 
     Scores.remove(scoreId);
   },

@@ -49,26 +49,16 @@ Leagues.attachSchema(Leagues.schema);
 // them here to keep them private to the server.
 Leagues.publicFields = {
   name: 1,
-  userId: 1,
 };
 
 Factory.define('league', Leagues, {});
 
 Leagues.helpers({
-  // A league is considered to be private if it has a userId set
-  isPrivate() {
-    return !!this.userId;
-  },
-  isLastPublicLeague() {
-    const publicLeagueCount = Leagues.find({ userId: { $exists: false } }).count();
-    return !this.isPrivate() && publicLeagueCount === 1;
-  },
-  editableBy(userId) {
-    if (!this.userId) {
-      return true;
+  editableBy() {
+    if(Meteor.user()) {
+      return Meteor.user().ownedLeagues.includes(this._id);
     }
-
-    return this.userId === userId;
+    return false;
   },
   players() {
     return Players.find({ leagueId: this._id }, { sort: { createdAt: -1 } });

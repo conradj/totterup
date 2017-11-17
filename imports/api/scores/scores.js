@@ -84,6 +84,9 @@ Factory.define('score', Scores, {
 });
 
 Scores.helpers({
+  editableBy() {
+    return this.league().editableBy();
+  },
   league() {
     return Leagues.findOne(this.leagueId);
   },

@@ -28,12 +28,16 @@ export default class LeagueList extends BaseComponent {
 
   render() {
     const { leagues } = this.props;
+    
     return (
       <div className="league-players">
-        <a className="link-league-new" onClick={this.createNewLeague}>
-          <span className="icon-plus" />
-          {i18n.__('components.leagueList.newLeague')}
-        </a>
+        {Meteor.userId() 
+        ?
+          <a className="link-league-new" onClick={this.createNewLeague}>
+            <span className="icon-plus" />
+            {i18n.__('components.leagueList.newLeague')}
+          </a>
+        : null }
         {leagues.map(league => (
           <Link
             to={`/leagues/${league._id}`}

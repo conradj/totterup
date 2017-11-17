@@ -43,10 +43,6 @@ Games.schema = new SimpleSchema({
     type: String,
     max: 100,
   },
-  isFinished: {
-    type: Boolean,
-    defaultValue: false,
-  },
   createdAt: {
     type: Date,
     denyUpdate: true,
@@ -75,9 +71,8 @@ Factory.define('game', Games, {
 });
 
 Games.helpers({
-  editableBy(userId) {
-    // TODO, make sure user is a player in the league
-    return true;
+  editableBy() {
+    return this.league().editableBy();
   },
   league() {
     return Leagues.findOne(this.leagueId);

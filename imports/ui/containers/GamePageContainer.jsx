@@ -1,11 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Leagues } from '../../api/leagues/leagues.js';
 import { Games } from '../../api/games/games.js';
 import GamePage from '../pages/GamePage.jsx';
 
-const GamePageContainer = createContainer(({ params: { id } }) => {
-  
+export default GamePageContainer = withTracker(({ params: { id } }) => {
   const handle = Meteor.subscribe('games');
   const handleScore = Meteor.subscribe('scores');
   const handlePlayers = Meteor.subscribe('players');
@@ -20,6 +19,4 @@ const GamePageContainer = createContainer(({ params: { id } }) => {
     scores : gameExists ? game.scores().fetch() : [],
     players : gameExists ? game.players().fetch() : []
   };
-}, GamePage);
-
-export default GamePageContainer;
+}) (GamePage);

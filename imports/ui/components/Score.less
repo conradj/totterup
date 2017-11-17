@@ -4,9 +4,9 @@
 @thumb-radius: 50%;
 @thumb-height: 1.5em;
 @thumb-width: @thumb-height;
-@thumb-shadow-size: 2px;
+@thumb-shadow-size: 1px;
 @thumb-shadow-blur: 1px;
-@thumb-shadow-color: #111;
+@thumb-shadow-color: rgb(34, 34, 34);
 @thumb-border-width: 1px;
 @thumb-border-color: white;
 @thumb-d: 2.25em;
@@ -16,10 +16,10 @@
 @track-width: 100%;
 @track-height: 1em;
 @track-shadow-size: 1px;
-@track-shadow-blur: 2px;
-@track-shadow-color: #222;
-@track-border-width: 1px;
-@track-border-color: black;
+@track-shadow-blur: 1px;
+@track-shadow-color: rgb(34, 34, 34);
+@track-border-width: 2px;
+@track-border-color: fade(#647b80, 90);
 
 @track-radius: 2em;
 @contrast: 5%;
@@ -66,7 +66,6 @@ input[type=range] {
 
   &::-webkit-slider-runnable-track {
     .track();
-    .shadow-inset(@track-shadow-size,@track-shadow-blur,@track-shadow-color);
     background: @track-color;
     border-radius: @track-radius;
     border: @track-border-width solid @track-border-color;
@@ -132,16 +131,17 @@ input[type=range] {
         height: unset;
         padding-left: 3em;
         padding-right: 3em;
+        border-bottom: solid 1px rgb(200, 200, 200);
     }
 }
 
 .score-player-name {
     width: 100%;
     padding-top: 0.5em;
-    font-size: 2em;
+    font-size: 1.3em;
     word-wrap: none;
-    text-shadow: 1px 1px 0 #fff;
-    opacity: 0.7
+    opacity: 0.7;
+    color: rgb(255, 255, 255);    
 }
 
 .score-player-score-slider {
