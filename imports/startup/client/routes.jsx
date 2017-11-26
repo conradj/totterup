@@ -9,6 +9,7 @@ import LeaguePageContainer from '../../ui/containers/LeaguePageContainer.jsx';
 import GamePageContainer from '../../ui/containers/GamePageContainer.jsx';
 import AuthPageSignIn from '../../ui/pages/AuthPageSignIn.jsx';
 import AuthPageJoin from '../../ui/pages/AuthPageJoin.jsx';
+import AuthPageForgotPassword from '../../ui/pages/AuthPageForgotPassword.jsx';
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
 
 i18n.setLocale('en');
@@ -23,6 +24,7 @@ export const renderRoutes = () => (
       <Route path="games/:id" component={GamePageContainer} />
       <Route path="signin" component={AuthPageSignIn} />
       <Route path="join" component={AuthPageJoin} />
+      <Route path="forgotpassword" component={AuthPageForgotPassword} />
       <Route path="*" component={NotFoundPage} />
     </Route>
   </Router>

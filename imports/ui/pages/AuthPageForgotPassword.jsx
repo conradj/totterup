@@ -6,7 +6,7 @@ import BaseComponent from '../components/BaseComponent.jsx';
 
 import AuthPage from './AuthPage.jsx';
 
-export default class SignInPage extends BaseComponent {
+export default class ForgotPasswordPage extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = Object.assign(this.state, { errors: {} });
@@ -16,28 +16,27 @@ export default class SignInPage extends BaseComponent {
   onSubmit(event) {
     event.preventDefault();
     const email = this.email.value;
-    const password = this.password.value;
     const errors = {};
 
     if (!email) {
-      errors.email = i18n.__('pages.authPageSignIn.emailRequired');
+      errors.email = i18n.__('pages.forgotPassword.emailRequired');
     }
-    if (!password) {
-      errors.password = i18n.__('pages.authPageSignIn.passwordRequired');
-    }
-
+    
     this.setState({ errors });
     if (Object.keys(errors).length) {
       return;
     }
-
-    Meteor.loginWithPassword(email, password, (err) => {
+    const options = {
+      email: email
+    };
+    Accounts.forgotPassword(options, (err) => {
       if (err) {
         this.setState({
           errors: { none: err.reason },
         });
       } else {
-        this.context.router.push('/');
+        console.log('Email Sent. Check your mailbox.');
+        alert('Email Sent. Check your mailbox.');
       }
     });
   }
@@ -50,10 +49,10 @@ export default class SignInPage extends BaseComponent {
     const content = (
       <div className="wrapper-auth">
         <h1 className="title-auth">
-          {i18n.__('pages.authPageSignIn.signIn')}
+          {i18n.__('pages.forgotPassword.resetPassword')}
         </h1>
         <p className="subtitle-auth">
-          {i18n.__('pages.authPageSignIn.signInReason')}
+          {i18n.__('pages.forgotPassword.emailReason')}
         </p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">
@@ -66,38 +65,23 @@ export default class SignInPage extends BaseComponent {
               type="email"
               name="email"
               ref={(c) => { this.email = c; }}
-              placeholder={i18n.__('pages.authPageSignIn.yourEmail')}
+              placeholder={i18n.__('pages.forgotPassword.yourEmail')}
             />
             <span
               className="icon-email"
-              title={i18n.__('pages.authPageSignIn.yourEmail')}
-            />
-          </div>
-          <div className={`input-symbol ${errorClass('password')}`}>
-            <input
-              type="password"
-              name="password"
-              ref={(c) => { this.password = c; }}
-              placeholder={i18n.__('pages.authPageSignIn.password')}
-            />
-            <span
-              className="icon-lock"
-              title={i18n.__('pages.authPageSignIn.password')}
+              title={i18n.__('pages.forgotPassword.yourEmail')}
             />
           </div>
           <button type="submit" className="btn-primary">
-            {i18n.__('pages.authPageSignIn.signInButton')}
+            {i18n.__('pages.forgotPassword.sendResetLink')}
           </button>
         </form>
-        <Link to="/forgotpassword" className="link-forgot-password">
-          {i18n.__('pages.authPageSignIn.forgotPassword')}
-        </Link>
       </div>
     );
 
     const link = (
       <Link to="/join" className="link-auth-alt">
-        {i18n.__('pages.authPageSignIn.needAccount')}
+        {i18n.__('pages.authPageJoin.haveAccountSignIn')}
       </Link>
     );
 
@@ -105,6 +89,6 @@ export default class SignInPage extends BaseComponent {
   }
 }
 
-SignInPage.contextTypes = {
+ForgotPasswordPage.contextTypes = {
   router: React.PropTypes.object,
 };

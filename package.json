@@ -6,7 +6,7 @@
     "test-app-watch": "meteor test --full-app --driver-package practicalmeteor:mocha",
     "lint": "eslint --ext .js,.jsx .",
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
-    "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
+    "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run --settings config.json",
     "dev-debug": "meteor debug --debug-port 5959",
     "mobile-debug": "meteor build ~/mobile-build --server=http://localhost:3000 --debug",
     "deploy-azure": "meteor-azure -s settings.json -d",
