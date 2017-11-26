@@ -42,6 +42,13 @@ Leagues.deny({
   remove() { return true; },
 });
 
+Leagues.schema = new SimpleSchema({
+  name: {
+    type: String,
+    max: 100,
+  }
+});
+
 Leagues.attachSchema(Leagues.schema);
 
 // This represents the keys from Leagues objects that should be published

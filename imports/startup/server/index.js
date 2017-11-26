@@ -15,3 +15,5 @@ import './register-api.js';
 import './browser-policy';
 
 import './account-creation';
+
+import './email';

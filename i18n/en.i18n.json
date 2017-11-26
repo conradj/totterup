@@ -49,7 +49,7 @@
       "passwordRequired": "Password required",
       "passwordConfirm": "Please confirm your password",
       "join": "Join.",
-      "joinReason": "Joining allows you to make private leagues",
+      "joinReason": "Joining allows you to create and play leagues",
       "yourEmail": "Your Email",
       "password": "Password",
       "confirmPassword": "Confirm Password",
@@ -60,11 +60,19 @@
       "emailRequired": "Email required",
       "passwordRequired": "Password required",
       "signIn": "Sign In.",
-      "signInReason": "Signing in allows you to view private leagues",
+      "signInReason": "Signing in allows you to create and play leagues",
       "yourEmail": "Your Email",
       "password": "Password",
       "signInButton": "Sign in",
-      "needAccount": "Need an account? Join Now."
+      "needAccount": "Need an account? Join Now.",
+      "forgotPassword": "Forgot your password?"
+    },
+    "forgotPassword": {
+      "resetPassword": "Reset Password",
+      "yourEmail": "Your Email",
+      "emailRequired": "Email required",
+      "emailReason": "Provide your account email to receive a reset link.",
+      "sendResetLink": "Send password reset link"
     },
     "leaguePage": {
       "noPlayers": "No players here",
