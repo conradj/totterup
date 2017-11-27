@@ -5,7 +5,6 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 
 import { Games } from './games.js';
-import { Scores } from '../scores/scores.js';
 import { Leagues } from '../leagues/leagues.js';
 
 export const insert = new ValidatedMethod({
@@ -18,20 +17,20 @@ export const insert = new ValidatedMethod({
     const league = Leagues.findOne(leagueId);
 
     if (!league.editableBy()) {
-      throw new Meteor.Error('api.games.insert.accessDenied',
-        'Cannot add games to a league that is not yours');
+      throw new Meteor.Error(
+        'api.games.insert.accessDenied',
+        'Cannot add games to a league that is not yours'
+      );
     }
 
-    name = 'Game ' + (Games.find({ leagueId: leagueId }).count() + 1);
-
     const game = {
-      leagueId: leagueId,
-      name: name,
+      leagueId,
+      name: `Game ${Games.find({ leagueId }).count() + 1}`,
       createdAt: new Date(),
     };
-    
+
     const gameId = Games.insert(game);
-    
+
     return gameId;
   },
 });
@@ -48,8 +47,10 @@ export const updateName = new ValidatedMethod({
     const game = Games.findOne(gameId);
 
     if (!game.editableBy()) {
-      throw new Meteor.Error('api.games.updateName.accessDenied',
-        'Cannot edit a game in a league that is not yours');
+      throw new Meteor.Error(
+        'api.games.updateName.accessDenied',
+        'Cannot edit a game in a league that is not yours'
+      );
     }
 
     Games.update(gameId, {
@@ -66,28 +67,32 @@ export const remove = new ValidatedMethod({
   run({ gameId }) {
     const game = Games.findOne(gameId);
     if (!game.editableBy()) {
-      throw new Meteor.Error('api.games.remove.accessDenied',
-        'Cannot remove a game in a league that is not yours');
+      throw new Meteor.Error(
+        'api.games.remove.accessDenied',
+        'Cannot remove a game in a league that is not yours'
+      );
     }
     Games.remove(gameId);
   },
 });
 
 // Get list of all method names on Games
-const GAMES_METHODS = _.pluck([
-  insert,
-  updateName,
-  remove,
-], 'name');
+const GAMES_METHODS = _.pluck([insert, updateName, remove], 'name');
 
 if (Meteor.isServer) {
   // Only allow 5 game operations per connection per second
-  DDPRateLimiter.addRule({
-    name(name) {
-      return _.contains(GAMES_METHODS, name);
-    },
+  DDPRateLimiter.addRule(
+    {
+      name(name) {
+        return _.contains(GAMES_METHODS, name);
+      },
 
-    // Rate limit per connection ID
-    connectionId() { return true; },
-  }, 5, 1000);
+      // Rate limit per connection ID
+      connectionId() {
+        return true;
+      },
+    },
+    5,
+    1000
+  );
 }

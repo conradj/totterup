@@ -10,8 +10,10 @@
     "dev-debug": "meteor debug --debug-port 5959",
     "mobile-debug": "meteor build ~/mobile-build --server=http://localhost:3000 --debug",
     "deploy-azure": "meteor-azure -s settings.json -d",
-    "build-mobile-live": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
-    "build-mobile-live-debug": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug",
+    "build-mobile-live":
+      "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
+    "build-mobile-live-debug":
+      "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug",
     "deploy-live-debug": "npm run deploy-azure && npm run build-mobile-live-debug"
   },
   "dependencies": {
@@ -28,7 +30,7 @@
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "enzyme": "^2.4.1",
-    "eslint": "^3.5.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^11.1.0",
     "eslint-import-resolver-meteor": "^0.3.3",
     "eslint-plugin-import": "^1.15.0",
@@ -37,6 +39,7 @@
     "eslint-plugin-react": "^6.2.2",
     "meteor-azure": "^2.0.7",
     "meteor-node-stubs": "^0.2.3",
+    "prettier-eslint": "^8.2.2",
     "react-addons-test-utils": "^15.3.1",
     "shelljs": "^0.7.4"
   },
@@ -50,12 +53,11 @@
       },
       "allowImportExportEverywhere": true
     },
-    "plugins": [
-      "meteor"
-    ],
+    "plugins": ["meteor"],
     "extends": [
       "airbnb",
-      "plugin:meteor/recommended"
+      "plugin:meteor/recommended",
+      "prettier"
     ],
     "rules": {
       "import/no-extraneous-dependencies": "off",
@@ -77,16 +79,11 @@
           "templateInstanceParamName": "instance"
         }
       ],
-      "meteor/template-names": [
-        "off"
-      ],
+      "meteor/template-names": ["off"],
       "react/jsx-filename-extension": [
         1,
         {
-          "extensions": [
-            ".js",
-            ".jsx"
-          ]
+          "extensions": [".js", ".jsx"]
         }
       ],
       "react/forbid-prop-types": "off",
@@ -99,9 +96,7 @@
   "postcss": {
     "plugins": {
       "autoprefixer": {
-        "browsers": [
-          "last 2 versions"
-        ]
+        "browsers": ["last 2 versions"]
       }
     }
   }

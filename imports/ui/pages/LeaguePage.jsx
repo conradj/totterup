@@ -10,14 +10,14 @@ import Message from "../components/Message.jsx";
 import NewGameButton from "../components/NewGameButton.jsx";
 
 export default class LeaguePage extends BaseComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
 
   render() {
     const { league, leagueExists, loading, players } = this.props;
 
-    if(loading) {
+    if (loading) {
       return <Message title={i18n.__("components.loading.loading")} />;
     }
 
@@ -27,15 +27,15 @@ export default class LeaguePage extends BaseComponent {
 
     const playersByScore = [];
     players.forEach(player => {
-      let loadedPlayer = player;
+      const loadedPlayer = player;
       loadedPlayer.score = player.scores().fetch().reduce((sum, score) => sum + score.score, 0);
       playersByScore.push(loadedPlayer); 
     });
 
     playersByScore.sort((p, p2) => {
-      if(p.score > p2.score) {
+      if (p.score > p2.score) {
         return -1;
-      } else if(p.score < p2.score) {
+      } else if (p.score < p2.score) {
         return 1;
       }
 
