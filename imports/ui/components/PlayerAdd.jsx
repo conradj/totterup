@@ -1,19 +1,16 @@
 /* global confirm */
 
-import React from 'react';
-import i18n from 'meteor/universe:i18n';
-import BaseComponent from './BaseComponent.jsx';
-import MobileMenu from './MobileMenu.jsx';
-import { displayError } from '../helpers/errors.js';
+import React from "react";
+import i18n from "meteor/universe:i18n";
+import BaseComponent from "./BaseComponent.jsx";
+import { displayError } from "../helpers/errors.js";
 
-import {
-  insert,
-} from '../../api/players/methods.js';
+import { insert } from "../../api/players/methods.js";
 
 export default class PlayerAdd extends BaseComponent {
   constructor(props) {
     super(props);
-    
+
     this.createPlayer = this.createPlayer.bind(this);
     this.focusPlayerInput = this.focusPlayerInput.bind(this);
   }
@@ -22,11 +19,14 @@ export default class PlayerAdd extends BaseComponent {
     event.preventDefault();
     const input = this.newPlayerInput;
     if (input.value.trim()) {
-      insert.call({
-        leagueId: this.props.league._id,
-        text: input.value,
-      }, displayError);
-      input.value = '';
+      insert.call(
+        {
+          leagueId: this.props.league._id,
+          text: input.value
+        },
+        displayError
+      );
+      input.value = "";
     }
   }
 
@@ -41,8 +41,10 @@ export default class PlayerAdd extends BaseComponent {
           <input
             className="player-new-textbox"
             type="text"
-            ref={(c) => { this.newPlayerInput = c; }}
-            placeholder={i18n.__('components.leagueHeader.typeToAdd')}
+            ref={c => {
+              this.newPlayerInput = c;
+            }}
+            placeholder={i18n.__("components.leagueHeader.typeToAdd")}
           />
           <span className="icon-add" onClick={this.focusPlayerInput} />
         </form>
@@ -52,9 +54,9 @@ export default class PlayerAdd extends BaseComponent {
 }
 
 PlayerAdd.propTypes = {
-  league: React.PropTypes.object,
+  league: React.PropTypes.object
 };
 
 PlayerAdd.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

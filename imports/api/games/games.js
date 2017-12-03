@@ -18,7 +18,6 @@ class GamesCollection extends Mongo.Collection {
     return result;
   }
   remove(selector) {
-    const games = this.find(selector).fetch();
     const result = super.remove(selector);
     return result;
   }
@@ -81,6 +80,6 @@ Games.helpers({
     return Scores.find({ gameId: this._id }, { sort: { createdAt: -1 } });
   },
   players() {
-    return Players.find({leagueId: this.leagueId});
-  }
+    return Players.find({ leagueId: this.leagueId });
+  },
 });

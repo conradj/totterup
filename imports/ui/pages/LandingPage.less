@@ -1,0 +1,49 @@
+@import "{}/imports/ui/stylesheets/utils.less";
+
+.landing-container {
+  height: 200vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: stretch;
+  transition: all 200ms ease-in;
+  background: rgba(3, 2, 2, 0.1);
+
+  .login-bar {
+    margin: auto;
+    height: 50px;
+  }
+
+  header {
+    text-align: center;
+    font-size: 3em;
+    color: white;
+    padding: 1em;
+  }
+
+  img {
+    width: 80%;
+    height: auto;
+    margin: auto;
+  }
+
+  .btn-primary {
+    text-transform: unset;
+    font-size: 2em;
+    margin: auto;
+  }
+
+  .btn-secondary {
+    text-transform: unset;
+    font-size: 0.8em;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  .logo-image {
+    width: 10%;
+  }
+}
