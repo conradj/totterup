@@ -1,6 +1,6 @@
-import React from 'react';
-import MobileMenu from '../components/MobileMenu.jsx';
-import AccountsUIWrapper from '../layouts/AccountsUIWrapper.jsx';
+import React from "react";
+import MobileMenu from "../components/MobileMenu.jsx";
+import AccountsUIWrapper from "../layouts/AccountsUIWrapper.jsx";
 
 // a common layout wrapper for auth pages
 const AuthPage = ({ content, link }) => (
@@ -9,7 +9,6 @@ const AuthPage = ({ content, link }) => (
       <MobileMenu />
     </nav>
     <div className="content-scrollable">
-      <AccountsUIWrapper />
       {content}
       {link}
     </div>
@@ -18,7 +17,7 @@ const AuthPage = ({ content, link }) => (
 
 AuthPage.propTypes = {
   content: React.PropTypes.element,
-  link: React.PropTypes.element,
+  link: React.PropTypes.element
 };
 
 export default AuthPage;
