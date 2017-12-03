@@ -44,6 +44,10 @@
     }
   },
   "pages": {
+    "landing": {
+      "signIn": "Log In",
+      "signUp": "Sign Up"
+    },
     "authPageJoin": {
       "emailRequired": "Email required",
       "passwordRequired": "Password required",
@@ -109,16 +113,20 @@
     },
     "players": {
       "insert": {
-        "accessDenied": "Cannot add players to a private league that is not yours"
+        "accessDenied":
+          "Cannot add players to a private league that is not yours"
       },
       "setCheckedStatus": {
-        "accessDenied": "Cannot edit players in a private league that is not yours"
+        "accessDenied":
+          "Cannot edit players in a private league that is not yours"
       },
       "updateName": {
-        "accessDenied": "Cannot edit players in a private league that is not yours"
+        "accessDenied":
+          "Cannot edit players in a private league that is not yours"
       },
       "remove": {
-        "accessDenied": "Cannot remove players in a private league that is not yours"
+        "accessDenied":
+          "Cannot remove players in a private league that is not yours"
       },
       "item": {
         "taskName": "Task name"
