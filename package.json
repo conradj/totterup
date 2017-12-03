@@ -10,10 +10,8 @@
     "dev-debug": "meteor debug --debug-port 5959",
     "mobile-debug": "meteor build ~/mobile-build --server=http://localhost:3000 --debug",
     "deploy-azure": "meteor-azure -s settings.json -d",
-    "build-mobile-live":
-      "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
-    "build-mobile-live-debug":
-      "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug",
+    "build-mobile-live": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net",
+    "build-mobile-live-debug": "meteor build ~/mobile-build --server=http://totterupapp.azurewebsites.net --debug",
     "deploy-live-debug": "npm run deploy-azure && npm run build-mobile-live-debug"
   },
   "dependencies": {
@@ -53,7 +51,9 @@
       },
       "allowImportExportEverywhere": true
     },
-    "plugins": ["meteor"],
+    "plugins": [
+      "meteor"
+    ],
     "extends": [
       "airbnb",
       "plugin:meteor/recommended",
@@ -79,11 +79,16 @@
           "templateInstanceParamName": "instance"
         }
       ],
-      "meteor/template-names": ["off"],
+      "meteor/template-names": [
+        "off"
+      ],
       "react/jsx-filename-extension": [
         1,
         {
-          "extensions": [".js", ".jsx"]
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
         }
       ],
       "react/forbid-prop-types": "off",
@@ -96,7 +101,9 @@
   "postcss": {
     "plugins": {
       "autoprefixer": {
-        "browsers": ["last 2 versions"]
+        "browsers": [
+          "last 2 versions"
+        ]
       }
     }
   }
