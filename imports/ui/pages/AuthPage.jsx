@@ -1,6 +1,7 @@
 import React from "react";
 import MobileMenu from "../components/MobileMenu.jsx";
 import AccountsUIWrapper from "../layouts/AccountsUIWrapper.jsx";
+import Logo from "../components/Logo.jsx";
 
 // a common layout wrapper for auth pages
 const AuthPage = ({ content, link }) => (
@@ -12,6 +13,7 @@ const AuthPage = ({ content, link }) => (
       {content}
       {link}
     </div>
+    <Logo />
   </div>
 );
 
