@@ -1,10 +1,10 @@
-import { Mongo } from 'meteor/mongo';
-import { Factory } from 'meteor/factory';
-import faker from 'faker';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { Mongo } from "meteor/mongo";
+import { Factory } from "meteor/factory";
+import faker from "faker";
+import { SimpleSchema } from "meteor/aldeed:simple-schema";
 
-import { Leagues } from '../leagues/leagues.js';
-import { Scores } from '../scores/scores.js';
+import { Leagues } from "../leagues/leagues.js";
+import { Scores } from "../scores/scores.js";
 
 class PlayersCollection extends Mongo.Collection {
   insert(doc, callback) {
@@ -24,37 +24,48 @@ class PlayersCollection extends Mongo.Collection {
   }
 }
 
-export const Players = new PlayersCollection('Players');
+export const Players = new PlayersCollection("Players");
 
 // Deny all client-side updates since we will be using methods to manage this collection
 Players.deny({
-  insert() { return true; },
-  update() { return true; },
-  remove() { return true; },
+  insert() {
+    return true;
+  },
+  update() {
+    return true;
+  },
+  remove() {
+    return true;
+  }
 });
 
 Players.schema = new SimpleSchema({
   leagueId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
-    denyUpdate: true,
+    denyUpdate: true
   },
   text: {
     type: String,
-    max: 100,
+    max: 100
   },
   createdAt: {
     type: Date,
-    denyUpdate: true,
+    denyUpdate: true
   },
   checked: {
     type: Boolean,
-    defaultValue: false,
+    defaultValue: false
   },
   avatar: {
     type: String,
     optional: true,
-    max: 2048,
+    max: 2048
+  },
+  userId: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+    optional: true
   }
 });
 
@@ -69,15 +80,16 @@ Players.publicFields = {
   createdAt: 1,
   checked: 1,
   avatar: 1,
+  userId: 1
 };
 
 // TODO This factory has a name - do we have a code style for this?
 //   - usually I've used the singular, sometimes you have more than one though, like
 //   'player', 'emptyPlayer', 'checkedPlayer'
-Factory.define('player', Players, {
-  leagueId: () => Factory.get('league'),
+Factory.define("player", Players, {
+  leagueId: () => Factory.get("league"),
   text: () => faker.name.firstName(),
-  createdAt: () => new Date(),
+  createdAt: () => new Date()
 });
 
 Players.helpers({
