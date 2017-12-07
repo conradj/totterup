@@ -7,10 +7,12 @@ import { Leagues } from "../../api/leagues/leagues.js";
 import App from "../layouts/App.jsx";
 
 export default (AppContainer = withTracker(() => {
-  const publicHandle = Meteor.subscribe("leagues.owned");
+  const ownedHandle = Meteor.subscribe("leagues.owned");
+  const inHandle = Meteor.subscribe("leagues.in");
+
   return {
     user: Meteor.user(),
-    loading: !publicHandle.ready(),
+    loading: !ownedHandle.ready() || !inHandle.ready(),
     connected: Meteor.status().connected,
     menuOpen: Session.get("menuOpen"),
     leagues: Leagues.find().fetch()

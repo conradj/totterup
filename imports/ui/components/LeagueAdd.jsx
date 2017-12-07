@@ -23,8 +23,8 @@ export default class LeagueAdd extends BaseComponent {
         alert(i18n.__("components.leagueList.newLeagueError"));
       }
     });
-    router.push(`/leagues/${leagueId}`);
     Session.set("menuOpen", false);
+    router.push(`/leagues/${leagueId}`);
   }
 
   render() {

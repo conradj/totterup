@@ -1,11 +1,13 @@
-@import '{}/imports/ui/stylesheets/utils.less';
+@import "{}/imports/ui/stylesheets/utils.less";
 
 .league-header {
   background: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   height: 5em;
 
   text-align: center;
-  @media screen and (min-width: 40em) { text-align: left; }
+  @media screen and (min-width: 40em) {
+    text-align: left;
+  }
 
   .title-page {
     .position(absolute, 0, 3rem, auto, 3rem);
@@ -15,7 +17,6 @@
       right: 6rem;
     }
 
-    cursor: pointer;
     font-size: 1.125em; // 18px
     white-space: nowrap;
 
@@ -33,11 +34,11 @@
       border-radius: 1em;
       color: @color-empty;
       display: inline-block;
-      font-size: .7rem;
+      font-size: 0.7rem;
       line-height: 1;
       margin-left: -1.25rem;
       margin-top: -4px;
-      padding: .3em .5em;
+      padding: 0.3em 0.5em;
       vertical-align: middle;
     }
   }
@@ -46,9 +47,9 @@
 
     input[type="text"] {
       background: transparent;
-      padding-bottom: .25em;
+      padding-bottom: 0.25em;
       padding-left: 44px !important;
-      padding-top: .25em;
+      padding-top: 0.25em;
     }
   }
   form.league-edit-form {

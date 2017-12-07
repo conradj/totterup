@@ -20,7 +20,8 @@
       "deleteLeague": "Delete league",
       "cancel": "Cancel",
       "typeToAdd": "Type to add new players",
-      "typeToAddGame": "Type to add new game"
+      "typeToAddGame": "Type to add new game",
+      "placeholder": "League Name"
     },
     "leagueList": {
       "newLeague": "New League",
@@ -93,7 +94,7 @@
   "api": {
     "leagues": {
       "insert": {
-        "league": "League"
+        "league": "Your League Name"
       },
       "makePrivate": {
         "notLoggedIn": "Must be logged in to make private leagues.",

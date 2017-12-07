@@ -8,7 +8,7 @@ App.info({
   author: "Totterup",
   email: "dev@conradj.co.uk",
   website: "https://totterup.com",
-  version: "0.0.2"
+  version: "0.0.3"
 });
 
 App.icons({
