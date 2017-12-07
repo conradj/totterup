@@ -109,8 +109,8 @@ export default class LeaguePage extends BaseComponent {
           ) : (
             PlayersComponent
           )}
-          <PlayerAdd league={league} />
-          {players.length > 1 ? (
+          {league.editableBy() ? <PlayerAdd league={league} /> : null}
+          {league.editableBy() && players.length > 1 ? (
             <NewGameButton leagueId={league._id} players={players} />
           ) : null}
           {Instructions}
