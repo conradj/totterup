@@ -1,6 +1,6 @@
 {
   "name": "totterup",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "config": { "keypass": "mypassword" },
   "scripts": {
     "pretest": "npm run lint --silent",
@@ -26,7 +26,7 @@
     "android-sign-apk":
       "jarsigner -keystore ~/.keystore -storepass $npm_package_config_keypass ~/mobile-build/v$npm_package_version/android/release-unsigned.apk TotterUp!",
     "android-zipalign-apk":
-      "$ANDROID_HOME/build-tools/27.0.0/zipalign 4 ~/mobile-build/android/release-unsigned.apk ~/mobile-build/v$npm_package_version/android/TotterUp_v$npm_package_version.apk",
+      "$ANDROID_HOME/build-tools/27.0.0/zipalign 4 ~/mobile-build/v$npm_package_version/android/release-unsigned.apk ~/mobile-build/v$npm_package_version/android/TotterUp_v$npm_package_version.apk",
     "android-release-apk":
       "npm run mobile-build && npm run android-sign-apk && npm run android-zipalign-apk"
   },
