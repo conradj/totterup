@@ -99,7 +99,12 @@ export default class LeaguePage extends BaseComponent {
         </div>
       );
     }
-
+    let inviteBgStyle = "";
+    let inviteTextStyle = "";
+    if (league.inviteCode) {
+      inviteBgStyle = { backgroundColor: `#${league.inviteCode}` };
+      inviteTextStyle = { color: `#${league.inviteCode}` };
+    }
     return (
       <div className="page leagues-show">
         <LeagueHeader league={league} />
@@ -114,6 +119,23 @@ export default class LeaguePage extends BaseComponent {
             <NewGameButton leagueId={league._id} players={players} />
           ) : null}
           {Instructions}
+          {league.inviteCode ? (
+            <div className="league-invite-container">
+              <span>This is your league invite code.</span>
+              <div className="league-invite-code" style={inviteBgStyle}>
+                <span style={inviteTextStyle}>{league.inviteCode}</span>
+              </div>
+              <div className="league-invite-description">
+                You can give it to other TotterUp users so they can join your
+                league!
+              </div>
+              <div className="league-invite-subdescription">
+                You can create players that aren't already TotterUp users
+                yourself, but then you'll need to link their account later on if
+                they sign up.
+              </div>
+            </div>
+          ) : null}
           <GameList games={this.props.games} />
         </div>
       </div>

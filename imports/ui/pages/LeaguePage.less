@@ -1,4 +1,4 @@
-@import '{}/imports/ui/stylesheets/utils.less';
+@import "{}/imports/ui/stylesheets/utils.less";
 
 .page.leagues-show {
   .content-scrollable {
@@ -24,5 +24,22 @@
       background-color: #d4ecf4;
       cursor: pointer;
     }
+  }
+}
+
+.league-invite-container {
+  padding: 1em;
+  .league-invite-code {
+    border-radius: 0.1em;
+    text-align: center;
+    font-size: 2em;
+    background-color: #000;
+    span {
+      -webkit-filter: invert(100%);
+      filter: invert(100%);
+    }
+  }
+  .league-invite-subdescription {
+    font-size: 0.6em;
   }
 }
