@@ -10,7 +10,7 @@ import Message from "../components/Message.jsx";
 import NewGameButton from "../components/NewGameButton.jsx";
 
 export default class LeaguePage extends BaseComponent {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
@@ -28,8 +28,11 @@ export default class LeaguePage extends BaseComponent {
     const playersByScore = [];
     players.forEach(player => {
       const loadedPlayer = player;
-      loadedPlayer.score = player.scores().fetch().reduce((sum, score) => sum + score.score, 0);
-      playersByScore.push(loadedPlayer); 
+      loadedPlayer.score = player
+        .scores()
+        .fetch()
+        .reduce((sum, score) => sum + score.score, 0);
+      playersByScore.push(loadedPlayer);
     });
 
     playersByScore.sort((p, p2) => {
@@ -39,31 +42,34 @@ export default class LeaguePage extends BaseComponent {
         return 1;
       }
 
-      if (p.text < p2.text) { 
+      if (p.text < p2.text) {
         return -1;
       } else if (p.text > p2.text) {
-          return 1
-      } else { // nothing to split them
-          return 0;
+        return 1;
+      } else {
+        // nothing to split them
+        return 0;
       }
     });
 
-    const PlayersComponent = <div className="league-standings">
-      { playersByScore.map((player, index) => 
-        <PlayerItem
-          linkUrl={`/leagues/${league._id}/players/${player._id}`}
-          position={index + 1}
-          player={player}
-          score={player.score}
-          key={player._id}
-        />
-      )}
+    const PlayersComponent = (
+      <div className="league-standings">
+        {playersByScore.map((player, index) => (
+          <PlayerItem
+            linkUrl={`/leagues/${league._id}/players/${player._id}`}
+            position={index + 1}
+            player={player}
+            score={player.score}
+            key={player._id}
+          />
+        ))}
       </div>
-    
+    );
+
     let Instructions;
     let GameButton;
 
-    if( players.length == 0 ) {
+    if (players.length == 0) {
       Instructions = (
         <Message
           title={i18n.__("pages.leaguePage.noPlayers")}
@@ -72,7 +78,7 @@ export default class LeaguePage extends BaseComponent {
       );
     }
 
-    if( players.length == 1 ) {
+    if (players.length == 1) {
       Instructions = (
         <Message
           title={i18n.__("pages.leaguePage.needMorePlayers")}
@@ -81,7 +87,7 @@ export default class LeaguePage extends BaseComponent {
       );
     }
 
-    if( players.length > 1 ) {
+    if (players.length > 1) {
       GameButton = (
         <div className="-league-new-game">
           <div className="user-menu">
@@ -98,15 +104,17 @@ export default class LeaguePage extends BaseComponent {
       <div className="page leagues-show">
         <LeagueHeader league={league} />
         <div className="content-scrollable list-items">
-          {loading
-            ? <Message title={i18n.__("pages.leaguePage.loading")} />
-            : PlayersComponent }
-          <PlayerAdd league={league} />
-          { players.length > 1 
-            ? <NewGameButton leagueId={league._id} players={players}/> 
-            : null }
-          { Instructions }
-          <GameList games={this.props.games } />
+          {loading ? (
+            <Message title={i18n.__("pages.leaguePage.loading")} />
+          ) : (
+            PlayersComponent
+          )}
+          {league.editableBy() ? <PlayerAdd league={league} /> : null}
+          {league.editableBy() && players.length > 1 ? (
+            <NewGameButton leagueId={league._id} players={players} />
+          ) : null}
+          {Instructions}
+          <GameList games={this.props.games} />
         </div>
       </div>
     );
@@ -122,5 +130,5 @@ LeaguePage.propTypes = {
 };
 
 LeaguePage.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };
