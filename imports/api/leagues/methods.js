@@ -5,6 +5,7 @@ import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
 import { _ } from "meteor/underscore";
 
 import { Leagues } from "./leagues.js";
+import { insert as insertPlayer } from "../players/methods.js";
 
 const LEAGUE_ID_ONLY = new SimpleSchema({
   leagueId: { type: String }
@@ -148,9 +149,40 @@ export const remove = new ValidatedMethod({
   }
 });
 
+export const useInvite = new ValidatedMethod({
+  name: "leagues.useInvite",
+  validate(args) {
+    new SimpleSchema({
+      inviteCode: { type: String }
+    }).validate(args);
+  },
+  run({ inviteCode }) {
+    const league = Leagues.findOne({ inviteCode: inviteCode });
+
+    if (league) {
+      const player = insertPlayer.call(
+        {
+          leagueId: league._id,
+          text: "Your league nickname",
+          userId: this.userId
+        },
+        err => {
+          if (err) {
+            console.log(err);
+            return { inviteValid: false, reason: err };
+          }
+        }
+      );
+      return { inviteValid: true, player: player };
+    } else {
+      return { inviteValid: false, reason: "Code not valid" };
+    }
+  }
+});
+
 // Get list of all method names on Leagues
 const LEAGUES_METHODS = _.pluck(
-  [insert, makePublic, makePrivate, updateName, remove],
+  [insert, makePublic, makePrivate, updateName, remove, useInvite],
   "name"
 );
 

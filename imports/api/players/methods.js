@@ -11,12 +11,14 @@ export const insert = new ValidatedMethod({
   name: "players.insert",
   validate: new SimpleSchema({
     leagueId: { type: String },
-    text: { type: String }
+    text: { type: String },
+    userId: { type: String, optional: true }
   }).validator(),
-  run({ leagueId, text }) {
+  run({ leagueId, text, userId }) {
     const league = Leagues.findOne(leagueId);
-
-    if (!league.editableBy()) {
+    const addingAsInvite = (userId && userId === this.userId) || false;
+    
+    if (!addingAsInvite && !league.editableBy()) {
       throw new Meteor.Error(
         "api.players.insert.accessDenied",
         "Cannot add players to league that is not yours"
@@ -26,11 +28,19 @@ export const insert = new ValidatedMethod({
     const player = {
       leagueId,
       text,
+      userId,
       checked: false,
       createdAt: new Date()
     };
+    if (addingAsInvite) {
+      Meteor.users.update(this.userId, {
+        $addToSet: {
+          inLeagues: leagueId
+        }
+      });
+    }
 
-    Players.insert(player);
+    return Players.insert(player);
   }
 });
 
