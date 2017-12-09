@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import i18n from "meteor/universe:i18n";
 import BaseComponent from "./BaseComponent.jsx";
 import LeagueAdd from "./LeagueAdd.jsx";
+import LeagueJoin from "./LeagueJoin.jsx";
 
 export default class LeagueList extends BaseComponent {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class LeagueList extends BaseComponent {
 
     return (
       <div className="league-players">
+        <LeagueJoin />
         <LeagueAdd />
         {leagues.map(league => (
           <Link
