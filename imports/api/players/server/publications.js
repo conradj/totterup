@@ -13,14 +13,23 @@ Meteor.publishComposite("players", function players() {
     find() {
       return Meteor.users.find(
         { _id: userId },
-        { fields: { ownedLeagues: 1 } }
+        { fields: { ownedLeagues: 1, inLeagues: 1 } }
       );
     },
     children: [
       {
         find(user) {
           return Players.find(
-            { leagueId: { $in: user.ownedLeagues } },
+            {
+              $or: [
+                {
+                  leagueId: { $in: user.ownedLeagues }
+                },
+                {
+                  userId: this.userId
+                }
+              ]
+            },
             { fields: Players.publicFields }
           );
         }
