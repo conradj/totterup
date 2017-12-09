@@ -97,7 +97,7 @@ Players.helpers({
     return Leagues.findOne(this.leagueId);
   },
   editableBy() {
-    return this.league().editableBy();
+    return this.league().editableBy() || this.userId === Meteor.user()._id;
   },
   scores() {
     return Scores.find({ playerId: this._id }, { sort: { createdAt: -1 } });
