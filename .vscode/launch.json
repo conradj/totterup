@@ -1,22 +1,28 @@
 {
-        "version": "0.2.0",
-        "configurations": [
-            {
-                "type": "node",
-                "request": "launch",
-                "name": "Meteor Server",
-                "cwd": "${workspaceRoot}/",
-                "runtimeExecutable": "${workspaceRoot}/.meteor/local/dev_bundle/bin/npm",
-                "restart": true,
-                "timeout": 100000,
-                "stopOnEntry":false,
-                "runtimeArgs": [
-                    "run",
-                    "dev-debug"
-                ],
-                "sourceMaps": true,
-                "protocol": "inspector",
-                "port": 5959
-            }
-        ]
+  "version": "0.2.0",
+  "console": "externalTerminal",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Meteor: Chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceRoot}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Meteor: Node",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "debug"],
+      "port": 9229,
+      "timeout": 300000
     }
+  ],
+  "compounds": [
+    {
+      "name": "Meteor: All",
+      "configurations": ["Meteor: Node", "Meteor: Chrome"]
+    }
+  ]
+}
