@@ -26,22 +26,15 @@ export default class LeagueJoin extends BaseComponent {
 
   joinLeague() {
     const { router } = this.context;
-    const invite = useInvite.call(
-      {
-        inviteCode: this.inviteCode.value
-      },
-      err => {
-        if (err) {
-          console.log(err);
-        }
-      }
-    );
-    
+    const invite = useInvite.call({
+      inviteCode: this.inviteCode.value
+    });
+
+    console.log("inviteres", invite);
+
     if (invite.inviteValid) {
       Session.set("menuOpen", false);
-      router.push(
-        `/leagues/${invite.player.leagueId}/players/${invite.player._id}`
-      );
+      router.push(`/leagues/${invite.leagueId}/players/${invite.playerId}`);
     }
   }
 

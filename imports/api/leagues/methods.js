@@ -160,20 +160,12 @@ export const useInvite = new ValidatedMethod({
     const league = Leagues.findOne({ inviteCode: inviteCode });
 
     if (league) {
-      const player = insertPlayer.call(
-        {
-          leagueId: league._id,
-          text: "Your league nickname",
-          userId: this.userId
-        },
-        err => {
-          if (err) {
-            console.log(err);
-            return { inviteValid: false, reason: err };
-          }
-        }
-      );
-      return { inviteValid: true, player: player };
+      const playerId = insertPlayer.call({
+        leagueId: league._id,
+        text: "Your league nickname",
+        userId: this.userId
+      });
+      return { inviteValid: true, leagueId: league._id, playerId: playerId };
     } else {
       return { inviteValid: false, reason: "Code not valid" };
     }
