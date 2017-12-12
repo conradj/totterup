@@ -24,33 +24,31 @@ export const insert = new ValidatedMethod({
         "Cannot add players to league that is not yours"
       );
     }
-
+    let player = {
+      leagueId,
+      text,
+      checked: false,
+      createdAt: new Date()
+    };
     if (addingAsInvite) {
       Meteor.users.update(this.userId, {
         $addToSet: {
           inLeagues: leagueId
         }
       });
+      // only add 1 player with that user Id to the league
+      const existingPlayerIdForUser = Players.findOne(
+        {
+          userId: userId,
+          leagueId: leagueId
+        },
+        { fields: { _id: 1 } }
+      );
+      if (existingPlayerIdForUser) {
+        return existingPlayerIdForUser;
+      }
+      player.userId = this.userId;
     }
-
-    // only add 1 player with that user Id to the league
-    const existingPlayerIdForUser = Players.find({
-      userId: userId,
-      leagueId: leagueId
-    });
-
-    if (existingPlayerIdForUser) {
-      return existingPlayerIdForUser;
-    }
-
-    const player = {
-      leagueId,
-      text,
-      userId,
-      checked: false,
-      createdAt: new Date()
-    };
-
     return Players.insert(player);
   }
 });
