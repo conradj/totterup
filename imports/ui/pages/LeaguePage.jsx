@@ -118,7 +118,6 @@ export default class LeaguePage extends BaseComponent {
           {league.editableBy() && players.length > 1 ? (
             <NewGameButton leagueId={league._id} players={players} />
           ) : null}
-          {Instructions}
           {league.inviteCode ? (
             <div className="league-invite" style={inviteBgStyle}>
               <a
@@ -128,13 +127,17 @@ export default class LeaguePage extends BaseComponent {
                   league.inviteCode
                 }.`}
               >
-                <div className="league-invite-container">
+                <div
+                  className="league-invite-container"
+                  style={inviteTextStyle}
+                >
                   <p>{i18n.__("pages.leaguePage.inviteCode")}:</p>
                   <p className="league-invite-code">{league.inviteCode}</p>
                 </div>
               </a>
             </div>
           ) : null}
+          {Instructions}
           <GameList games={this.props.games} />
         </div>
       </div>
