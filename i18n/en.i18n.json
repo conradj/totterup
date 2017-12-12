@@ -25,6 +25,7 @@
     },
     "leagueList": {
       "newLeague": "New League",
+      "joinLeague": "Join League",
       "newLeagueError": "Could not create league."
     },
     "playerHeader": {
@@ -85,7 +86,8 @@
       "noGames": "No games here",
       "addAbove": "Add more players to play a game!",
       "loading": "Loading players...",
-      "playGame": "Play new game"
+      "playGame": "Play new game",
+      "inviteCode": "Invite code"
     },
     "notFoundPage": {
       "pageNotFound": "Page not found"
