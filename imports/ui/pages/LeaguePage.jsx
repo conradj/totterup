@@ -120,20 +120,19 @@ export default class LeaguePage extends BaseComponent {
           ) : null}
           {Instructions}
           {league.inviteCode ? (
-            <div className="league-invite-container">
-              <span>This is your league invite code.</span>
-              <div className="league-invite-code" style={inviteBgStyle}>
-                <span style={inviteTextStyle}>{league.inviteCode}</span>
-              </div>
-              <div className="league-invite-description">
-                You can give it to other TotterUp users so they can join your
-                league!
-              </div>
-              <div className="league-invite-subdescription">
-                You can create players that aren't already TotterUp users
-                yourself, but then you'll need to link their account later on if
-                they sign up.
-              </div>
+            <div className="league-invite" style={inviteBgStyle}>
+              <a
+                href={`mailto:?subject=TotterUp League Invite!&body=Hi! You've been invited to join the TotterUp league "${
+                  league.text
+                }"! Login at https://totterup.com and join league using the code ${
+                  league.inviteCode
+                }.`}
+              >
+                <div className="league-invite-container">
+                  <p>{i18n.__("pages.leaguePage.inviteCode")}:</p>
+                  <p className="league-invite-code">{league.inviteCode}</p>
+                </div>
+              </a>
             </div>
           ) : null}
           <GameList games={this.props.games} />

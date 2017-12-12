@@ -3,7 +3,7 @@
 .page.leagues-show {
   .content-scrollable {
     background: @color-empty;
-    top: 5em !important;
+    top: 5rem !important;
   }
   .wrapper-message {
     // override the default positioning for messages
@@ -13,7 +13,7 @@
 }
 
 .league-standings {
-  font-size: 1em;
+  font-size: 1rem;
   .list-item {
     padding-left: 0px;
     height: 100%;
@@ -27,19 +27,28 @@
   }
 }
 
-.league-invite-container {
-  padding: 1em;
-  .league-invite-code {
-    border-radius: 0.1em;
+.league-invite {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+
+  .league-invite-container {
+    padding: 1rem;
+    border-radius: 0.3rem;
     text-align: center;
-    font-size: 2em;
-    background-color: #000;
-    span {
-      -webkit-filter: invert(100%);
-      filter: invert(100%);
-    }
+    font-size: 2rem;
+    filter: invert(100%);
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .league-invite-code {
+    font-size: 2rem;
+  }
+  .league-invite-description {
+    display: none;
+    font-size: 0.6rem;
   }
   .league-invite-subdescription {
-    font-size: 0.6em;
+    display: none;
+    font-size: 0.6rem;
   }
 }
