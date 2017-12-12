@@ -80,10 +80,10 @@
       "sendResetLink": "Send password reset link"
     },
     "leaguePage": {
-      "noPlayers": "No players here",
-      "needMorePlayers": "Not enough players here",
+      "noPlayers": "",
+      "needMorePlayers": "",
       "noGames": "No games here",
-      "addAbove": "Add new players before playing!",
+      "addAbove": "Add more players to play a game!",
       "loading": "Loading players...",
       "playGame": "Play new game"
     },
