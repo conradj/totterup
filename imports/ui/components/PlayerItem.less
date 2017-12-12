@@ -1,84 +1,87 @@
-@import '{}/imports/ui/stylesheets/utils.less';
+@import "{}/imports/ui/stylesheets/utils.less";
 .player-item {
-    .player-container {
-        font-size: 2.5em;
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: repeat(2, 1em);
+  .player-container {
+    font-size: 2.5em;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1em);
 
-        // &.position1 {
-        //     font-size: 2.5em;
-        // }
-        // &.position2 {
-        //     font-size: 2em;
-        // }
+    // &.position1 {
+    //     font-size: 2.5em;
+    // }
+    // &.position2 {
+    //     font-size: 2em;
+    // }
 
-        .player-image {
-            grid-column-start: 1;
-            grid-column-end: 3;
-            grid-row-start: 1;
-            grid-row-end: 2;
-            border-radius: 1em;
-            background: #73AD21;
-            width: 2em;
-            height: 2em;
-            background-size: cover;
-            background-image: url(https://pbs.twimg.com/profile_images/758655250307878912/v74fXDSO_400x400.jpg);
-        }
-
-        .player-name {
-            grid-column-start: 4;
-            grid-column-end: 13;
-            grid-row-start: 1;
-            grid-row-end: 1;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            height: 1.2em; // for descenders
-        }
-
-        .player-position {
-            grid-column-start: 4;
-            grid-column-end: 8;
-            grid-row-start: 2;
-            grid-row-end: 2;
-            width: 2em;
-            height: 1em;
-            font-size: 1em;
-        }
-
-        .player-score {
-            grid-column-start: 9;
-            grid-column-end: 13;
-            grid-row-start: 2;
-            grid-row-end: 2;
-            text-align: right;
-            SPAN {
-                font-size: 12px;
-                color: rgb(36, 35, 35);
-            }
-        }
+    .player-image {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 2;
+      border-radius: 1em;
+      background: #73ad21;
+      width: 2em;
+      height: 2em;
+      background-size: cover;
+      background-image: url(https://pbs.twimg.com/profile_images/758655250307878912/v74fXDSO_400x400.jpg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .position1 {
-        color: rgb(201,137,16);
-        // .player-image {
-        //     width: 2.5em;
-        //     height: 2.5em;
-        // }
-    }
-    
-    .position2 {
-        color: rgb(168,168,168);
-        // .player-image {
-        //     width: 2.2em;
-        //     height: 2.2em;
-        // }
-    }
-    
-    .position3 {
-        color: rgb(150,90,56);
+    .player-name {
+      grid-column-start: 4;
+      grid-column-end: 13;
+      grid-row-start: 1;
+      grid-row-end: 1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      height: 1.2em; // for descenders
     }
 
-    padding: 0.75em 3em;    
+    .player-position {
+      grid-column-start: 4;
+      grid-column-end: 8;
+      grid-row-start: 2;
+      grid-row-end: 2;
+      width: 2em;
+      height: 1em;
+      font-size: 1em;
+    }
+
+    .player-score {
+      grid-column-start: 9;
+      grid-column-end: 13;
+      grid-row-start: 2;
+      grid-row-end: 2;
+      text-align: right;
+      span {
+        font-size: 12px;
+        color: rgb(36, 35, 35);
+      }
+    }
+  }
+
+  .position1 {
+    color: rgb(201, 137, 16);
+    // .player-image {
+    //     width: 2.5em;
+    //     height: 2.5em;
+    // }
+  }
+
+  .position2 {
+    color: rgb(168, 168, 168);
+    // .player-image {
+    //     width: 2.2em;
+    //     height: 2.2em;
+    // }
+  }
+
+  .position3 {
+    color: rgb(150, 90, 56);
+  }
+
+  padding: 0.75em 3em;
 }
