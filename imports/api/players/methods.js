@@ -17,12 +17,30 @@ export const insert = new ValidatedMethod({
   run({ leagueId, text, userId }) {
     const league = Leagues.findOne(leagueId);
     const addingAsInvite = (userId && userId === this.userId) || false;
-    
+
     if (!addingAsInvite && !league.editableBy()) {
       throw new Meteor.Error(
         "api.players.insert.accessDenied",
         "Cannot add players to league that is not yours"
       );
+    }
+
+    if (addingAsInvite) {
+      Meteor.users.update(this.userId, {
+        $addToSet: {
+          inLeagues: leagueId
+        }
+      });
+    }
+
+    // only add 1 player with that user Id to the league
+    const existingPlayerIdForUser = Players.find({
+      userId: userId,
+      leagueId: leagueId
+    });
+
+    if (existingPlayerIdForUser) {
+      return existingPlayerIdForUser;
     }
 
     const player = {
@@ -32,13 +50,6 @@ export const insert = new ValidatedMethod({
       checked: false,
       createdAt: new Date()
     };
-    if (addingAsInvite) {
-      Meteor.users.update(this.userId, {
-        $addToSet: {
-          inLeagues: leagueId
-        }
-      });
-    }
 
     return Players.insert(player);
   }
@@ -133,6 +144,14 @@ export const remove = new ValidatedMethod({
         "api.players.remove.accessDenied",
         "Cannot remove players in a league that is not yours"
       );
+    }
+
+    if (player.userId) {
+      Meteor.users.update(this.userId, {
+        $pull: {
+          inLeagues: player.leagueId
+        }
+      });
     }
 
     Players.remove(playerId);
