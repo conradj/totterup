@@ -36,7 +36,11 @@ export default class PlayerItem extends BaseComponent {
       <div className="player-item">
         <div className={positionClassName}>
           <div className="player-image" style={backgroundStyle}>
-            <div>+</div>
+            <div>
+              {player.editableBy() && !player.avatar ? (
+                <span className="icon-edit" />
+              ) : null}
+            </div>
           </div>
           <div className="player-position">
             <span>
