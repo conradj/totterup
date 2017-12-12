@@ -23,7 +23,7 @@ export default class LeagueList extends BaseComponent {
           className="league-join"
           activeClassName="active"
         >
-          <span className="icon-user-add" />Join a League
+          <span className="icon-user-add" />{i18n.__("components.leagueList.joinLeague")}
         </Link>
         <LeagueAdd />
         {leagues.map(league => (
