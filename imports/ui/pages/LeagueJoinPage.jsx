@@ -11,56 +11,116 @@ export default class LeagueJoinPage extends BaseComponent {
   constructor(props) {
     super(props);
     this.joinLeague = this.joinLeague.bind(this);
+    //this.onInviteFormBlur = this.onInviteFormBlur.bind(this);
     this.onInviteFormSubmit = this.onInviteFormSubmit.bind(this);
-    this.onInviteInputBlur = this.onInviteInputBlur.bind(this);
+    this.onInviteInputKeyUp = this.onInviteInputKeyUp.bind(this);
+
+    this.state = { validCode: true, checking: false, message: "" };
   }
 
-  onInviteFormSubmit() {
-    this.joinLeague();
-  }
-
-  onInviteInputBlur() {
-    this.joinLeague();
-  }
-
-  joinLeague() {
-    const { router } = this.context;
-    const invite = useInvite.call({
-      inviteCode: this.inviteCode.value
+  onInviteFormSubmit(event) {
+    this.setState({
+      checking: true,
+      message: i18n.__("pages.leagueInvitePage.checkingCode")
     });
+    this.joinLeague(event);
+  }
 
-    if (invite.inviteValid) {
-      Session.set("menuOpen", false);
-      router.push(`/leagues/${invite.leagueId}/players/${invite.playerId}`);
+  onInviteInputKeyUp(event) {
+    // clear validation message when start typing
+    if (event.keyCode !== 13) {
+      this.setState({ validCode: true, message: "" });
     }
   }
 
+  joinLeague(event) {
+    const { router } = this.context;
+    event.preventDefault();
+
+    useInvite.call(
+      {
+        inviteCode: this.inviteCode.value
+      },
+      (err, invite) => {
+        this.setState({ checking: false });
+        if (err) {
+          console.log(err);
+          this.setState({
+            validCode: false,
+            message: i18n.__("pages.leagueInvitePage.exception")
+          });
+        } else {
+          if (invite.inviteValid) {
+            this.setState({
+              message: i18n.__("pages.leagueInvitePage.success")
+            });
+            Session.set("menuOpen", false);
+            router.push(
+              `/leagues/${invite.leagueId}/players/${invite.playerId}`
+            );
+          } else {
+            this.setState({
+              validCode: false,
+              message: i18n.__("pages.leagueInvitePage.invalidCode")
+            });
+          }
+        }
+      }
+    );
+  }
+
   render() {
+    const { checking, validCode, message } = this.state;
     return (
-      <div>
-        <MobileMenu />
-        <div>
-          {Meteor.userId() ? (
-            <form
-              className="user-invite-form"
-              onSubmit={this.onInviteFormSubmit}
-            >
-              <input
-                type="text"
-                name="inviteCode"
-                autoComplete="off"
-                ref={c => {
-                  this.inviteCode = c;
-                }}
-                onKeyUp={this.onInviteInputKeyUp}
-                onBlur={this.onInviteInputBlur}
-                placeholder={i18n.__(
-                  "components.leagueList.inviteCodePlaceholder"
-                )}
-              />
-            </form>
-          ) : null}
-        </div>
+      <div className="page leagues-invite">
+        {Meteor.userId() ? (
+          <form className="user-invite-form" onSubmit={this.onInviteFormSubmit}>
+            <nav className="leagues-invite-header">
+              <MobileMenu />
+              <h1 className="title-page">
+                <span className="title-wrapper">
+                  {i18n.__("pages.leagueInvitePage.inviteHeader")}
+                </span>
+              </h1>
+            </nav>
+
+            <div className="league-invite-container">
+              <div className="league-invite-title">
+                {i18n.__("pages.leagueInvitePage.inviteInstructions")}:
+              </div>
+              <div className="league-invite-form-container">
+                <input
+                  className="invite-form-input"
+                  type="text"
+                  name="inviteCode"
+                  autoComplete="off"
+                  ref={c => {
+                    this.inviteCode = c;
+                  }}
+                  onBlur={this.onInviteInputBlur}
+                  onKeyUp={this.onInviteInputKeyUp}
+                  placeholder={i18n.__(
+                    "pages.leagueInvitePage.inviteCodePlaceholder"
+                  )}
+                />
+              </div>
+              <div className="league-invite-action">
+                <button type="submit" className="btn-primary">
+                  {i18n.__("pages.leagueInvitePage.joinAction")}
+                </button>
+              </div>
+              <div
+                className={
+                  validCode
+                    ? "league-invite-message"
+                    : "league-invite-message error"
+                }
+              >
+                {message}
+              </div>
+            </div>
+          </form>
+        ) : null}
       </div>
     );
   }
