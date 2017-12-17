@@ -89,6 +89,16 @@
       "playGame": "Play new game",
       "inviteCode": "Invite code"
     },
+    "leagueInvitePage": {
+      "inviteHeader": "Join a League now!",
+      "inviteCodePlaceholder": "e.g. bada55",
+      "inviteInstructions": "Enter your league invite code",
+      "joinAction": "Join League",
+      "exception": "Error: check console for details.",
+      "success": "Joined League!",
+      "invalidCode": "Code not valid!",
+      "checkingCode": "Checking invite code..."
+    },
     "notFoundPage": {
       "pageNotFound": "Page not found"
     }
