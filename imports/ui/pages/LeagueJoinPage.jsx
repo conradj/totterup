@@ -11,10 +11,8 @@ export default class LeagueJoinPage extends BaseComponent {
   constructor(props) {
     super(props);
     this.joinLeague = this.joinLeague.bind(this);
-    //this.onInviteFormBlur = this.onInviteFormBlur.bind(this);
     this.onInviteFormSubmit = this.onInviteFormSubmit.bind(this);
     this.onInviteInputKeyUp = this.onInviteInputKeyUp.bind(this);
-
     this.state = { validCode: true, checking: false, message: "" };
   }
 
@@ -97,7 +95,6 @@ export default class LeagueJoinPage extends BaseComponent {
                   ref={c => {
                     this.inviteCode = c;
                   }}
-                  onBlur={this.onInviteInputBlur}
                   onKeyUp={this.onInviteInputKeyUp}
                   placeholder={i18n.__(
                     "pages.leagueInvitePage.inviteCodePlaceholder"
