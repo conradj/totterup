@@ -37,15 +37,15 @@ export const insert = new ValidatedMethod({
         }
       });
       // only add 1 player with that user Id to the league
-      const existingPlayerIdForUser = Players.findOne(
+      const existingPlayerForUser = Players.findOne(
         {
           userId: userId,
           leagueId: leagueId
         },
-        { fields: { _id: 1 } }
+        { fields: Players.publicFields }
       );
-      if (existingPlayerIdForUser) {
-        return existingPlayerIdForUser;
+      if (existingPlayerForUser) {
+        return existingPlayerForUser._id;
       }
       player.userId = this.userId;
     }

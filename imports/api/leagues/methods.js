@@ -167,7 +167,7 @@ export const useInvite = new ValidatedMethod({
       });
       return { inviteValid: true, leagueId: league._id, playerId: playerId };
     } else {
-      return { inviteValid: false, reason: "Code not valid" };
+      return { inviteValid: false };
     }
   }
 });
