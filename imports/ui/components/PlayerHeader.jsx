@@ -1,17 +1,13 @@
 /* global confirm */
 
-import React from 'react';
-import i18n from 'meteor/universe:i18n';
-import { Link } from 'react-router';
-import BaseComponent from './BaseComponent.jsx';
-import MobileMenu from './MobileMenu.jsx';
-import { displayError } from '../helpers/errors.js';
+import React from "react";
+import i18n from "meteor/universe:i18n";
+import { Link } from "react-router";
+import BaseComponent from "./BaseComponent.jsx";
+import MobileMenu from "./MobileMenu.jsx";
+import { displayError } from "../helpers/errors.js";
 
-import {
-  updateName,
-  remove,
-  insert,
-} from '../../api/players/methods.js';
+import { updateName, remove, insert } from "../../api/players/methods.js";
 
 export default class PlayerHeader extends BaseComponent {
   constructor(props) {
@@ -45,14 +41,17 @@ export default class PlayerHeader extends BaseComponent {
   }
 
   onPlayerDropdownAction(event) {
-    if (event.target.value === 'delete') {
+    if (event.target.value === "delete") {
       this.deletePlayer();
     }
   }
 
-  editPlayer() {
+  editPlayer(selectText) {
     this.setState({ editing: true }, () => {
       this.playerNameInput.focus();
+      if (selectText) {
+        this.playerNameInput.select();
+      }
     });
   }
 
@@ -62,19 +61,24 @@ export default class PlayerHeader extends BaseComponent {
 
   savePlayer() {
     this.setState({ editing: false });
-    updateName.call({
-      playerId: this.props.player._id,
-      newName: this.playerNameInput.value,
-    }, displayError);
+    updateName.call(
+      {
+        playerId: this.props.player._id,
+        newName: this.playerNameInput.value
+      },
+      displayError
+    );
   }
 
   deletePlayer() {
     const player = this.props.player;
     const leagueId = player.leagueId;
-    const message =
-      `${i18n.__('components.playerHeader.deleteConfirm')} ${player.text}?`;
+    const message = `${i18n.__("components.playerHeader.deleteConfirm")} ${
+      player.text
+    }?`;
 
-    if (confirm(message)) { // eslint-disable-line no-alert
+    if (confirm(message)) {
+      // eslint-disable-line no-alert
       remove.call({ playerId: player._id }, displayError);
       this.context.router.push(`/leagues/${leagueId}`);
     }
@@ -105,10 +109,10 @@ export default class PlayerHeader extends BaseComponent {
               onChange={this.onPlayerDropdownAction}
             >
               <option disabled value="default">
-                {i18n.__('components.playerHeader.selectAction')}
+                {i18n.__("components.playerHeader.selectAction")}
               </option>
               <option value="delete">
-                {i18n.__('components.playerHeader.delete')}
+                {i18n.__("components.playerHeader.delete")}
               </option>
             </select>
             <span className="icon-cog" />
@@ -117,7 +121,7 @@ export default class PlayerHeader extends BaseComponent {
             <a className="nav-item trash" onClick={this.deletePlayer}>
               <span
                 className="icon-trash"
-                title={i18n.__('components.playerHeader.deletePlayer')}
+                title={i18n.__("components.playerHeader.deletePlayer")}
               />
             </a>
           </div>
@@ -134,7 +138,9 @@ export default class PlayerHeader extends BaseComponent {
           type="text"
           name="name"
           autoComplete="off"
-          ref={(c) => { this.playerNameInput = c; }}
+          ref={c => {
+            this.playerNameInput = c;
+          }}
           defaultValue={player.text}
           onKeyUp={this.onPlayerInputKeyUp}
           onBlur={this.onPlayerInputBlur}
@@ -147,9 +153,12 @@ export default class PlayerHeader extends BaseComponent {
           >
             <span
               className="icon-close"
-              title={i18n.__('components.playerHeader.cancel')}
+              title={i18n.__("components.playerHeader.cancel")}
             />
           </a>
+        </div>
+        <div className="player-header title-page instructions">
+          {i18n.__("components.playerHeader.instructions")}
         </div>
       </form>
     );
@@ -163,12 +172,23 @@ export default class PlayerHeader extends BaseComponent {
       </nav>
     );
   }
+
+  componentDidMount() {
+    if (
+      this.props.player.text ===
+      i18n.__("api.players.insert.defaultName", null, {
+        _locale: "en"
+      })
+    ) {
+      this.editPlayer(true);
+    }
+  }
 }
 
 PlayerHeader.propTypes = {
-  player: React.PropTypes.object,
+  player: React.PropTypes.object
 };
 
 PlayerHeader.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

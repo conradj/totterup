@@ -21,7 +21,8 @@
       "cancel": "Cancel",
       "typeToAdd": "Type to add new players",
       "typeToAddGame": "Type to add new game",
-      "placeholder": "League Name"
+      "placeholder": "League Name",
+      "instructions": "Set your league name!"
     },
     "leagueList": {
       "newLeague": "New League",
@@ -33,7 +34,8 @@
       "selectAction": "Select an action",
       "delete": "Delete",
       "deletePlayer": "Delete player",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "instructions": "Set your league nickname!"
     },
     "loading": {
       "loading": "Loading"
@@ -126,6 +128,7 @@
     },
     "players": {
       "insert": {
+        "defaultName": "Your league nickname",
         "accessDenied":
           "Cannot add players to a private league that is not yours"
       },

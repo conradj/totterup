@@ -196,6 +196,9 @@ export default class LeagueHeader extends BaseComponent {
             />
           </a>
         </div>
+        <div className="league-header title-page instructions">
+          {i18n.__("components.leagueHeader.instructions")}
+        </div>
       </form>
     );
   }
