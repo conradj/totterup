@@ -42,36 +42,50 @@ export default class LeagueInvite extends BaseComponent {
       inviteTextStyle = { color: `#${league.inviteCode}` };
     }
 
+    const emailSubject = i18n.__("components.leagueInvite.emailSubject");
+    const emailBody =
+      i18n.__("components.leagueInvite.emailBodyPart1") +
+      league.name +
+      i18n.__("components.leagueInvite.emailBodyPart2") +
+      league.inviteCode +
+      i18n.__("components.leagueInvite.emailBodyPart3") +
+      i18n.__("general.email.signature") +
+      "totterUp! " + i18n.__("general.strapline");
+
     return (
       <div className="league-invite-container">
         {league.inviteCode ? (
           <div className="league-invite" style={inviteBgStyle}>
-            <a
-              href={`mailto:?subject=TotterUp League Invite!&body=Hi! You've been invited to join the TotterUp league "${
-                league.text
-              }"! Login at https://totterup.com and join league using the code ${
-                league.inviteCode
-              }.`}
+            <div
+              className="league-invite-code-container"
+              style={inviteTextStyle}
             >
-              <div
-                className="league-invite-code-container"
-                style={inviteTextStyle}
-              >
-                <span className="league-invite-title">
-                  {i18n.__("pages.leaguePage.inviteCode")}:
-                </span>
-                <br />
-                <span className="league-invite-code">{league.inviteCode}</span>
+              <span className="league-invite-title">
+                {i18n.__("components.leagueInvite.code")}:
+              </span>
+              <br />
+              <div className="league-invite-code">
+                {league.inviteCode}
+                &nbsp;
+                <a href={`mailto:?subject=${emailSubject}&body=${emailBody}`}>
+                  <span
+                    className="icon-email"
+                    style={inviteTextStyle}
+                    title={i18n.__("components.leagueInvite.emailInstructions")}
+                  />
+                </a>
               </div>
-            </a>
+            </div>
           </div>
         ) : null}
-        <a
-          className="league-invite-reset-link"
-          onClick={this.resetLeagueInviteCode}
-        >
-          reset league invite code
-        </a>
+        {league.editableBy() ? (
+          <a
+            className="league-invite-reset-link"
+            onClick={this.resetLeagueInviteCode}
+          >
+            reset league invite code
+          </a>
+        ) : null}
       </div>
     );
   }
