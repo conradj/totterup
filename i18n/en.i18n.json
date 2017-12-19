@@ -1,4 +1,11 @@
 {
+  "general": {
+    "strapline": "Social leagues for sociable gaming.",
+    "email": {
+      "signature":
+        "Yours,%0D%0A%0D%0AThe totterUp! crew%0D%0Adev@totterup.com%0D%0A%0D%0A%0D%0A%0D%0A"
+    }
+  },
   "components": {
     "userMenu": {
       "logout": "Logout",
@@ -23,6 +30,17 @@
       "typeToAddGame": "Type to add new game",
       "placeholder": "League Name",
       "instructions": "Set your league name!"
+    },
+    "leagueInvite": {
+      "code": "Invite code",
+      "emailInstructions": "Email code",
+      "emailSubject": "totterUp! League Invite",
+      "emailBodyPart1":
+        "Hi!%0D%0A%0D%0AYou've been invited to join the totterUp! league '",
+      "emailBodyPart2":
+        "'!%0D%0A%0D%0ALogin at https://totterup.com and join the league using the code: %0D%0A%0D%0A",
+      "emailBodyPart3":
+        "%0D%0A%0D%0A(No login? No worries! It's easy to sign up at https://totterup.com!)%0D%0A%0D%0A%0D%0A%0D%0A"
     },
     "leagueList": {
       "newLeague": "New League",
@@ -88,8 +106,7 @@
       "noGames": "No games here",
       "addAbove": "Add more players to play a game!",
       "loading": "Loading players...",
-      "playGame": "Play new game",
-      "inviteCode": "Invite code"
+      "playGame": "Play new game"
     },
     "leagueInvitePage": {
       "inviteHeader": "Join a League now!",
@@ -100,6 +117,9 @@
       "success": "Joined League!",
       "invalidCode": "Code not valid!",
       "checkingCode": "Checking invite code..."
+    },
+    "gamePage": {
+      "nextGame": "Play next game"
     },
     "notFoundPage": {
       "pageNotFound": "Page not found"
