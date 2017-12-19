@@ -172,9 +172,44 @@ export const useInvite = new ValidatedMethod({
   }
 });
 
+export const resetInviteCode = new ValidatedMethod({
+  name: "leagues.resetInviteCode",
+  validate(args) {
+    new SimpleSchema({
+      leagueId: { type: String }
+    }).validate(args);
+  },
+  run({ leagueId }) {
+    const league = Leagues.findOne(leagueId);
+
+    if (!league.editableBy()) {
+      throw new Meteor.Error(
+        "api.leagues.resetInviteCode.accessDenied",
+        "You don't have permission to edit this league."
+      );
+    }
+
+    // XXX the security check above is not atomic, so in theory a race condition could
+    // result in exposing private data
+    if(Meteor.isServer) {
+      Leagues.update(leagueId, {
+        $set: { inviteCode: generateUniqueInviteCode() }
+      });
+    }
+  }
+});
+
 // Get list of all method names on Leagues
 const LEAGUES_METHODS = _.pluck(
-  [insert, makePublic, makePrivate, updateName, remove, useInvite],
+  [
+    insert,
+    makePublic,
+    makePrivate,
+    updateName,
+    remove,
+    useInvite,
+    resetInviteCode
+  ],
   "name"
 );
 
