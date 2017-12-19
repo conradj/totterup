@@ -67,26 +67,7 @@ export default class LeaguePage extends BaseComponent {
       </div>
     );
 
-    let Instructions;
     let GameButton;
-
-    if (players.length == 0) {
-      Instructions = (
-        <Message
-          title={i18n.__("pages.leaguePage.noPlayers")}
-          subtitle={i18n.__("pages.leaguePage.addAbove")}
-        />
-      );
-    }
-
-    if (players.length == 1) {
-      Instructions = (
-        <Message
-          title={i18n.__("pages.leaguePage.needMorePlayers")}
-          subtitle={i18n.__("pages.leaguePage.addAbove")}
-        />
-      );
-    }
 
     if (players.length > 1) {
       GameButton = (
@@ -110,11 +91,10 @@ export default class LeaguePage extends BaseComponent {
           ) : (
             PlayersComponent
           )}
-          {league.editableBy() ? <PlayerAdd league={league} /> : null}
+          {league.editableBy() ? <PlayerAdd league={league} players={players} /> : null}
           {league.editableBy() && players.length > 1 ? (
             <NewGameButton leagueId={league._id} players={players} />
           ) : null}
-          {Instructions}
           <GameList games={games} />
           <LeagueInvite league={league} />
         </div>
