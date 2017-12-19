@@ -58,7 +58,7 @@ class NewGameButton extends BaseComponent {
         <div className="user-menu">
           <button className="btn-primary link-game-new" onClick={this.playGame}>
             <span className="icon-plus" />
-            {i18n.__("pages.leaguePage.playGame")}
+            {i18n.__("pages.gamePage.nextGame")}
           </button>
         </div>
       </div>
