@@ -18,8 +18,9 @@ import { insert } from "../../api/players/methods.js";
 export default class LeagueHeader extends BaseComponent {
   constructor(props) {
     super(props);
-    this.state = Object.assign(this.state, { editing: false });
+    this.state = Object.assign(this.state, { editing: true });
     this.onLeagueFormSubmit = this.onLeagueFormSubmit.bind(this);
+    this.onLeagueInputFocus = this.onLeagueInputFocus.bind(this);
     this.onLeagueInputKeyUp = this.onLeagueInputKeyUp.bind(this);
     this.onLeagueInputBlur = this.onLeagueInputBlur.bind(this);
     this.onLeagueDropdownAction = this.onLeagueDropdownAction.bind(this);
@@ -39,6 +40,10 @@ export default class LeagueHeader extends BaseComponent {
     if (event.keyCode === 27) {
       this.cancelEdit();
     }
+  }
+
+  onLeagueInputFocus(event) {
+    event.target.select();
   }
 
   onLeagueInputBlur() {
@@ -176,6 +181,8 @@ export default class LeagueHeader extends BaseComponent {
           type="text"
           name="name"
           autoComplete="off"
+          autoFocus="autofocus"
+          onFocus={this.onLeagueInputFocus}
           ref={c => {
             this.leagueNameInput = c;
           }}
@@ -201,17 +208,6 @@ export default class LeagueHeader extends BaseComponent {
         </div>
       </form>
     );
-  }
-
-  componentDidMount() {
-    if (
-      this.props.league.name ===
-      i18n.__("api.leagues.insert.league", null, {
-        _locale: "en"
-      })
-    ) {
-      this.editLeague(true);
-    }
   }
 
   render() {
