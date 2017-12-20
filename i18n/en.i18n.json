@@ -36,11 +36,11 @@
       "emailInstructions": "Email code",
       "emailSubject": "totterUp! League Invite",
       "emailBodyPart1":
-        "Hi!%0D%0A%0D%0AYou've been invited to join the totterUp! league '",
+        "Hi!%0D%0A%0D%0AYou've been invited to join the totterUp league '",
       "emailBodyPart2":
-        "'!%0D%0A%0D%0ALogin at https://totterup.com and join the league using the code: %0D%0A%0D%0A",
+        "'.%0D%0A%0D%0ALogin at https://totterup.com and join the league using the code: %0D%0A%0D%0A",
       "emailBodyPart3":
-        "%0D%0A%0D%0A(No login? No worries! It's easy to sign up at https://totterup.com!)%0D%0A%0D%0A%0D%0A%0D%0A"
+        "%0D%0A%0D%0ANo login? No worries! It's easy to sign up at https://totterup.com!%0D%0A%0D%0A%0D%0A%0D%0A"
     },
     "leagueList": {
       "newLeague": "New League",
