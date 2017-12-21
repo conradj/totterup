@@ -17,7 +17,7 @@
     "dev-debug": "meteor debug --debug-port 5959",
     "mobile-debug":
       "meteor build ~/mobile-build --server=http://localhost:3000 --debug",
-    "deploy-azure": "meteor-azure -s settings.json -d",
+    "deploy-azure": "meteor-azure -s settings.json -d --web-config web.config",
     "build-mobile-live-debug":
       "meteor build ~/mobile-build --server=https://totterup.com --debug",
     "deploy-live-debug":
