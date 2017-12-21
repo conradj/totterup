@@ -181,7 +181,7 @@ export default class LeagueHeader extends BaseComponent {
           type="text"
           name="name"
           autoComplete="off"
-          autoFocus="autofocus"
+          autoFocus={league.name === i18n.__("api.leagues.insert.league")}
           onFocus={this.onLeagueInputFocus}
           ref={c => {
             this.leagueNameInput = c;
@@ -217,6 +217,12 @@ export default class LeagueHeader extends BaseComponent {
         {editing ? this.renderEditingHeader() : this.renderDefaultHeader()}
       </nav>
     );
+  }
+
+  componentDidMount() {
+    if (this.props.league.name !== i18n.__("api.leagues.insert.league")) {
+      this.setState({ editing: false });
+    }
   }
 }
 
