@@ -99,7 +99,12 @@ export default class LeaguePage extends BaseComponent {
         </div>
       );
     }
-
+    let inviteBgStyle = "";
+    let inviteTextStyle = "";
+    if (league.inviteCode) {
+      inviteBgStyle = { backgroundColor: `#${league.inviteCode}` };
+      inviteTextStyle = { color: `#${league.inviteCode}` };
+    }
     return (
       <div className="page leagues-show">
         <LeagueHeader league={league} />
@@ -112,6 +117,25 @@ export default class LeaguePage extends BaseComponent {
           {league.editableBy() ? <PlayerAdd league={league} /> : null}
           {league.editableBy() && players.length > 1 ? (
             <NewGameButton leagueId={league._id} players={players} />
+          ) : null}
+          {league.inviteCode ? (
+            <div className="league-invite" style={inviteBgStyle}>
+              <a
+                href={`mailto:?subject=TotterUp League Invite!&body=Hi! You've been invited to join the TotterUp league "${
+                  league.text
+                }"! Login at https://totterup.com and join league using the code ${
+                  league.inviteCode
+                }.`}
+              >
+                <div
+                  className="league-invite-container"
+                  style={inviteTextStyle}
+                >
+                  <p>{i18n.__("pages.leaguePage.inviteCode")}:</p>
+                  <p className="league-invite-code">{league.inviteCode}</p>
+                </div>
+              </a>
+            </div>
           ) : null}
           {Instructions}
           <GameList games={this.props.games} />

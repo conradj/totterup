@@ -42,6 +42,10 @@ Leagues.schema = new SimpleSchema({
   name: {
     type: String,
     max: 100
+  },
+  inviteCode: {
+    type: String,
+    max: 8
   }
 });
 
@@ -51,7 +55,8 @@ Leagues.attachSchema(Leagues.schema);
 // to the client. If we add secret properties to league objects, don't list
 // them here to keep them private to the server.
 Leagues.publicFields = {
-  name: 1
+  name: 1,
+  inviteCode: 1
 };
 
 Factory.define("league", Leagues, {});

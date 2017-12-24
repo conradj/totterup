@@ -11,26 +11,45 @@ export const insert = new ValidatedMethod({
   name: "players.insert",
   validate: new SimpleSchema({
     leagueId: { type: String },
-    text: { type: String }
+    text: { type: String },
+    userId: { type: String, optional: true }
   }).validator(),
-  run({ leagueId, text }) {
+  run({ leagueId, text, userId }) {
     const league = Leagues.findOne(leagueId);
+    const addingAsInvite = (userId && userId === this.userId) || false;
 
-    if (!league.editableBy()) {
+    if (!addingAsInvite && !league.editableBy()) {
       throw new Meteor.Error(
         "api.players.insert.accessDenied",
         "Cannot add players to league that is not yours"
       );
     }
-
-    const player = {
+    let player = {
       leagueId,
       text,
       checked: false,
       createdAt: new Date()
     };
-
-    Players.insert(player);
+    if (addingAsInvite) {
+      Meteor.users.update(this.userId, {
+        $addToSet: {
+          inLeagues: leagueId
+        }
+      });
+      // only add 1 player with that user Id to the league
+      const existingPlayerForUser = Players.findOne(
+        {
+          userId: userId,
+          leagueId: leagueId
+        },
+        { fields: Players.publicFields }
+      );
+      if (existingPlayerForUser) {
+        return existingPlayerForUser._id;
+      }
+      player.userId = this.userId;
+    }
+    return Players.insert(player);
   }
 });
 
@@ -123,6 +142,14 @@ export const remove = new ValidatedMethod({
         "api.players.remove.accessDenied",
         "Cannot remove players in a league that is not yours"
       );
+    }
+
+    if (player.userId) {
+      Meteor.users.update(this.userId, {
+        $pull: {
+          inLeagues: player.leagueId
+        }
+      });
     }
 
     Players.remove(playerId);

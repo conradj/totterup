@@ -12,6 +12,7 @@ import AuthPageJoin from "../../ui/pages/AuthPageJoin.jsx";
 import LandingPage from "../../ui/pages/LandingPage.jsx";
 import AuthPageForgotPassword from "../../ui/pages/AuthPageForgotPassword.jsx";
 import NotFoundPage from "../../ui/pages/NotFoundPage.jsx";
+import LeagueJoinPage from "../../ui/pages/LeagueJoinPage.jsx";
 
 i18n.setLocale("en");
 
@@ -27,6 +28,11 @@ export const renderRoutes = () => (
   <Router history={browserHistory}>
     <Route path="hi" component={LandingPage} />
     <Route path="/" component={AppContainer} onEnter={requireAuth}>
+      <Route
+        path="leagues/join"
+        component={LeagueJoinPage}
+        onEnter={requireAuth}
+      />
       <Route
         path="leagues/:id"
         component={LeaguePageContainer}

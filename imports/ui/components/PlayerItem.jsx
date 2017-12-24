@@ -28,11 +28,20 @@ export default class PlayerItem extends BaseComponent {
   render() {
     const { player, editing, score, linkUrl, position } = this.props;
     const positionClassName = `player-container position${position}`;
-    const backgroundStyle = { backgroundImage: `url(${player.avatar})` };
+    const backgroundStyle = {
+      backgroundImage: `url(${player.avatar})`,
+      backgroundColor: `#${player.league().inviteCode}`
+    };
     const playerComponent = (
       <div className="player-item">
         <div className={positionClassName}>
-          <div className="player-image" style={backgroundStyle} />
+          <div className="player-image" style={backgroundStyle}>
+            <div>
+              {player.editableBy() && !player.avatar ? (
+                <span className="icon-edit" />
+              ) : null}
+            </div>
+          </div>
           <div className="player-position">
             <span>
               {position}

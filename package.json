@@ -13,6 +13,7 @@
       "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
     "start":
       "MONGO_URL=mongodb://localhost:27017/meteor meteor run --settings config.json",
+    "debug": "npm run start --inspect",
     "dev-debug": "meteor debug --debug-port 5959",
     "mobile-debug":
       "meteor build ~/mobile-build --server=http://localhost:3000 --debug",
@@ -106,7 +107,8 @@
   "postcss": {
     "plugins": {
       "autoprefixer": {
-        "browsers": ["last 2 versions"]
+        "browsers": ["last 2 versions"],
+        "grid": true
       }
     }
   }

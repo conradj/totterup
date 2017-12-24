@@ -21,10 +21,12 @@
       "cancel": "Cancel",
       "typeToAdd": "Type to add new players",
       "typeToAddGame": "Type to add new game",
-      "placeholder": "League Name"
+      "placeholder": "League Name",
+      "instructions": "Set your league name!"
     },
     "leagueList": {
       "newLeague": "New League",
+      "joinLeague": "Join League",
       "newLeagueError": "Could not create league."
     },
     "playerHeader": {
@@ -32,7 +34,8 @@
       "selectAction": "Select an action",
       "delete": "Delete",
       "deletePlayer": "Delete player",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "instructions": "Set your league nickname!"
     },
     "loading": {
       "loading": "Loading"
@@ -80,12 +83,23 @@
       "sendResetLink": "Send password reset link"
     },
     "leaguePage": {
-      "noPlayers": "No players here",
-      "needMorePlayers": "Not enough players here",
+      "noPlayers": "",
+      "needMorePlayers": "",
       "noGames": "No games here",
-      "addAbove": "Add new players before playing!",
+      "addAbove": "Add more players to play a game!",
       "loading": "Loading players...",
-      "playGame": "Play new game"
+      "playGame": "Play new game",
+      "inviteCode": "Invite code"
+    },
+    "leagueInvitePage": {
+      "inviteHeader": "Join a League now!",
+      "inviteCodePlaceholder": "e.g. bada55",
+      "inviteInstructions": "Enter your league invite code",
+      "joinAction": "Join League",
+      "exception": "Error: check console for details.",
+      "success": "Joined League!",
+      "invalidCode": "Code not valid!",
+      "checkingCode": "Checking invite code..."
     },
     "notFoundPage": {
       "pageNotFound": "Page not found"
@@ -114,6 +128,7 @@
     },
     "players": {
       "insert": {
+        "defaultName": "Your league nickname",
         "accessDenied":
           "Cannot add players to a private league that is not yours"
       },

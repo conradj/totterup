@@ -19,13 +19,10 @@ export default class PlayerAdd extends BaseComponent {
     event.preventDefault();
     const input = this.newPlayerInput;
     if (input.value.trim()) {
-      insert.call(
-        {
-          leagueId: this.props.league._id,
-          text: input.value
-        },
-        displayError
-      );
+      const result = insert.call({
+        leagueId: this.props.league._id,
+        text: input.value
+      });
       input.value = "";
     }
   }
