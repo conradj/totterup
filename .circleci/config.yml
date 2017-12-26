@@ -17,6 +17,8 @@ jobs:
     #working_directory: ~/
 
     steps:
+      - run: node --version
+      - run: npm --version
       - checkout
 
       # Download and cache dependencies
