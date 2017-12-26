@@ -41,5 +41,8 @@ jobs:
       # run tests, one day!
       
       # install in azure
-      - run: npm run deploy-azure
+      - run: 
+        name: Deploy to Azure
+        no_output_timeout: 30m
+        command: npm run deploy-azure
 
