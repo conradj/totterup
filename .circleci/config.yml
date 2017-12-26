@@ -43,6 +43,6 @@ jobs:
       # install in azure
       - run: 
         name: Deploy to Azure
-        no_output_timeout: 30m
+        no_output_timeout: 20m
         command: npm run deploy-azure
 
