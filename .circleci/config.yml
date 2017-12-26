@@ -15,7 +15,10 @@ jobs:
       # - image: circleci/mongo:3.4.4
 
     #working_directory: ~/
-
+    dependencies:
+      override:
+        - curl https://install.meteor.com | /bin/sh
+        - npm install
     steps:
       - run: node --version
       - run: npm --version
