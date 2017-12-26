@@ -5,6 +5,7 @@ import LeagueHeader from "../components/LeagueHeader.jsx";
 import PlayerAdd from "../components/PlayerAdd.jsx";
 import GameList from "../components/GameList.jsx";
 import PlayerItem from "../components/PlayerItem.jsx";
+import LeagueInvite from "../components/LeagueInvite.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 import Message from "../components/Message.jsx";
 import NewGameButton from "../components/NewGameButton.jsx";
@@ -15,7 +16,7 @@ export default class LeaguePage extends BaseComponent {
   }
 
   render() {
-    const { league, leagueExists, loading, players } = this.props;
+    const { league, leagueExists, loading, players, games } = this.props;
 
     if (loading) {
       return <Message title={i18n.__("components.loading.loading")} />;
@@ -66,26 +67,7 @@ export default class LeaguePage extends BaseComponent {
       </div>
     );
 
-    let Instructions;
     let GameButton;
-
-    if (players.length == 0) {
-      Instructions = (
-        <Message
-          title={i18n.__("pages.leaguePage.noPlayers")}
-          subtitle={i18n.__("pages.leaguePage.addAbove")}
-        />
-      );
-    }
-
-    if (players.length == 1) {
-      Instructions = (
-        <Message
-          title={i18n.__("pages.leaguePage.needMorePlayers")}
-          subtitle={i18n.__("pages.leaguePage.addAbove")}
-        />
-      );
-    }
 
     if (players.length > 1) {
       GameButton = (
@@ -99,12 +81,7 @@ export default class LeaguePage extends BaseComponent {
         </div>
       );
     }
-    let inviteBgStyle = "";
-    let inviteTextStyle = "";
-    if (league.inviteCode) {
-      inviteBgStyle = { backgroundColor: `#${league.inviteCode}` };
-      inviteTextStyle = { color: `#${league.inviteCode}` };
-    }
+
     return (
       <div className="page leagues-show">
         <LeagueHeader league={league} />
@@ -114,31 +91,12 @@ export default class LeaguePage extends BaseComponent {
           ) : (
             PlayersComponent
           )}
-          {league.editableBy() ? <PlayerAdd league={league} /> : null}
+          {league.editableBy() ? <PlayerAdd league={league} players={players} /> : null}
           {league.editableBy() && players.length > 1 ? (
             <NewGameButton leagueId={league._id} players={players} />
           ) : null}
-          {league.inviteCode ? (
-            <div className="league-invite" style={inviteBgStyle}>
-              <a
-                href={`mailto:?subject=TotterUp League Invite!&body=Hi! You've been invited to join the TotterUp league "${
-                  league.text
-                }"! Login at https://totterup.com and join league using the code ${
-                  league.inviteCode
-                }.`}
-              >
-                <div
-                  className="league-invite-container"
-                  style={inviteTextStyle}
-                >
-                  <p>{i18n.__("pages.leaguePage.inviteCode")}:</p>
-                  <p className="league-invite-code">{league.inviteCode}</p>
-                </div>
-              </a>
-            </div>
-          ) : null}
-          {Instructions}
-          <GameList games={this.props.games} />
+          <GameList games={games} />
+          <LeagueInvite league={league} />
         </div>
       </div>
     );

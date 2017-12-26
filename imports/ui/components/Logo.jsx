@@ -5,6 +5,7 @@ import { Link } from "react-router";
 
 class Logo extends BaseComponent {
   render() {
+    const { showTitle, showStrapline } = this.props;
     return (
       <Link to={"/hi"}>
         <div className="logo-container">
@@ -13,15 +14,30 @@ class Logo extends BaseComponent {
             className="logo-image"
             alt="TotterUp logo"
           />
-          <h1 className="logo-title">
-            <span>
-              totterUp<i>!</i>
-            </span>
-          </h1>
+          {showTitle ? (
+            <h1 className="logo-title">
+              <span>
+                totterUp<i>!</i>
+              </span>
+            </h1>
+          ) : null}
+          {showTitle ? (
+            <p className="logo-strapline">{i18n.__("general.strapline")}</p>
+          ) : null}
         </div>
       </Link>
     );
   }
 }
+
+Logo.propTypes = {
+  showTitle: React.PropTypes.bool,
+  showStrapline: React.PropTypes.bool
+};
+
+// Logo.defaultProps = {
+//   showTitle: true,
+//   showStrapline: true
+// };
 
 export default Logo;

@@ -34,12 +34,23 @@ export const insert = new ValidatedMethod({
       locale,
       this.userId
     );
-
+    // make the current user an owner of the league
     Meteor.users.update(this.userId, {
       $addToSet: {
         ownedLeagues: newLeagueId
       }
     });
+
+    // make the current user a player of the league
+    const email = Meteor.user().emails[0].address;
+    const emailLocalPart = email.substring(0, email.indexOf("@"));
+
+    insertPlayer.call({
+      leagueId: newLeagueId,
+      text: emailLocalPart,
+      userId: this.userId
+    });
+
     return newLeagueId;
   }
 });
@@ -159,10 +170,14 @@ export const useInvite = new ValidatedMethod({
   run({ inviteCode }) {
     const league = Leagues.findOne({ inviteCode: inviteCode });
 
+    // make the current user a player of the league
+    const email = Meteor.user().emails[0].address;
+    const emailLocalPart = email.substring(0, email.indexOf("@"));
+
     if (league) {
       const playerId = insertPlayer.call({
         leagueId: league._id,
-        text: "Your league nickname",
+        text: emailLocalPart,
         userId: this.userId
       });
       return { inviteValid: true, leagueId: league._id, playerId: playerId };
@@ -172,9 +187,44 @@ export const useInvite = new ValidatedMethod({
   }
 });
 
+export const resetInviteCode = new ValidatedMethod({
+  name: "leagues.resetInviteCode",
+  validate(args) {
+    new SimpleSchema({
+      leagueId: { type: String }
+    }).validate(args);
+  },
+  run({ leagueId }) {
+    const league = Leagues.findOne(leagueId);
+
+    if (!league.editableBy()) {
+      throw new Meteor.Error(
+        "api.leagues.resetInviteCode.accessDenied",
+        "You don't have permission to edit this league."
+      );
+    }
+
+    // XXX the security check above is not atomic, so in theory a race condition could
+    // result in exposing private data
+    if (Meteor.isServer) {
+      Leagues.update(leagueId, {
+        $set: { inviteCode: generateUniqueInviteCode() }
+      });
+    }
+  }
+});
+
 // Get list of all method names on Leagues
 const LEAGUES_METHODS = _.pluck(
-  [insert, makePublic, makePrivate, updateName, remove, useInvite],
+  [
+    insert,
+    makePublic,
+    makePrivate,
+    updateName,
+    remove,
+    useInvite,
+    resetInviteCode
+  ],
   "name"
 );
 

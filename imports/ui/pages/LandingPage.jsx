@@ -76,7 +76,7 @@ export default class LandingPage extends BaseComponent {
           </div>
           <div>Want a custom version for your game? Contact us!</div>
         </div> */}
-        <Logo />
+        <Logo showTitle={true} showStrapline={true} />
         <LanguageToggle />
       </div>
     );

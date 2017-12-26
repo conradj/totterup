@@ -5,8 +5,7 @@ import i18n from "meteor/universe:i18n";
 import { Session } from "meteor/session";
 import BaseComponent from "./BaseComponent.jsx";
 import { displayError } from "../helpers/errors.js";
-
-import { insert } from "../../api/leagues/methods.js";
+import { insert as insertLeague } from "../../api/leagues/methods.js";
 
 export default class LeagueAdd extends BaseComponent {
   constructor(props) {
@@ -16,15 +15,19 @@ export default class LeagueAdd extends BaseComponent {
 
   createNewLeague() {
     const { router } = this.context;
-    const leagueId = insert.call({ locale: i18n.getLocale() }, err => {
-      if (err) {
-        router.push("/");
-        /* eslint-disable no-alert */
-        alert(i18n.__("components.leagueList.newLeagueError"));
+    const leagueId = insertLeague.call(
+      { locale: i18n.getLocale() },
+      (err, leagueId) => {
+        if (err) {
+          router.push("/");
+          /* eslint-disable no-alert */
+          alert(i18n.__("components.leagueList.newLeagueError"));
+        }
+
+        Session.set("menuOpen", false);
+        router.push(`/leagues/${leagueId}`);
       }
-    });
-    Session.set("menuOpen", false);
-    router.push(`/leagues/${leagueId}`);
+    );
   }
 
   render() {

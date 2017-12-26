@@ -1,8 +1,22 @@
-@import '{}/imports/ui/stylesheets/utils.less';
+@import "{}/imports/ui/stylesheets/utils.less";
 
 .loading-app {
   .position(absolute, 50%, 50%, auto, auto, 50%);
   transform: translate3d(50%, -50%, 0);
   min-width: 160px;
   max-width: 320px;
+  text-align: center;
+  color: @color-ancillary;
+  h2 {
+    font-family: Montserrat;
+  }
+
+  .logo-title {
+    color: @color-ancillary;
+  }
+
+  .logo-strapline {
+    color: @color-ancillary;
+    font-size: 0.8rem;
+  }
 }

@@ -75,7 +75,7 @@ export default class App extends React.Component {
     return (
       <div id="container" className={menuOpen ? "menu-open" : ""}>
         <section id="menu">
-          <Logo />
+          <Logo showTitle={true} showStrapline={true} />
           <UserMenu user={user} logout={this.logout} />
           <LanguageToggle />
           <LeagueList leagues={leagues} />
@@ -89,11 +89,7 @@ export default class App extends React.Component {
             transitionLeaveTimeout={200}
           >
             {!loading ? clonedChildren : null}
-            <div className="welcome">
-              <h1>Welcome to Lll!</h1>
-              <span>Click + New League to make your first league</span>
-              <Logo />
-            </div>
+            <div className="welcome">{loading && <Loading />}</div>
           </ReactCSSTransitionGroup>
         </div>
       </div>

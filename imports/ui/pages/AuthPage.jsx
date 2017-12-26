@@ -13,7 +13,7 @@ const AuthPage = ({ content, link }) => (
       {content}
       {link}
     </div>
-    <Logo />
+    <Logo showTitle={true} showStrapline={true} />
   </div>
 );
 

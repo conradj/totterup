@@ -1,9 +1,8 @@
-import React from 'react';
-import i18n from 'meteor/universe:i18n';
-import BaseComponent from './BaseComponent.jsx';
+import React from "react";
+import i18n from "meteor/universe:i18n";
+import BaseComponent from "./BaseComponent.jsx";
 import { insert as insertGame } from "../../api/games/methods.js";
 import { insert as insertScore } from "../../api/scores/methods.js";
-
 
 class NewGameButton extends BaseComponent {
   constructor(props) {
@@ -11,9 +10,7 @@ class NewGameButton extends BaseComponent {
     this.playGame = this.playGame.bind(this);
   }
 
-  componentDidMount() {
-    
-  }
+  componentDidMount() {}
 
   playGame() {
     const { router } = this.context;
@@ -32,7 +29,7 @@ class NewGameButton extends BaseComponent {
         }
       }
     );
-    
+
     players.map(player => {
       insertScore.call(
         {
@@ -49,7 +46,7 @@ class NewGameButton extends BaseComponent {
             alert(i18n.__("components.leagueGame.newGameScoreError"));
           }
         }
-      )
+      );
     });
 
     router.push(`/games/${gameId}`);
@@ -58,12 +55,12 @@ class NewGameButton extends BaseComponent {
   render() {
     return (
       <div className="-league-new-game">
-          <div className="user-menu">
-            <a className="link-game-new" onClick={this.playGame}>
-                <span className="icon-plus" />
-                {i18n.__("pages.leaguePage.playGame")}
-            </a>
-          </div>
+        <div className="user-menu">
+          <button className="btn-primary link-game-new" onClick={this.playGame}>
+            <span className="icon-plus" />
+            {i18n.__("pages.gamePage.nextGame")}
+          </button>
+        </div>
       </div>
     );
   }
@@ -77,5 +74,5 @@ NewGameButton.propTypes = {
 };
 
 NewGameButton.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };

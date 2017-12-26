@@ -54,7 +54,7 @@ export default class LeagueJoinPage extends BaseComponent {
             });
             Session.set("menuOpen", false);
             router.push(
-              `/leagues/${invite.leagueId}/players/${invite.playerId}`
+              `/leagues/${invite.leagueId}`
             );
           } else {
             this.setState({
