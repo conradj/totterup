@@ -27,6 +27,9 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - run:
+          name: Create Settings File
+          command: echo $METEOR_SETTINGS > settings.json
       - run: curl https://install.meteor.com | /bin/sh
       - run: npm install
 
