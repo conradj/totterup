@@ -78,15 +78,15 @@ export default class LandingPage extends BaseComponent {
         </div> */}
         <Logo showTitle={true} showStrapline={true} />
         <LanguageToggle />
-        <a
-          className="app-download"
-          href="https://play.google.com/store/apps/details?id=com.totterup.lifelongleague.app&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
-        >
-          <img
-            alt="Get it on Google Play"
-            src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
-          />
-        </a>
+        <div className="app-download">
+          <a href="https://play.google.com/store/apps/details?id=com.totterup.lifelongleague.app&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+            <img
+              alt="Get it on Google Play"
+              src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+            />
+          </a>
+          <p>(Coming soon to the App Store too!)</p>
+        </div>
       </div>
     );
   }

@@ -13,29 +13,37 @@
     height: 50px;
   }
 
-  header {
+  header,
+  p,
+  button,
+  img,
+  .btn-primary,
+  .btn-secondary {
     text-align: center;
-    font-size: 3em;
     color: white;
-    padding: 1em;
+    margin: 2rem auto;
+  }
+
+  header {
+    font-size: 3rem;
   }
 
   img {
     width: 100%;
     height: auto;
-    margin: auto;
+    //margin: auto;
     max-width: 414px; // cant be 100% for firefox
   }
 
   .btn-primary {
     text-transform: unset;
-    font-size: 2em;
+    font-size: 2rem;
     margin: auto;
   }
 
   .btn-secondary {
     text-transform: unset;
-    font-size: 0.8em;
+    font-size: 0.8rem;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.8);
@@ -50,11 +58,14 @@
 
 .app-download {
   text-align: center;
-  padding: 2em 0 8em;
   img {
     width: 20rem;
+    margin-bottom: 0;
   }
   &.cordova {
     display: none;
+  }
+  p {
+    margin-top: 0;
   }
 }
