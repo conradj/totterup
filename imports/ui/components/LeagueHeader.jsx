@@ -3,6 +3,7 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import BaseComponent from "./BaseComponent.jsx";
+import LeagueSettings from "./LeagueSettings.jsx";
 import MobileMenu from "./MobileMenu.jsx";
 import { displayError } from "../helpers/errors.js";
 
@@ -27,6 +28,15 @@ export default class LeagueHeader extends BaseComponent {
     this.editLeague = this.editLeague.bind(this);
     this.cancelEdit = this.cancelEdit.bind(this);
     this.saveLeague = this.saveLeague.bind(this);
+    this.deleteLeague = this.deleteLeague.bind(this);
+    this.toggleLeaguePrivacy = this.toggleLeaguePrivacy.bind(this);
+    this.onLeagueMaxScoreFormSubmit = this.onLeagueMaxScoreFormSubmit.bind(
+      this
+    );
+    this.onLeagueMaxScoreInputKeyUp = this.onLeagueMaxScoreInputKeyUp.bind(
+      this
+    );
+    this.onLeagueMaxScoreInputBlur = this.onLeagueMaxScoreInputBlur.bind(this);
     this.deleteLeague = this.deleteLeague.bind(this);
     this.toggleLeaguePrivacy = this.toggleLeaguePrivacy.bind(this);
   }
@@ -76,7 +86,6 @@ export default class LeagueHeader extends BaseComponent {
   }
 
   saveLeague() {
-    this.setState({ editing: false });
     updateName.call(
       {
         leagueId: this.props.league._id,
@@ -108,6 +117,12 @@ export default class LeagueHeader extends BaseComponent {
     }
   }
 
+  onLeagueMaxScoreFormSubmit() {}
+
+  onLeagueMaxScoreInputKeyUp() {}
+
+  onLeagueMaxScoreInputBlur() {}
+
   renderDefaultHeader() {
     const { league } = this.props;
     let titlePageAttributes;
@@ -122,50 +137,8 @@ export default class LeagueHeader extends BaseComponent {
         </h1>
         {league.editableBy() ? (
           <div className="nav-group right">
-            <div className="nav-item options-mobile">
-              <select
-                className="mobile-edit"
-                defaultValue="default"
-                onChange={this.onLeagueDropdownAction}
-              >
-                <option disabled value="default">
-                  {i18n.__("components.leagueHeader.selectAction")}
-                </option>
-                {league.userId ? (
-                  <option value="public">
-                    {i18n.__("components.leagueHeader.makePublic")}
-                  </option>
-                ) : (
-                  <option value="private">
-                    {i18n.__("components.leagueHeader.makePrivate")}
-                  </option>
-                )}
-                <option value="delete">
-                  {i18n.__("components.leagueHeader.delete")}
-                </option>
-              </select>
-              <span className="icon-cog" />
-            </div>
-            <div className="options-web">
-              <a className="nav-item" onClick={this.toggleLeaguePrivacy}>
-                {league.userId ? (
-                  <span
-                    className="icon-lock"
-                    title={i18n.__("components.leagueHeader.makeLeaguePublic")}
-                  />
-                ) : (
-                  <span
-                    className="icon-unlock"
-                    title={i18n.__("components.leagueHeader.makeLeaguePrivate")}
-                  />
-                )}
-              </a>
-              <a className="nav-item trash" onClick={this.deleteLeague}>
-                <span
-                  className="icon-trash"
-                  title={i18n.__("components.leagueHeader.deleteLeague")}
-                />
-              </a>
+            <div className="nav-item">
+              <span className="icon-cog" onClick={this.editLeague} />
             </div>
           </div>
         ) : null}
@@ -176,21 +149,13 @@ export default class LeagueHeader extends BaseComponent {
   renderEditingHeader() {
     const { league } = this.props;
     return (
-      <form className="league-edit-form" onSubmit={this.onLeagueFormSubmit}>
-        <input
-          type="text"
-          name="name"
-          autoComplete="off"
-          autoFocus={league.name === i18n.__("api.leagues.insert.league")}
-          onFocus={this.onLeagueInputFocus}
-          ref={c => {
-            this.leagueNameInput = c;
-          }}
-          defaultValue={league.name}
-          onKeyUp={this.onLeagueInputKeyUp}
-          onBlur={this.onLeagueInputBlur}
-          placeholder={i18n.__("components.leagueHeader.placeholder")}
-        />
+      <div>
+        <MobileMenu />
+        <h1 className="title-page">
+          <span className="title-wrapper">
+            {i18n.__("components.leagueHeader.editTitle")} {league.name}
+          </span>
+        </h1>
         <div className="nav-group right">
           <a
             className="nav-item"
@@ -203,10 +168,59 @@ export default class LeagueHeader extends BaseComponent {
             />
           </a>
         </div>
-        <div className="league-header title-page instructions">
-          {i18n.__("components.leagueHeader.instructions")}
+        <div className="league-settings-container list-items">
+          <div className="list-item">
+            <form
+              className="league-edit-form"
+              onSubmit={this.onLeagueFormSubmit}
+            >
+              <div className="instructions">
+                {i18n.__("components.leagueHeader.instructions")}
+              </div>
+              <input
+                type="text"
+                name="name"
+                autoComplete="off"
+                autoFocus={league.name === i18n.__("api.leagues.insert.league")}
+                onFocus={this.onLeagueInputFocus}
+                ref={c => {
+                  this.leagueNameInput = c;
+                }}
+                defaultValue={league.name}
+                onKeyUp={this.onLeagueInputKeyUp}
+                onBlur={this.onLeagueInputBlur}
+                placeholder={i18n.__("components.leagueHeader.placeholder")}
+              />
+            </form>
+          </div>
+          <div className="list-item">
+            <form
+              className="league-edit-form"
+              onSubmit={this.onLeagueMaxScoreFormSubmit}
+            >
+              <div className="instructions">
+                {i18n.__("components.leagueSettings.maxScoreInstructions")}
+              </div>
+              <input
+                type="text"
+                name="maxScore"
+                autoComplete="off"
+                ref={c => {
+                  this.leagueMaxScoreInput = c;
+                }}
+                // defaultValue={league.maxScore}
+                onKeyUp={this.onLeagueMaxScoreInputKeyUp}
+                onBlur={this.onLeagueMaxScoreInputBlur}
+              />
+            </form>
+          </div>
+          <div className="list-item">
+            <a className="delete-link" onClick={this.deleteLeague}>
+              {i18n.__("components.leagueHeader.deleteLeague")}
+            </a>
+          </div>
         </div>
-      </form>
+      </div>
     );
   }
 

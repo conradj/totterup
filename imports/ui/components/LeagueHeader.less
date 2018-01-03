@@ -4,7 +4,6 @@
   background: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   height: 5em;
 
-  text-align: center;
   @media screen and (min-width: 40em) {
     text-align: left;
   }
@@ -22,6 +21,7 @@
 
     .title-wrapper {
       .ellipsized;
+      text-align: center;
       color: @color-ancillary;
       display: inline-block;
       padding-right: 1.5rem;
@@ -41,14 +41,8 @@
       padding: 0.3em 0.5em;
       vertical-align: middle;
     }
-    &.instructions {
-      top: 2rem;
-      font-size: 0.8rem;
-      font-variant-caps: all-small-caps;
-      background: none;
-      color: rgb(77, 77, 77);
-    }
   }
+
   form.players-new {
     .position(absolute, 3em, 0, auto, 0);
 
@@ -59,15 +53,39 @@
       padding-top: 0.25em;
     }
   }
+}
+
+.league-settings-container {
+  position: absolute;
+  top: 5rem;
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  background: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+
   form.league-edit-form {
     position: relative;
+
+    .instructions {
+      font-size: 0.8rem;
+      background: none;
+      color: rgb(77, 77, 77);
+    }
 
     input[type="text"] {
       background: transparent;
       font-size: 1.125em; // 18px
       width: 100%;
       padding-right: 3em;
-      padding-left: 1rem;
     }
+  }
+
+  .list-item {
+    height: auto;
+    padding: 1rem 3rem 1rem 3rem;
+  }
+
+  .delete-link {
+    color: @color-negative;
   }
 }

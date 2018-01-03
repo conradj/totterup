@@ -29,7 +29,11 @@
       "typeToAdd": "Type to add new players",
       "typeToAddGame": "Type to add new game",
       "placeholder": "League Name",
-      "instructions": "Set your league name!"
+      "editTitle": "Settings for ",
+      "instructions": "Set your league name"
+    },
+    "leagueSettings": {
+      "maxScoreInstructions": "Set max score for a game"
     },
     "leagueInvite": {
       "code": "Invite code",
