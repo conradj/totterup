@@ -3,7 +3,6 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import BaseComponent from "./BaseComponent.jsx";
-import LeagueSettings from "./LeagueSettings.jsx";
 import MobileMenu from "./MobileMenu.jsx";
 import { displayError } from "../helpers/errors.js";
 
