@@ -46,6 +46,10 @@ Leagues.schema = new SimpleSchema({
   inviteCode: {
     type: String,
     max: 8
+  },
+  maxScore: {
+    type: Number,
+    defaultValue: 4
   }
 });
 
@@ -56,7 +60,8 @@ Leagues.attachSchema(Leagues.schema);
 // them here to keep them private to the server.
 Leagues.publicFields = {
   name: 1,
-  inviteCode: 1
+  inviteCode: 1,
+  maxScore: 1
 };
 
 Factory.define("league", Leagues, {});

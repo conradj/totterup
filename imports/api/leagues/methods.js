@@ -214,6 +214,31 @@ export const resetInviteCode = new ValidatedMethod({
   }
 });
 
+export const updateMaxScore = new ValidatedMethod({
+  name: "leagues.updateMaxScore",
+  validate: new SimpleSchema({
+    leagueId: { type: String },
+    newMaxScore: { type: Number }
+  }).validator(),
+  run({ leagueId, newMaxScore }) {
+    const league = Leagues.findOne(leagueId);
+
+    if (!league.editableBy()) {
+      throw new Meteor.Error(
+        "api.leagues.updateMaxScore.accessDenied",
+        "You don't have permission to edit this league."
+      );
+    }
+
+    // XXX the security check above is not atomic, so in theory a race condition could
+    // result in exposing private data
+
+    Leagues.update(leagueId, {
+      $set: { maxScore: newMaxScore }
+    });
+  }
+});
+
 // Get list of all method names on Leagues
 const LEAGUES_METHODS = _.pluck(
   [
@@ -223,7 +248,8 @@ const LEAGUES_METHODS = _.pluck(
     updateName,
     remove,
     useInvite,
-    resetInviteCode
+    resetInviteCode,
+    updateMaxScore
   ],
   "name"
 );

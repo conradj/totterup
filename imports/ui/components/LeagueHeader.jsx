@@ -8,6 +8,7 @@ import { displayError } from "../helpers/errors.js";
 
 import {
   updateName,
+  updateMaxScore,
   makePublic,
   makePrivate,
   remove
@@ -59,6 +60,33 @@ export default class LeagueHeader extends BaseComponent {
     if (this.state.editing) {
       this.saveLeague();
     }
+  }
+
+  onLeagueMaxScoreFormSubmit() {
+    event.preventDefault();
+    this.saveMaxScore();
+  }
+
+  onLeagueMaxScoreInputKeyUp() {
+    if (event.keyCode === 27) {
+      this.cancelEdit();
+    }
+  }
+
+  onLeagueMaxScoreInputBlur() {
+    if (this.state.editing) {
+      this.saveMaxScore();
+    }
+  }
+
+  saveMaxScore() {
+    updateMaxScore.call(
+      {
+        leagueId: this.props.league._id,
+        newMaxScore: parseInt(this.leagueMaxScoreInput.value, 10)
+      },
+      displayError
+    );
   }
 
   onLeagueDropdownAction(event) {
@@ -115,12 +143,6 @@ export default class LeagueHeader extends BaseComponent {
       makePrivate.call({ leagueId: league._id }, displayError);
     }
   }
-
-  onLeagueMaxScoreFormSubmit() {}
-
-  onLeagueMaxScoreInputKeyUp() {}
-
-  onLeagueMaxScoreInputBlur() {}
 
   renderDefaultHeader() {
     const { league } = this.props;
@@ -207,7 +229,7 @@ export default class LeagueHeader extends BaseComponent {
                 ref={c => {
                   this.leagueMaxScoreInput = c;
                 }}
-                // defaultValue={league.maxScore}
+                defaultValue={league.maxScore}
                 onKeyUp={this.onLeagueMaxScoreInputKeyUp}
                 onBlur={this.onLeagueMaxScoreInputBlur}
               />
