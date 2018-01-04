@@ -42,9 +42,10 @@ export default class Score extends BaseComponent {
   }
 
   render() {
-    const { score } = this.props;
+    const { score, players } = this.props;
     const player = score.player();
     const league = score.league();
+    const maxScore = league.maxScore || players.length; // default max slider value to the number of players
     const backgroundStyle = { backgroundImage: `url(${player.avatar})` };
     const sliderImageClassName = `score-slider-${player.text}`;
     const sliderClassNames = `score-slider ${sliderImageClassName}`;
@@ -69,7 +70,7 @@ export default class Score extends BaseComponent {
             <input
               type="range"
               className={sliderClassNames}
-              max={league.maxScore}
+              max={maxScore}
               defaultValue={score.score}
               ref={c => {
                 this.scoreInput = c;
@@ -86,7 +87,8 @@ export default class Score extends BaseComponent {
 }
 
 Score.propTypes = {
-  score: React.PropTypes.object
+  score: React.PropTypes.object,
+  players: React.PropTypes.array
 };
 
 Score.contextTypes = {

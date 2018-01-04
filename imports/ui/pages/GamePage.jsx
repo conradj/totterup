@@ -47,7 +47,7 @@ export default class GamePage extends BaseComponent {
       <div className="page leagues-show">
         {<GameHeader game={game} />}
         <div className="content-scrollable list-items">
-          <ScoreList scores={scores} />
+          <ScoreList scores={scores} players={players} />
           <NewGameButton leagueId={game.leagueId} players={players} />
         </div>
       </div>
