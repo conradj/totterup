@@ -60,10 +60,12 @@ export default class Score extends BaseComponent {
               dangerouslySetInnerHTML={{
                 __html: `
             input[type=range].${sliderImageClassName}::-webkit-slider-thumb
-            { background-image: url(${player.avatar}) }
+            { background-color: #2cc5d2;
+              background-image: url(${player.avatar}); }
 
             input[type=range].${sliderImageClassName}::-moz-range-thumb
-            { background-image: url(${player.avatar}) }
+            { background-color: #2cc5d2;
+              background-image: url(${player.avatar}); }
           `
               }}
             />
