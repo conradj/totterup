@@ -1,10 +1,10 @@
-import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { Factory } from 'meteor/factory';
-import faker from 'faker';
-import { Leagues } from '../leagues/leagues.js';
-import { Scores } from '../scores/scores.js';
-import { Players } from '../players/players.js';
+import { Mongo } from "meteor/mongo";
+import { SimpleSchema } from "meteor/aldeed:simple-schema";
+import { Factory } from "meteor/factory";
+import faker from "faker";
+import { Leagues } from "../leagues/leagues.js";
+import { Scores } from "../scores/scores.js";
+import { Players } from "../players/players.js";
 
 class GamesCollection extends Mongo.Collection {
   insert(doc, callback) {
@@ -23,29 +23,35 @@ class GamesCollection extends Mongo.Collection {
   }
 }
 
-export const Games = new GamesCollection('Games');
+export const Games = new GamesCollection("Games");
 
 // Deny all client-side updates since we will be using methods to manage this collection
 Games.deny({
-  insert() { return true; },
-  update() { return true; },
-  remove() { return true; },
+  insert() {
+    return true;
+  },
+  update() {
+    return true;
+  },
+  remove() {
+    return true;
+  }
 });
 
 Games.schema = new SimpleSchema({
   leagueId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
-    denyUpdate: true,
+    denyUpdate: true
   },
   name: {
     type: String,
-    max: 100,
+    max: 100
   },
   createdAt: {
     type: Date,
-    denyUpdate: true,
-  },
+    denyUpdate: true
+  }
 });
 
 Games.attachSchema(Games.schema);
@@ -57,16 +63,16 @@ Games.publicFields = {
   leagueId: 1,
   name: 1,
   isFinished: 1,
-  createdAt: 1,
+  createdAt: 1
 };
 
 // TODO This factory has a name - do we have a code style for this?
 //   - usually I've used the singular, sometimes you have more than one though, like
 //   'game', 'emptyGame', 'checkedGame'
-Factory.define('game', Games, {
-  leagueId: () => Factory.get('league'),
+Factory.define("game", Games, {
+  leagueId: () => Factory.get("league"),
   text: () => faker.name.firstName(),
-  createdAt: () => new Date(),
+  createdAt: () => new Date()
 });
 
 Games.helpers({
@@ -76,10 +82,21 @@ Games.helpers({
   league() {
     return Leagues.findOne(this.leagueId);
   },
+  winner() {
+    const topScore = Scores.findOne(
+      { gameId: this._id },
+      { sort: { score: 1 } }
+    );
+    if (topScore) {
+      return Players.findOne(topScore.playerId);
+    }
+
+    return null;
+  },
   scores() {
     return Scores.find({ gameId: this._id }, { sort: { createdAt: -1 } });
   },
   players() {
     return Players.find({ leagueId: this.leagueId });
-  },
+  }
 });
