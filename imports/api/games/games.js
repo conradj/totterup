@@ -85,7 +85,7 @@ Games.helpers({
   winner() {
     const topScore = Scores.findOne(
       { gameId: this._id },
-      { sort: { score: 1 } }
+      { sort: { score: -1 } }
     );
     if (topScore) {
       return Players.findOne(topScore.playerId);
