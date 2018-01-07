@@ -55,10 +55,11 @@ export default class Score extends BaseComponent {
           <div className="score-player-name">
             {player.text} {score.score} {score.score == 1 ? `point` : `points`}
           </div>
-          <div className="score-player-score-slider">
-            <style
-              dangerouslySetInnerHTML={{
-                __html: `
+          {score.editableBy() ? (
+            <div className="score-player-score-slider">
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: `
             input[type=range].${sliderImageClassName}::-webkit-slider-thumb
             { background-color: #2cc5d2;
               background-image: url(${player.avatar}); }
@@ -67,21 +68,22 @@ export default class Score extends BaseComponent {
             { background-color: #2cc5d2;
               background-image: url(${player.avatar}); }
           `
-              }}
-            />
-            <input
-              type="range"
-              className={sliderClassNames}
-              max={maxScore}
-              defaultValue={score.score}
-              ref={c => {
-                this.scoreInput = c;
-              }}
-              name="score"
-              onBlur={this.onScoreInputBlur}
-              onChange={this.onScoreInputChange}
-            />
-          </div>
+                }}
+              />
+              <input
+                type="range"
+                className={sliderClassNames}
+                max={maxScore}
+                defaultValue={score.score}
+                ref={c => {
+                  this.scoreInput = c;
+                }}
+                name="score"
+                onBlur={this.onScoreInputBlur}
+                onChange={this.onScoreInputChange}
+              />
+            </div>
+          ) : null}
         </div>
       </form>
     );

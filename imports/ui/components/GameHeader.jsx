@@ -1,17 +1,14 @@
 /* global confirm */
 
-import React from 'react';
-import i18n from 'meteor/universe:i18n';
-import { Link } from 'react-router';
-import BaseComponent from './BaseComponent.jsx';
-import MobileMenu from './MobileMenu.jsx';
-import { displayError } from '../helpers/errors.js';
+import React from "react";
+import i18n from "meteor/universe:i18n";
+import { Link } from "react-router";
+import BaseComponent from "./BaseComponent.jsx";
+import MobileMenu from "./MobileMenu.jsx";
+import { displayError } from "../helpers/errors.js";
 import Message from "../components/Message.jsx";
 
-import {
-  updateName,
-  remove,
-} from '../../api/games/methods.js';
+import { updateName, remove } from "../../api/games/methods.js";
 
 export default class GameHeader extends BaseComponent {
   constructor(props) {
@@ -55,14 +52,17 @@ export default class GameHeader extends BaseComponent {
 
   saveGame() {
     this.setState({ editing: false });
-    updateName.call({
-      gameId: this.props.game._id,
-      newName: this.gameNameInput.value,
-    }, displayError);
+    updateName.call(
+      {
+        gameId: this.props.game._id,
+        newName: this.gameNameInput.value
+      },
+      displayError
+    );
   }
 
   onGameDropdownAction(event) {
-    if (event.target.value === 'delete') {
+    if (event.target.value === "delete") {
       this.deleteGame();
     }
   }
@@ -70,10 +70,12 @@ export default class GameHeader extends BaseComponent {
   deleteGame() {
     const game = this.props.game;
     const leagueId = game.leagueId;
-    const message =
-      `${i18n.__('components.gameHeader.deleteConfirm')} ${game.name}?`;
+    const message = `${i18n.__("components.gameHeader.deleteConfirm")} ${
+      game.name
+    }?`;
 
-    if (confirm(message)) { // eslint-disable-line no-alert
+    if (confirm(message)) {
+      // eslint-disable-line no-alert
       remove.call({ gameId: game._id }, displayError);
       this.context.router.push(`/leagues/${leagueId}`);
     }
@@ -81,45 +83,49 @@ export default class GameHeader extends BaseComponent {
 
   renderDefaultHeader() {
     const { game } = this.props;
+    const headerOnClick = game.editableBy() ? this.editGame : null;
     return (
       <div>
         <MobileMenu />
-        <h1 className="title-page" onClick={this.editGame}>
+        <h1 className="title-page" onClick={headerOnClick}>
           <span className="title-wrapper">{game.name}</span>
           <span className="title-wrapper">
             <Link
               to={`/leagues/${game.leagueId}`}
               title={game.league().name}
-              activeClassName="active">
+              activeClassName="active"
+            >
               {game.league().name}
             </Link>
           </span>
         </h1>
-        <div className="nav-group right">
-          <div className="nav-item options-mobile">
-            <select
-              className="mobile-edit"
-              defaultValue="default"
-              onChange={this.onGameDropdownAction}
-            >
-              <option disabled value="default">
-                {i18n.__('components.gameHeader.selectAction')}
-              </option>
-              <option value="delete">
-                {i18n.__('components.gameHeader.delete')}
-              </option>
-            </select>
-            <span className="icon-cog" />
+        {game.editableBy() ? (
+          <div className="nav-group right">
+            <div className="nav-item options-mobile">
+              <select
+                className="mobile-edit"
+                defaultValue="default"
+                onChange={this.onGameDropdownAction}
+              >
+                <option disabled value="default">
+                  {i18n.__("components.gameHeader.selectAction")}
+                </option>
+                <option value="delete">
+                  {i18n.__("components.gameHeader.delete")}
+                </option>
+              </select>
+              <span className="icon-cog" />
+            </div>
+            <div className="options-web">
+              <a className="nav-item trash" onClick={this.deleteGame}>
+                <span
+                  className="icon-trash"
+                  title={i18n.__("components.gameHeader.deleteGame")}
+                />
+              </a>
+            </div>
           </div>
-          <div className="options-web">
-            <a className="nav-item trash" onClick={this.deleteGame}>
-              <span
-                className="icon-trash"
-                title={i18n.__('components.gameHeader.deleteGame')}
-              />
-            </a>
-          </div>
-        </div>
+        ) : null}
       </div>
     );
   }
@@ -132,7 +138,9 @@ export default class GameHeader extends BaseComponent {
           type="text"
           name="name"
           autoComplete="off"
-          ref={(c) => { this.gameNameInput = c; }}
+          ref={c => {
+            this.gameNameInput = c;
+          }}
           defaultValue={game.name}
           onKeyUp={this.onGameInputKeyUp}
           onBlur={this.onGameInputBlur}
@@ -145,7 +153,7 @@ export default class GameHeader extends BaseComponent {
           >
             <span
               className="icon-close"
-              title={i18n.__('components.leagueHeader.cancel')}
+              title={i18n.__("components.leagueHeader.cancel")}
             />
           </a>
         </div>
@@ -164,9 +172,9 @@ export default class GameHeader extends BaseComponent {
 }
 
 GameHeader.propTypes = {
-  game: React.PropTypes.object,
+  game: React.PropTypes.object
 };
 
 GameHeader.contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };
