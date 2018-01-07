@@ -23,7 +23,7 @@ Meteor.publishComposite("players", function players() {
             {
               $or: [
                 {
-                  leagueId: { $in: user.ownedLeagues }
+                  leagueId: { $in: user.ownedLeagues.concat(user.inLeagues) }
                 },
                 {
                   userId: this.userId
