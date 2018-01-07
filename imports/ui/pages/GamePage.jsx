@@ -48,7 +48,9 @@ export default class GamePage extends BaseComponent {
         {<GameHeader game={game} />}
         <div className="content-scrollable list-items">
           <ScoreList scores={scores} players={players} />
-          <NewGameButton leagueId={game.leagueId} players={players} />
+          {game.editableBy() ? (
+            <NewGameButton leagueId={game.leagueId} players={players} />
+          ) : null}
         </div>
       </div>
     );
