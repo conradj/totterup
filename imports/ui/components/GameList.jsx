@@ -13,9 +13,8 @@ export default class GameList extends BaseComponent {
 
   render() {
     const { games } = this.props;
-    return (
-      <div className="league-games">
-        {games.map(game => (
+    const GameList = games.map(
+      game =>
           <Link
             to={`/games/${game._id}`}
             key={game._id}
@@ -25,9 +24,9 @@ export default class GameList extends BaseComponent {
           >
             {game.name} won by {game.winner() ? game.winner().text : "no one"}
           </Link>
-        ))}
-      </div>
     );
+
+    return <div className="league-games">{GameList}</div>;
   }
 }
 
