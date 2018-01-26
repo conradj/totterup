@@ -1,20 +1,26 @@
-[![Circle CI](https://circleci.com/gh/meteor/todos/tree/react.svg?style=svg)](https://circleci.com/gh/meteor/todos/tree/react)
-
-This is a Todos example app built on the principles described in the [Meteor Guide](http://guide.meteor.com/structure.html). This app uses the module functionality introduced in Meteor 1.3.
-
-This branch (`react`) implements the UI in [React](https://facebook.github.io/react/index.html). You can read more about using React in Meteor in the [Meteor guide article on the subject](http://guide.meteor.com/v1.3/react.html).
+Social Leagues for Sociable Gaming
+https://www.totterup.com
+https://play.google.com/store/apps/details?id=com.totterup.lifelongleague.app&hl=en
 
 ### Running the app
 
 ```bash
 meteor npm install
-meteor
+npm run start
 ```
 
 ### Scripts
 
-To lint:
+Deploy API and website:
 
 ```bash
-meteor npm run lint
+npm run deploy-azure
 ```
+
+Compile as Android mobile app
+
+```bash
+npm run android-release-apk
+```
+
+![totterUp!](/resources/splash/splash-1280x720.png)
